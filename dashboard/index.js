@@ -12,7 +12,39 @@ const Strategy = require("passport-discord").Strategy;
 const helmet = require("helmet");
 const md = require("marked");
 const validUrl = require("valid-url");
+const Profiles = require("../models/profile");
+const Bots = require("../models/bots");
+const config = require("../config");
+const mongoose = require("mongoose");
 
+mongoose.connect(config.dbUrl, { useNewUrlParser: true });
+
+// const nB = new Bots({
+//   id: "560869129310175243",
+//   mainOwner: "414764511489294347",
+//   owners: [],
+//   library: "discord.js",
+//   upvotes: 0,
+//   totalVotes: 0,
+//   website: "https://bots.discordhouse.xyz",
+//   votes: [],
+//   github: null,
+//   shortDesc: "This is a short desc.",
+//   longDesc: { content: "<h1>Bruh</h1>", alloweed: ["html", "css", "javascript"] },
+//   server: "https://discord.gg/discordhouse",
+//   prefix: ">",
+//   verified: false,
+//   trusted: true,
+//   certified: false,
+//   vanityUrl: null,
+//   stats: { serverCount: 0, shardCount: 0 },
+//   invite: null,
+//   featured: { idk: "idk" },
+//   tags: ["Role Management"],
+//   token: "test",
+// });
+
+// nB.save();
 module.exports = (client) => {
   const dataDir = path.resolve(`${process.cwd()}${path.sep}dashboard`);
   const templateDir = path.resolve(`${dataDir}${path.sep}templates`);
@@ -86,13 +118,34 @@ module.exports = (client) => {
   },
   passport.authenticate("discord"));
 
-  app.get("/callback", passport.authenticate("discord", { failureRedirect: "/forbidden" }), (req, res) => {
+  app.get("/callback", passport.authenticate("discord", { failureRedirect: "/forbidden" }), async (req, res) => {
     session.us = req.user;
-    // if (req.user.id === client.appInfo.owner.id || client.config.admins.includes(req.user.id)) {
-    //   req.session.isAdmin = true;
-    // } else {
-    //   req.session.isAdmin = false;
-    // }
+    let userdata = await Profiles.findOne({ id: req.user.id });
+    if (!userdata) {
+      const usr = new Profiles({
+        id: req.user.id,
+        bio: "I'm a very mysterious person.",
+        certifiedDev: false,
+        bg: null,
+        mod: false,
+        admin: false
+      });
+      await usr.save().catch(e => console.log(e));
+      userdata = { id: req.user.id, bio: "I'm a very mysterious person.", certifiedDev: false, bg: null, mod: false, admin: false };
+    }
+
+    if (userdata.mod === true) {
+      req.session.isMod = true;
+    } else {
+      req.session.isMod = false;
+    }
+
+    if (userdata.admin === true) {
+      req.session.isAdmin = true;
+    } else {
+      req.session.isAdmin = false;
+    }
+
     if (req.session.backURL) {
       const url = req.session.backURL;
       req.session.backURL = null;
@@ -112,5 +165,73 @@ module.exports = (client) => {
   app.get("/", (req, res) => {
     renderTemplate(res, req, "index.ejs");
   });
+
+  app.get("/api/bots/:id", async (req, res) => {
+    if (typeof req.params.id !== "string") return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400 }, null, 4));
+    res.setHeader("Content-Type", "application/json");
+    const data = await Bots.findOne({ id: req.params.id });;
+    if (!data) return res.status(404).send(JSON.stringify({ "msg": "Not Found.", "code": 404 }, null, 4));
+    const obj = {
+      "msg": "Sucessfull request.",
+      "code": 200,
+      "id": data.id,
+      "owner": data.mainOwner,
+      "owners": data.owners,
+      "library": data.library,
+      "monthlyUpvotes": data.upvotes,
+      "allTimeUpvotes": data.totalVotes,
+      "website": data.website,
+      "votes": data.votes,
+      "githubUrl": data.github,
+      "supportServerInvite": data.server,
+      "prefix": data.prefix,
+      "verified": data.verified,
+      "trusted": data.trusted,
+      "vanityUrl": data.vanityUrl,
+      "stats": data.stats,
+      "inviteUrl": data.invite,
+      "tags": data.tags
+    };
+    return res.status(200).send(JSON.stringify(obj, null, 4));
+  });
+
+  app.get("/api/profiles/:id", async (req, res) => {
+    if (typeof req.params.id !== "string") return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400 }, null, 4));
+    res.setHeader("Content-Type", "application/json");
+    const data = await Profiles.findOne({ id: req.params.id });
+    if (!data) return res.status(404).send(JSON.stringify({ "msg": "Not Found.", "code": 404 }, null, 4));
+    const obj = {
+      "msg": "Sucessfull request.",
+      "code": 200,
+      "id": data.id,
+      "bio": data.bio,
+      "certifiedDev": data.certifiedDev,
+      "customBackground": data.bg,
+      "mod": data.mod,
+      "admin": data.admin
+    };
+    return res.status(200).send(JSON.stringify(obj, null, 4));
+  });
+
+  app.post("/api/stats/bot/:id", async (req, res) => {
+    if (typeof req.params.id !== "string") return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400 }, null, 4));
+    if (!req.body) return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "No body was found within the request.", "errorCode": "NO_STATS_POST_BODY" }, null, 4));
+    if (!req.body.serverCount) return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "No serverCount key was found within the request body.", "errorCode": "NO_STATS_POST_SERVERCOUNT" }, null, 4));
+    if (!req.body.authorization) return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "No authorization key was found within the request body.", "errorCode": "NO_STATS_POST_AUTHORIZATION" }, null, 4));
+    if (typeof parseInt(req.body.serverCount) !== "number") return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "serverCount must be a number.", "errorCode": "STATS_POST_INVALID_SERVERCOUNT" }, null, 4));
+    if (typeof req.body.authorization !== "string") return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "authorization must be a string.", "errorCode": "STATS_POST_INVALID_AUTHORIZATION" }, null, 4));
+    if (req.body.shardCount && typeof parseInt(req.body.shardCount) !== "number") return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "shardCount must be a number.", "errorCode": "STATS_POST_INVALID_SHARDCOUNT" }, null, 4));
+    Bots.findOne({ id: req.params.id }, async (err, itself) => {
+      if (err) console.log(err);
+      if (!itself) return res.status(404).send(JSON.stringify({ "msg": "Not Found.", "code": 404 }, null, 4));
+      if (req.body.authorization !== itself.token) return res.status(401).send(JSON.stringify({ "msg": "Unauthorized.", "code": 401, "error": "Invalid authorization token was provided for this bot." }, null, 4));
+      itself.stats.serverCount = parseInt(req.body.serverCount);
+      if (req.body.shardCount) itself.stats.shardCount = parseInt(req.body.shardCount);
+      console.log(itself);
+      await itself.save().catch(e => console.log(e));
+      return res.status(200).send(JSON.stringify({ "msg": "Sucessfull request.", "code": 200 }, null, 4));
+    });
+  });
+
   client.site = app.listen(client.config.dashboard.port, null, null, () => console.log("Dashboard is up and running."));
 };
