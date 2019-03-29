@@ -1,0 +1,292 @@
+
+body{
+    background: #f2f2f2;
+    font-family: 'Open Sans', sans-serif;
+    background: url("https://i.imgur.com/eS4IxK3.png") center center no-repeat;
+    background-size: cover;
+  }
+  .bg-primary {
+    background-color: #26272b!important;
+}
+/* ==========================================================================
+   Footer Style its beautiful but as you see 166 line of css lmfao but who cares
+   ========================================================================== */
+   .site-footer
+   {
+     background-color:#26272b;
+     padding:45px 0 20px;
+     font-size:15px;
+     line-height:24px;
+     color:#737373;
+   }
+   .site-footer hr
+   {
+     border-top-color:#bbb;
+     opacity:0.5
+   }
+   .site-footer hr.small
+   {
+     margin:20px 0
+   }
+   .site-footer h6
+   {
+     color:#fff;
+     font-size:16px;
+     text-transform:uppercase;
+     margin-top:5px;
+     letter-spacing:2px
+   }
+   .site-footer a
+   {
+     color:#737373;
+   }
+   .site-footer a:hover
+   {
+     color:#3366cc;
+     text-decoration:none;
+   }
+   .footer-links
+   {
+     padding-left:0;
+     list-style:none
+   }
+   .footer-links li
+   {
+     display:block
+   }
+   .footer-links a
+   {
+     color:#737373
+   }
+   .footer-links a:active,.footer-links a:focus,.footer-links a:hover
+   {
+     color:#3366cc;
+     text-decoration:none;
+   }
+   .footer-links.inline li
+   {
+     display:inline-block
+   }
+   .site-footer .social-icons
+   {
+     text-align:right
+   }
+   .site-footer .social-icons a
+   {
+     width:40px;
+     height:40px;
+     line-height:40px;
+     margin-left:6px;
+     margin-right:0;
+     border-radius:100%;
+     background-color:#33353d
+   }
+   .copyright-text
+   {
+     margin:0
+   }
+   @media (max-width:991px)
+   {
+     .site-footer [class^=col-]
+     {
+       margin-bottom:30px
+     }
+   }
+   @media (max-width:767px)
+   {
+     .site-footer
+     {
+       padding-bottom:0
+     }
+     .site-footer .copyright-text,.site-footer .social-icons
+     {
+       text-align:center
+     }
+   }
+   .social-icons
+   {
+     padding-left:0;
+     margin-bottom:0;
+     list-style:none
+   }
+   .social-icons li
+   {
+     display:inline-block;
+     margin-bottom:4px
+   }
+   .social-icons li.title
+   {
+     margin-right:15px;
+     text-transform:uppercase;
+     color:#96a2b2;
+     font-weight:700;
+     font-size:13px
+   }
+   .social-icons a{
+     background-color:#eceeef;
+     color:#818a91;
+     font-size:16px;
+     display:inline-block;
+     line-height:44px;
+     width:44px;
+     height:44px;
+     text-align:center;
+     margin-right:8px;
+     border-radius:100%;
+     -webkit-transition:all .2s linear;
+     -o-transition:all .2s linear;
+     transition:all .2s linear
+   }
+   .social-icons a:active,.social-icons a:focus,.social-icons a:hover
+   {
+     color:#fff;
+     background-color:#29aafe
+   }
+   .social-icons.size-sm a
+   {
+     line-height:34px;
+     height:34px;
+     width:34px;
+     font-size:14px
+   }
+   .social-icons a.facebook:hover
+   {
+     background-color:#3b5998
+   }
+   .social-icons a.twitter:hover
+   {
+     background-color:#00aced
+   }
+   .social-icons a.linkedin:hover
+   {
+     background-color:#007bb6
+   }
+   .social-icons a.patreon:hover
+   {
+     background-color:#ea4c89
+   }
+   @media (max-width:767px)
+   {
+     .social-icons li.title
+     {
+       display:block;
+       margin-right:0;
+       font-weight:600
+     }
+   }
+/*====================================================
+      intro section style BRUH
+ ====================================================*/
+    .section-intro {
+        color: #fff;
+        text-align: center;
+      }
+      .section-intro .main-text {
+        margin: 40px 0px 0px;
+        text-transform: uppercase;
+      }
+      .section-intro .main-text .intro-title {
+        font-size: 50px;
+        font-weight: 200;
+        color: #fff;
+        white-space: nowrap;
+        line-height: 50px;
+      }
+      .section-intro .main-text .sub-title {
+        font-size: 14px;
+        color: #fff;
+        padding: 15px 0;
+        line-height: 24px;
+        text-transform: capitalize;
+        margin-bottom: 5px;
+      }
+/*====================================================
+      That header seaech bar style BRUH
+ ====================================================*/
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+.search {
+  width: 30%;
+  position: relative
+}
+
+.searchTerm {
+  float: left;
+  width: 30%;
+  border: 3px solid #33353d;
+  padding: 5px;
+  height: 40px;
+  border-radius: 5px;
+  outline: none;
+  color: #9DBFAF;
+}
+
+.searchTerm:focus{
+  color: #00B4CC;
+}
+
+.searchButton {
+  position: absolute;  
+  right: 16px;
+  width: 40px;
+  height: 36px;
+  border: 1px solid #33353d;
+  background: #33353d;
+  text-align: center;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 20px;
+}
+/* ==========================================================================
+    Counter Style
+    ========================================================================== */
+    #counter {
+        background: url("../img/bg/counter-bg.jpg") center center no-repeat;
+        background-size: cover;
+        color: #fff;
+        padding: 10px 0;
+        text-align: center;
+      }
+      .counting .icon {
+        margin-bottom: 10px;
+      }
+      .counting .icon span {
+        display: inline-block;
+        border: 3px solid #fff;
+        text-align: center;
+        width: 80px;
+        background: #444;
+        height: 80px;
+        border-radius: 50%;
+        position: relative;
+        overflow: hidden;
+        -webkit-transition: all .3s linear;
+        -moz-transition: all .3s linear;
+        -ms-transition: all .3s linear;
+        -o-transition: all .3s linear;
+        transition: all .3s linear;
+      }
+      .counting .icon span i {
+        color: #fff;
+        display: inline-block;
+        font-size: 30px;
+        line-height: 80px;
+        z-index: 99;
+        text-shadow: 5px 5px 2px rgba(56, 49, 49, 0.5);
+      }
+      .counting .desc h3 {
+        font-size: 24px;
+        color: #fff;
+      }
+      .counting .desc p {
+        font-size: 16px;
+      }
+      .counting:hover span {
+        background: #3498db;
+        -webkit-transform: scale(1.1, 1.1);
+        -moz-transform: scale(1.1, 1.1);
+        -ms-transform: scale(1.1, 1.1);
+        -o-transform: scale(1.1, 1.1);
+        transform: scale(1.1, 1.1);
+      }
