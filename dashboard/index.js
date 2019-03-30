@@ -233,5 +233,21 @@ module.exports = (client) => {
     });
   });
 
+  app.get("/contact", checkAuth, (req, res) => {
+    renderTemplate(res, req, "contact.ejs");
+  });
+  
+  app.post("/contact", checkAuth, async (req, res) => {
+    // Handle Form Data
+  });
+  
+  app.get("/new", checkAuth, (req, res) => {
+    renderTemplate(res, req, "addbot.ejs");
+  });
+  
+  app.post("/new", checkAuth, (req, res) => {
+    // Handle Form Data
+  });
+  
   client.site = app.listen(client.config.dashboard.port, null, null, () => console.log("Dashboard is up and running."));
 };
