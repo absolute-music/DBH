@@ -60,6 +60,28 @@ module.exports = (client) => {
     done(null, obj);
   });
 
+  const validateBotForID = async (id) => {
+    try {
+      const bot = await client.users.fetch(id);
+      if (bot.bot) {
+        return true
+      } else {
+        return false;
+      };
+    } catch (e) {
+      return false;
+    }
+  };
+
+  const fetchInviteURL = async (invite) => {
+    try {
+      const inv = await client.fetchInvite(invite);
+      return { valid: true, temporary: false };
+    } catch (e) {
+      return { valid: false, temporary: null };
+    }
+  };
+
   const renderTemplate = (res, req, template, data = {}) => {
     const baseData = {
       bot: client,
@@ -254,12 +276,82 @@ module.exports = (client) => {
     // Handle Form Data
   });
   
-  app.get("/new", (req, res) => {
-    renderTemplate(res, req, "addbot.ejs");
+  app.get("/new", checkAuth, (req, res) => {
+    renderTemplate(res, req, "addbot.ejs", { sucess: null, fail: null });
   });
   
-  app.post("/new", (req, res) => {
-    console.log(req.body);
+  app.post("/new", checkAuth, async (req, res) => {
+    const bodyData = {
+      clientID: req.body.clientID,
+      library: req.body.library,
+      prefix: req.body.prefix,
+      shortDesc: req.body.shortDesc,
+      longDesc: req.body.longdesc,
+      supportServer: `https://discord.gg/${req.body.supportServer}`,
+      tags: req.body.tags,
+      supportServerCode: req.body.supportServer,
+      otherOwners: req.body.otherOwners,
+      inviteURL: req.body.inviteURL,
+      github: req.body.github,
+      website: req.body.website
+    }
+
+    const validBot = await validateBotForID(bodyData.clientID);
+    if (validBot === false) return renderTemplate(res, req, "addbot.ejs", { sucess: null, fail: "Invalid ClientID/provided ClientID was not a bot." });
+    if (bodyData.longDesc.length < 250) return renderTemplate(res, req, "addbot.ejs", { sucess: null, fail: "Long description must be at last 250 characters long." });
+    const invDetails = await fetchInviteURL(bodyData.supportServer);
+    if (invDetails.valid === false) return renderTemplate(res, req, "addbot.ejs", { sucess: null, fail: "Invite code provided is invalid." });
+    
+    const isBot = await Bots.findOne({ id: bodyData.clientID });
+    if (isBot) return renderTemplate(res, req, "addbot.ejs", { sucess: null, fail: "This bot is already on list or approving queue." });
+
+    const newBot = new Bots({
+      id: bodyData.clientID,
+      mainOwner: req.user.id,
+      owners: bodyData.otherOwners.split(", ")[0] !== "" ? bodyData.otherOwners.split(", ") : [],
+      library: bodyData.library,
+      upvotes: 0,
+      totalVotes: 0,
+      website: bodyData.website || "none",
+      votes: [],
+      github: bodyData.github || "none",
+      shortDesc: bodyData.shortDesc,
+      longDesc: bodyData.longDesc,
+      server: bodyData.supportServer,
+      prefix: bodyData.prefix,
+      verified: false,
+      trusted: false,
+      certified: false,
+      vanityUrl: null,
+      invite: bodyData.inviteURL.indexOf("https://discordapp.com/api/oauth2/authorize") !== 0 ? `https://discordapp.com/api/oauth2/authorize?client_id=${bodyData.clientID}&permissions=0&scope=bot` : bodyData.inviteURL,
+      featured: null,
+      tags: bodyData.tags,
+      token: null,
+      shardID: 0,
+      serverCount: 0,
+      shardCount: 0,
+      approved: false
+    });
+
+    newBot.save().catch(e => console.log(e));
+    client.channels.get("561622522798407740").send(`📥 <@${req.user.id}> just submitted <@${bodyData.clientID}>.`);
+    const addEmbed = new Discord.MessageEmbed()
+      .setTitle(`${req.user.username}#${req.user.discriminator} submitted a bot.`)
+      .addField("Client ID:", `${bodyData.clientID}`)
+      .addField("Owner:", `${req.user.id}`)
+      .addField("Prefix:", `\`|${bodyData.prefix}|\``)
+      .setDescription(`${bodyData.shortDesc}`)
+      .addField("Tags:", `${bodyData.tags.join(", ")}`)
+      .addField("Library:", `${bodyData.library}`)
+      .addField("Website:", `${bodyData.website.length < 1 ? "No Website" : bodyData.website}`)
+      .addField("GitHub:", `${bodyData.github.length < 1 ? "No GitHub" : bodyData.github}`)
+      .addField("Support Server:", `${bodyData.supportServer}`)
+      .addField("Other Owners:", `${bodyData.otherOwners.split(", ")[0] !== "" ? bodyData.otherOwners.split(", ").join(", ") : "No Other Owners"}`)
+      .addField("InviteURL:", `${bodyData.inviteURL.indexOf("https://discordapp.com/api/oauth2/authorize") !== 0 ? "No Url" : `Custom Url: ${bodyData.inviteURL}\n`}Pre-Made URL: ${`https://discordapp.com/api/oauth2/authorize?client_id=${bodyData.clientID}&permissions=0&scope=bot`}`)
+      .setColor("BLUE")
+      .setTimestamp();
+    client.channels.get("561622527919783938").send(bodyData.clientID, addEmbed);
+    renderTemplate(res, req, "addbot.ejs", { sucess: "Bot has been successfully added on approving queue.", fail: null });
   });
   
   client.site = app.listen(client.config.dashboard.port, null, null, () => console.log("Dashboard is up and running."));

@@ -32,16 +32,16 @@
 <script src="https://discordbots.org/lib/codemirror/xml.js"></script>
 
 <div class="jumbotron" style="margin: 10px; background-color:#26272b; color: #ffffff;">
-  <form method="POST">
+  <form method="post">
     <strong><span style="color: #ff0000">* = requiered field</span></strong><br><br>
     <div class="form-group">
       <label for="exampleSelect1" style="right: 100%;"><strong>Bot's Client ID <span style="color: #ff0000">*</span></strong></label>
-			<input type="text" style="width: 225px;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="clientID" placeholder="560869129310175243">
+			<input type="text" style="width: 225px;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="clientID" placeholder="560869129310175243" required>
     </div>
     
     <div class="form-group">
 			<p><strong>Library <span style="color: #ff0000">*</span></strong></p>
-			<select name="library" data-width="225px" class="selectpicker form-control">
+			<select name="library" data-width="225px" class="selectpicker form-control"  required>
           <option value="">Pick one...</option>
           <option value="discordcr">discordcr</option>
           <option value="Nyxx">Nyxx</option>
@@ -70,17 +70,17 @@
 
     <div class="form-group">
       <label for="exampleSelect1" style="right: 100%;"><strong>Prefix <span style="color: #ff0000">*</span></strong></label>
-      <input type="text" style="width: 225px;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="prefix" placeholder="!">
+      <input type="text" style="width: 225px;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="prefix" placeholder="!" required>
     </div>
 
     <div class="form-group">
         <label for="exampleSelect1" style="right: 100%;"><strong>Short Description <span style="color: #ff0000">*</span></strong></label>
-        <input type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="shortDesc" placeholder="A small multipurpose bot with a wide range of features." maxlength="140">
+        <input type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="shortDesc" placeholder="A small multipurpose bot with a wide range of features." maxlength="140" required>
     </div>
 
     <div class="form-group">
         <label for="exampleSelect1" style="right: 100%;"><strong>Long Description <span style="color: #ff0000">*</span></strong></label>
-        <textarea type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0 longdesc" id="longdesc" name="longdesc" placeholder="A small multipurpose bot with a wide range of features." ></textarea>
+        <textarea type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0 longdesc" id="longdesc" name="longdesc" placeholder="A small multipurpose bot with a wide range of features." required></textarea>
     </div>
 
     <script>
@@ -182,7 +182,7 @@
 
   <div class="form-group">
     <p><strong>Tags <span style="color: #ff0000">*</span></strong></p>
-    <select name="tags" style="width: 100%;" class="selectpicker form-control" data-live-search="true" multiple>
+    <select name="tags" style="width: 100%;" class="selectpicker form-control" data-live-search="true" multiple required>
     <option data-tokens="Music" value="Music">Music</option>
     <option data-tokens="Moderation" value="Moderation">Moderation</option>
     <option data-tokens="Fun" value="Fun">Fun</option>
@@ -204,7 +204,7 @@
 
   <div class="form-group">
       <label for="exampleSelect1" style="right: 100%;"><strong>Support Server Invite <span style="color: #ff0000">*</span></strong></label><br>
-			<h5 style="float: left; top: 6px!important; position: relative;">https://discord.gg/</h5><input type="text" style="width: 100px;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="supportServer" placeholder="ak7tde">
+			<h5 style="float: left; top: 6px!important; position: relative;">https://discord.gg/</h5><input type="text" style="width: 100px;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="supportServer" placeholder="ak7tde" required>
   </div>
 
   <div class="form-group">
@@ -213,11 +213,21 @@
   </div>
 
   <div class="form-group">
+      <label for="exampleSelect1" style="right: 100%;"><strong>GitHub URL</strong></label>
+			<input type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="github" placeholder="https://github.com/MrAugu/lutu-bot">
+  </div>
+
+  <div class="form-group">
+      <label for="exampleSelect1" style="right: 100%;"><strong>Website URL</strong></label>
+			<input type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="website" placeholder="https://mybot.com">
+  </div>
+
+  <div class="form-group">
       <label for="exampleSelect1" style="right: 100%;"><strong>Invite URL [<a href="https://discordapi.com/permissions.html">Generator</a>]</strong></label>
 			<input type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="inviteURL">
   </div>
 
-  <button class="btn btn-outline-primary btn-block" type="submit">Submit</button>
+  <button type="submit" onclick="document.forms[0].submit()" class="btn btn-outline-primary btn-block">Submit</button>
   </form>
 </div>
 

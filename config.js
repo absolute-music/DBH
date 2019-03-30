@@ -8,4 +8,5 @@ module.exports = {
     "port": 81
   },
   "dbUrl": "mongodb://system:system~1@ds012889.mlab.com:12889/discord-house",
+  "admins": ["414764511489294347", "538855659714641960"]
 };
