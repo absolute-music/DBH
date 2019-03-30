@@ -17,7 +17,7 @@
 <body id="main_body" >
 		<div id="form_container">
 		<h1><a>New Bot Form</a></h1>
-		<form id="form_56951" class="appnitro"  method="post" action="">
+		<form id="form_56951" class="appnitro"  method="post">
 					<div class="form_description">
 			<p>Please fill in this form to send your bot for approval.</p>
 		</div>						
@@ -26,13 +26,13 @@
 					<li id="li_1" >
 		<label class="description" for="element_1">Client ID* </label>
 		<div>
-			<input id="element_1" name="element_1" class="element text medium" type="text" maxlength="18" placeholder="451234567891234567" value="" required/> 
+			<input id="element_1" name="clientID" class="element text medium" type="text" placeholder="451234567891234567" required/> 
 		</div><p class="guidelines" id="guide_1"><small>You can find it here https://discordapp.com/developers/applications/me</small></p> 
 		</li>		<li id="li_10" >
 		<label class="description" for="element_10">Library* </label>
 		<div>
-		<select class="custom-select" style="width:200px;" id="element_10" name="element_10"> 
-			<option value="" selected="selected"></option>
+		<select class="custom-select" style="width:200px;" id="element_10" name="library"> 
+			<option selected="selected"></option>
 <option value="1" >Discord.js</option>
 <option value="2" >Discord.py</option>
 <option value="3" >Nyxx</option>
@@ -53,13 +53,13 @@
 		</li>		<li id="li_2" >
 		<label class="description" for="element_2">Bot's Brefix* </label>
 		<div>
-			<input id="element_2" name="element_2" class="element text small" type="text" maxlength="20" placeholder="!" value="" required/> 
+			<input id="element_2" name="prefix" class="element text small" type="text" placeholder="!" required/> 
 		</div><p class="guidelines" id="guide_2"><small>The prefix of the bot</small></p> 
 		</li>		<li id="li_3" >
 		<label class="description" for="element_3">Short description* </label>
 		<div>
         <i class="fas fa-pencil-alt prefix"></i>
-			<textarea placeholder="Short description ..." value="" required id="element_3" maxlength="140" name="element_3" class="md-textarea form-control" rows="3"></textarea> 
+			<textarea placeholder="Bot is making cat pictures." required id="element_3" maxlength="140" name="shortDesc" class="md-textarea form-control" rows="1"></textarea> 
 		</div><p class="guidelines" id="guide_3"><small>A short brief description of your bot 
 max 150 characters</small></p> 
 		</li>		<li id="li_4" >
