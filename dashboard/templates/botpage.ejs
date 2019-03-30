@@ -1,0 +1,203 @@
+<%- include('blocks/header', { bot, user, title: "Home" }) %>
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body{
+        background: #f2f2f2;
+        font-family: 'Open Sans', sans-serif;
+        background: url("https://i.imgur.com/eS4IxK3.png") center center no-repeat;
+        background-size: cover;
+      }
+.bg-primary {
+        background-color: #26272b!important;
+    }
+.main-section{
+	font-family: 'Abel', sans-serif;
+    margin-top: 100px;
+    margin-bottom:30px;
+
+}
+.detail-part{
+    margin-bottom: 30px;
+}
+.image-part{
+	background-color: #fff;
+    box-shadow:10px 10px 5px black;
+
+}
+.image-part .bot-img img{
+	width:50%;
+    margin-top:30px;
+
+}
+.bot-name h2{
+	margin-top:10px;
+	font-size:22px;
+	font-weight: bold;
+	letter-spacing: 2px;
+}
+.information-button{
+	margin-bottom:5px; 
+}
+.bot-name p{
+	font-size:20px;
+}
+.bot-detail p{
+	color:black;
+	padding-left:30px;
+	margin:5px;
+}
+.icon-section{
+	margin:5px 0px;
+	padding-bottom:10px;
+}
+.icon-section i{
+	margin:0px 5px;
+	background-color:#d2d2d2;
+	color:black;
+	border-radius: 50%;
+	height:25px;
+	width: 25px;
+	padding-top:4px;
+}
+.bot-detail span{
+	color:#b2b2b2;
+}
+.tab-head{
+	padding: 10px;
+}
+.tab-content{
+	padding-bottom: 10px;
+}
+.about-detail h5{
+	margin-top: 10px;
+}
+.about-detail .website{
+	margin-top:6px;
+}
+.contact-detail p{
+	color:black;
+	margin:5px;
+}
+</style>
+	  <title>Bot Name Here</title>
+	  <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <link rel="stylesheet" type="text/css" href="custom.css">
+	  <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+  	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+  	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+</head>
+</body>
+	<div class="container main-section pt-20">
+		<div class="row">
+			<div class="col-lg-4 col-sm-12 col-12 text-center detail-part">
+				<div class="row image-part m-0">
+					<div class="col-lg-12 col-sm-12 col-12 bot-img">
+						<div class="">
+							<img src="https://images.discordapp.net/avatars/523552979664633858/e0d33fcb6616982b2bdab1b25e632577.png?size=512" class="border rounded-circle p-1">
+						</div>
+					</div>
+					<div class="col-lg-12 col-sm-12 col-12 bot-name">
+						<h2>Lutu</h2>
+                        <a class="btn btn"><span class="fa fa-angle-up"></span> 214</a>
+                        <i class="fa fa-circle" style="color: green"> Online</i>
+						<p>Discord.js</p>
+					</div>
+					<div class="col-lg-12 col-sm-12 col-12 information-button">
+						<a href="#" class="btn btn-success w-25">Invite</a>
+						<a href="#" class="btn btn-danger w-25">Vote</a>
+					</div>
+					<div class="col-lg-12 col-sm-12 col-12 bot-detail text-left p-2">
+						<p>Moderation | Auto-Mod | Lockdown | 24/7 | Configurable Web Dashboard</p> 
+                                            	<p>Bot Prefix: <span><code>? (Customizable)</code></span></p>
+
+					</div>
+					<div class="col-lg-12 col-sm-12 col-12 icon-section">
+                    <button  onclick="window.location.href = 'https://google.com';" type="button" class="btn btn-secondary">Visit Website</button>
+                    <button  onclick="window.location.href = 'https://google.com';" type="button" class="btn btn-secondary">Join Server</button>
+                                            <p></p>
+                    <button type="button"  onclick="window.location.href = 'https://google.com';" class="btn btn-dark">Report</button>
+						<a class="btn btn-success"><span></span>333 Servers</a>
+                        <a class="btn btn-success"><span></span>1 Shard(s)</a>
+                        <p></p>
+						<a ><i class="fa fa-tag" aria-hidden="true"></i></a>
+						<a href="#">Mod</a>
+						<a href="#">Logging</a>
+                        <a href="#">utility</a>
+                        <a href="#">Web Dashboard</a>
+					     <p></p>
+                    <a class="btn btn-danger" href="#"><span class="fa fa-trash"></span> Delete</a>
+                    <a class="btn btn-primary" href="#"><span class="fa fa-pencil"></span>Edit</a>
+</div>	
+				</div>
+			</div>
+			<div class="col-lg-8 detail-part">
+				<div class="container">
+          <div class="row">
+
+            <div class="col-lg-12 bg-white">   
+              <div class="tab-content mt-4" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="row">
+                       
+                        <div class="col-lg-12 mt-2 about-detail">
+                            <h5 class="text-primary mb-1">Developers</h5>
+                            <span class="devloper"><kbd>MrAugu</kbd></span>
+                            <span class="devloper"><kbd>DataCell</kbd></span>
+                            <span class="devloper"><kbd>zaydme</kbd></span>
+                            <span class="devloper"><kbd>Skarff</kbd></span>
+                            <h5>Description :</h5>
+                            <span>
+Looking for some peace ?  Can't find trustworthy moderators ?  Need round-the-clock moderation for your server ?
+
+
+Lutu. Introducing the new, easy to configure smart moderation bot...
+
+
+Lutu is a moderation bot with a wide range of commands and features that will not only let you have peace of mind, but will let your users feel safer, thanks to Lutu's Auto-moderation features, and its proprietary Banlist.
+
+
+First, Auto-moderator can achieve what normal, human moderators would do. From preventing spam, to deleting NSFW (Not Safe For Work) content, Lutu has an increasing amount of Auto-moderator features that will not only protect your server, but minimize the time wasted on moderating, and maximizing the happy time spent on chatting with others! At the time of writing, Lutu's available Auto-moderator options are: Anti Bad Words, Anti @Everyone, Anti Discord Invites, Anti Links, Anti NSFW, Anti Spam, Max Message Lines, Max Message Mentions.
+
+
+Second, thanks to its proprietary Banlist, Lutu can prevent known abusers from joining your server, or just warn you if they do. You can even scan your server for them using the "scan" command. Lastly, you can report abusive users yourself by using the "report" command.
+
+
+Third, Lutu can achieve the basic moderation commands like nicking, clearing messages, punishing, muting, kicking, soft banning and banning. But that's not all what's in there! Lutu has two unique commands specially desgined to prevent all users (exluding Moderators and Administrators) from sending messages in a specific channel ("lockit" command), or in the whole server ("lockdown" command).
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade contact-detail" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                  <p class="text-info p-o"><strong>Contact & Postal Address</strong></p>
+                  <p><strong>Full Name : </strong><span>Team Cook</span></p>
+                  <p><strong>Mobile : </strong><span>(+91) 1234567890</span></p>
+                  <p><strong>Email : </strong><span>abc13@gmail.com</span></p>
+                  <p><strong>Location : </strong><span>USA</span></p>
+                  <p><strong>Address : </strong></p>
+                  <span class="text-dark">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+			</div>
+		</div>
+	</div>
+<body>
+</html>
+<%- include('blocks/footer') %>
+
