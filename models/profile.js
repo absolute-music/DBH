@@ -6,7 +6,8 @@ const profileSchema = new mongoose.Schema({
   certifiedDev: Boolean,
   bg: String,
   mod: Boolean,
-  admin: Boolean
+  admin: Boolean,
+  email: String
 });
 
 module.exports = mongoose.model("profiles", profileSchema);

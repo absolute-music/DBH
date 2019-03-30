@@ -1,5 +1,5 @@
-<%- include('blocks/header', { bot, user, title: "Home" }) %>
-<section id="intro" class="section-intro">
+<%- include('blocks/header', { bot, user, title: "New Bot" }) %>
+<!-- <section id="intro" class="section-intro">
         <div class="container">
         <div class="main-text">
           <h2 class="intro-title">Add your bot To <span style="color: #3498DB">Discord Bot House</span></h2>
@@ -13,13 +13,80 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Add New Bot</title>
 
-</head>
+</head> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.29.0/codemirror.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.29.0/codemirror.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.29.0/mode/javascript/javascript.js"></script>
+
+<div class="jumbotron" style="margin: 10px; background-color:#26272b; color: #ffffff;">
+  <form method="POST">
+    <div class="form-group">
+      <label for="exampleSelect1" style="right: 100%;"><strong>Bot's Client ID <span style="color: #ff0000">*</span></strong></label>
+			<input type="text" style="width: 225px;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="clientID" placeholder="560869129310175243">
+    </div>
+    
+    <div class="form-group">
+			<p><strong>Library <span style="color: #ff0000">*</span></strong></p>
+			<select name="library" class="selectpicker">
+          <option value="">Pick one...</option>
+          <option value="discordcr">discordcr</option>
+          <option value="Nyxx">Nyxx</option>
+          <option value="Discord.Net">Discord.Net</option>
+          <option value="DSharpPlus">DSharpPlus</option>
+          <option value="Nostrum">Nostrum</option>
+          <option value="coxir">coxir</option>
+          <option value="DiscordGo">DiscordGo</option>
+          <option value="Discord4J">Discord4J</option>
+          <option value="Javacord">Javacord</option>
+          <option value="JDA">JDA</option>]
+          <option value="discord.js">discord.js</option>
+          <option value="Eris">Eris</option>
+          <option value="Discordia">Discordia</option>
+          <option value="RestCord">RestCord</option>
+          <option value="Yasmin">Yasmin</option>
+          <option value="disco">disco</option>
+          <option value="discord.py">discord.py</option>
+          <option value="discordrb">discordrb</option>
+          <option value="serenity">serenity</option>
+          <option value="SwiftDiscord">SwiftDiscord</option>
+          <option value="Sword">Sword</option>
+          <option value="Other">Other</option>
+			</select>
+		</div>
+
+    <div class="form-group">
+      <label for="exampleSelect1" style="right: 100%;"><strong>Prefix <span style="color: #ff0000">*</span></strong></label>
+      <input type="text" style="width: 225px;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="prefix" placeholder="!">
+    </div>
+
+    <div class="form-group">
+        <label for="exampleSelect1" style="right: 100%;"><strong>Short Description <span style="color: #ff0000">*</span></strong></label>
+        <input type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="shortDesc" placeholder="A small multipurpose bot with a wide range of features." maxlength="140">
+    </div>
+
+    <div class="form-group">
+        <label for="exampleSelect1" style="right: 100%;"><strong>Short Description <span style="color: #ff0000">*</span></strong></label>
+        <textarea type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0 longdesc" id="longdesc" name="longdesc" placeholder="A small multipurpose bot with a wide range of features." ></textarea>
+    </div>
+
+    <script>
+      window.onload = function () {
+        var editor = CodeMirror.fromTextArea($("#longdesc")[0], {
+          lineNumbers: true,
+          lineWrapping: true
+        });
+      };
+    </script>
+  </form>
+</div>
+<!-- </div>
 <body id="main_body" >
 		<div id="form_container">
 		<h1><a>New Bot Form</a></h1>
 		<form id="form_56951" class="appnitro"  method="post">
 					<div class="form_description">
-			<p>Please fill in this form to send your bot for approval.</p>
+			<p>Please fill in this form to send your bot for approval</p>
 		</div>						
 			<ul >
 			
@@ -80,12 +147,11 @@ HTML allowed</small></p>
 		</li>		<li id="li_12" >
 		<label class="description" for="element_12">Tags* </label>
 		<div>
-		<select class="custom-select" style="width:200px;" id="element_12" name="element_12"  > 
+		<select class="custom-select" style="width:200px;" id="element_12" name="tags"  > 
 			<option value="" selected="selected"></option>
-<option value="1" >This</option>
-<option value="2" >Shit</option>
-<option value="3" >Isn't working</option>
-
+<option value="1">This</option>
+<option value="2">Shit</option>
+<option value="3">Isn't working</option>
     </select>
     <tags-input class="bootstrap"
                 ng-model="movies"
@@ -100,35 +166,33 @@ HTML allowed</small></p>
 		</li>		<li id="li_5" >
 		<label class="description" for="element_5">Web Site </label>
 		<div>
-			<input id="element_5" name="element_5" class="element text medium" type="text" maxlength="200" placeholder="http://www.mybot.com"/> 
+			<input id="element_5" name="website" class="element text medium" type="text" maxlength="200" placeholder="http://www.mybot.com"/> 
 		</div><p class="guidelines" id="guide_5"><small>Bot's landing page</small></p> 
 		</li>		<li id="li_6" >
 		<label class="description" for="element_6">Github repo </label>
 		<div>
-			<input id="element_6" name="element_6" class="element text medium" type="text" maxlength="255" value="http://"/> 
+			<input id="element_6" name="github" class="element text medium" type="text" maxlength="255" value="http://"/> 
 		</div><p class="guidelines" id="guide_6"><small>Github (or others) repository for the bot</small></p> 
 		</li>		<li id="li_9" >
 		<label class="description" for="element_9">Server Invite* </label>
 		<div>
-			<input id="element_9" name="element_9" class="element text medium" type="text" maxlength="25" value="http://discord.gg/" required> 
+			<input id="element_9" name="discord" class="element text medium" type="text" maxlength="25" value="http://discord.gg/" required> 
 		</div><p class="guidelines" id="guide_9"><small>Support server invite link</small></p> 
 		</li>		<li id="li_7" >
 		<label class="description" for="element_7">Other owners ID </label>
 		<div>
-			<input id="element_7" name="element_7" class="element text large" type="text" maxlength="100" placeholder="562145895412569874,485126359847521145" value=""/> 
+			<input id="element_7" name="otherOwners" class="element text large" type="text" maxlength="100" placeholder="562145895412569874,485126359847521145" value=""/> 
 		</div><p class="guidelines" id="guide_7"><small>other owners for the bot, separate with ,
 max 3</small></p> 
 		</li>		<li id="li_8" >
 		<label class="description" for="element_8">Invite URL* <a href="https://discordapi.com/permissions.html"target="_blank" >Generate here </a></label>
 		<div>
-			<input id="element_8" name="element_8" class="element text large" type="text" maxlength="255" value=""required/> 
+			<input id="element_8" name="invite" class="element text large" type="text" maxlength="255" value=""required/> 
 		</div><p class="guidelines" id="guide_8"><small>bot's Invite URL, Leave it empty if no permissions required</small></p> 
 		</li>
 			
 					<li class="buttons">
-			    <input type="hidden" name="form_id" value="56951" />
-			    
-				<input id="saveForm" class="button_text" type="submit" name="submit" value="Submit" />
+				<input id="saveForm" class="button_text" type="submit" value="Submit" />
 		</li>
 			</ul>
 		</form>	
@@ -1154,10 +1218,10 @@ input:focus ~ .highlight {
   z-index: 999;
   height: auto;
 }
-
-
+ -->
+<!-- 
  /********************This for the html editor box oof ********************/
  /*OOF I DELETED THIS PART CUZ OF SCRIPTS*/
-  </style>
+  </style> -->
  
 <%- include('blocks/footer') %>

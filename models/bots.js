@@ -11,7 +11,7 @@ const botSchema = new mongoose.Schema({
   votes: Array,
   github: String,
   shortDesc: String,
-  longDesc: Object,
+  longDesc: String,
   server: String,
   prefix: String,
   verified: Boolean,
@@ -22,7 +22,10 @@ const botSchema = new mongoose.Schema({
   invite: String,
   featured: Object,
   tags: Array,
-  token: String
+  token: String,
+  shardID: Number,
+  serverCount: Number,
+  shardCount: Number
 });
 
 module.exports = mongoose.model("bots", botSchema);

@@ -58,6 +58,11 @@ body{
    {
      color:#737373
    }
+   .footer {
+    position: relative;
+    bottom: 0px;
+    width: 100%;
+   }
    .footer-links a:active,.footer-links a:focus,.footer-links a:hover
    {
      color:#3366cc;
@@ -85,13 +90,13 @@ body{
    {
      margin:0
    }
-   @media (max-width:991px)
+   /* @media (max-width:991px)
    {
      .site-footer [class^=col-]
      {
        margin-bottom:30px
      }
-   }
+   } */
    @media (max-width:767px)
    {
      .site-footer

@@ -30,18 +30,20 @@ mongoose.connect(config.dbUrl, { useNewUrlParser: true });
 //   votes: [],
 //   github: null,
 //   shortDesc: "This is a short desc.",
-//   longDesc: { content: "<h1>Bruh</h1>", alloweed: ["html", "css", "javascript"] },
+//   longDesc: "<p>Fk you lol</p>",
 //   server: "https://discord.gg/discordhouse",
 //   prefix: ">",
 //   verified: false,
 //   trusted: true,
 //   certified: false,
 //   vanityUrl: null,
-//   stats: { serverCount: 0, shardCount: 0 },
 //   invite: null,
-//   featured: { idk: "idk" },
+//   featured: null,
 //   tags: ["Role Management"],
 //   token: "test",
+//   shardID: 0,
+//   serverCount: 0,
+//   shardCount: 0
 // });
 
 // nB.save();
@@ -71,7 +73,7 @@ module.exports = (client) => {
     clientID: client.user.id,
     clientSecret: client.config.dashboard.oauthSecret,
     callbackURL: client.config.dashboard.callbackURL,
-    scope: ["identify"]
+    scope: ["identify", "email"]
   },
   (accessToken, refreshToken, profile, done) => {
     process.nextTick(() => done(null, profile));
@@ -128,10 +130,19 @@ module.exports = (client) => {
         certifiedDev: false,
         bg: null,
         mod: false,
-        admin: false
+        admin: false,
+        email: req.user.email
       });
       await usr.save().catch(e => console.log(e));
       userdata = { id: req.user.id, bio: "I'm a very mysterious person.", certifiedDev: false, bg: null, mod: false, admin: false };
+
+      if (userdata !== req.user.email) {
+        Profiles.findOne({ id: req.user.id }, async (err, res) => {
+          if (err) console.log(err);
+          res.email = req.user.email;
+          await res.save().catch(e => console.log(e));
+        });
+      }
     }
 
     if (userdata.mod === true) {
@@ -190,7 +201,10 @@ module.exports = (client) => {
       "vanityUrl": data.vanityUrl,
       "stats": data.stats,
       "inviteUrl": data.invite,
-      "tags": data.tags
+      "tags": data.tags,
+      "shardID": data.shardID,
+      "serverCount": data.serverCount,
+      "shardCount": data.shardCount
     };
     return res.status(200).send(JSON.stringify(obj, null, 4));
   });
@@ -218,18 +232,17 @@ module.exports = (client) => {
     if (!req.body) return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "No body was found within the request.", "errorCode": "NO_STATS_POST_BODY" }, null, 4));
     if (!req.body.serverCount) return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "No serverCount key was found within the request body.", "errorCode": "NO_STATS_POST_SERVERCOUNT" }, null, 4));
     if (!req.body.authorization) return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "No authorization key was found within the request body.", "errorCode": "NO_STATS_POST_AUTHORIZATION" }, null, 4));
-    if (typeof parseInt(req.body.serverCount) !== "number") return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "serverCount must be a number.", "errorCode": "STATS_POST_INVALID_SERVERCOUNT" }, null, 4));
+    if (isNaN(parseInt(req.body.serverCount))) return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "serverCount must be a number.", "errorCode": "STATS_POST_INVALID_SERVERCOUNT" }, null, 4));
     if (typeof req.body.authorization !== "string") return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "authorization must be a string.", "errorCode": "STATS_POST_INVALID_AUTHORIZATION" }, null, 4));
-    if (req.body.shardCount && typeof parseInt(req.body.shardCount) !== "number") return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "shardCount must be a number.", "errorCode": "STATS_POST_INVALID_SHARDCOUNT" }, null, 4));
+    if (req.body.shardCount && isNaN(parseInt(req.body.shardCount))) return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "shardCount must be a number.", "errorCode": "STATS_POST_INVALID_SHARDCOUNT" }, null, 4));
     Bots.findOne({ id: req.params.id }, async (err, itself) => {
       if (err) console.log(err);
       if (!itself) return res.status(404).send(JSON.stringify({ "msg": "Not Found.", "code": 404 }, null, 4));
       if (req.body.authorization !== itself.token) return res.status(401).send(JSON.stringify({ "msg": "Unauthorized.", "code": 401, "error": "Invalid authorization token was provided for this bot." }, null, 4));
-      itself.stats.serverCount = parseInt(req.body.serverCount);
-      if (req.body.shardCount) itself.stats.shardCount = parseInt(req.body.shardCount);
-      console.log(itself);
+      itself.serverCount = parseInt(req.body.serverCount);
+      if (req.body.shardCount) itself.shardCount = parseInt(req.body.shardCount);
       await itself.save().catch(e => console.log(e));
-      return res.status(200).send(JSON.stringify({ "msg": "Sucessfull request.", "code": 200 }, null, 4));
+      res.status(200).send(JSON.stringify({ "msg": "Sucessfull request.", "code": 200 }, null, 4));
     });
   });
 
@@ -241,12 +254,12 @@ module.exports = (client) => {
     // Handle Form Data
   });
   
-  app.get("/new", checkAuth, (req, res) => {
+  app.get("/new", (req, res) => {
     renderTemplate(res, req, "addbot.ejs");
   });
   
-  app.post("/new", checkAuth, (req, res) => {
-    // Handle Form Data
+  app.post("/new", (req, res) => {
+    console.log(req.body);
   });
   
   client.site = app.listen(client.config.dashboard.port, null, null, () => console.log("Dashboard is up and running."));
