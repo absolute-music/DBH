@@ -127,6 +127,8 @@ module.exports = (client) => {
     res.redirect("/login");
   }
 
+  app.get("/discord", (req, res) => res.redirect("https://discord.gg/E2Ker3E"));
+
   app.get("/login", (req, res, next) => {
     if (req.session.backURL) {
       req.session.backURL = req.session.backURL; // eslint-disable-line no-self-assign

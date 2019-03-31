@@ -1,25 +1,27 @@
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"><style>
-img {
+<style>
+.bot-img {
   margin-top: 10px; 
   border-radius: 0 10% 0% 10%;
   box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2);
 }
-.card {
+.bot-card {
+  background-color:#26272b; 
+  color: #ffffff;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 1.2);
-  max-width: 280px;
-  margin: auto;
-  max-height:500px;
+  width: 400px;
+  margin: 10px;
+  height: 500px;
   text-align: center;
   font-family: arial;
 }
 
-.title {
+.bot-title {
   color: grey;
   font-size: 15px;
   padding: 5px
 }
 
-button {
+.bot-button {
   border: 0px ;
   outline: 0px ;
   padding: 15px;
@@ -32,29 +34,96 @@ button {
   box-shadow:0 8px 10px 0 rgba(0, 0, 0, 1.2);
 
 }
-a {
+.bot-a {
   text-decoration: none;
   font-size: 18px;
-  color: dark-blue;
+  color: darkblue;
 }
-button:hover, a:hover {
+.bot-button:hover, .bot-a:hover {
   opacity: 0.8;
 }
+
+.tag {
+  border-radius: 3px;
+  padding: 0px 3px;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.status {
+  box-sizing: border-box;
+  border-width: 2px;
+  border-radius: 50%;
+  height: 15px;
+  width: 15px;
+  float: left;
+  vertical-align: middle;
+  margin: 5px;
+}
+
+.online {
+  color: #42b581;
+  border-color: #69c49a;
+}
+
+.idle {
+  color: #faa61a;
+  border-color: #fbb848;
+}
+
+.dnd {
+  color: #f04747;
+  border-color: #f36c6c;
+}
+
+.offline {
+  color: #747f8d;
+  border-color: #9099a4;
+}
 </style>
-<div class="card">
-  <img src="https://images.discordapp.net/avatars/512212602613399552/c7c2be5fc1dd6d5ca24c3f0d549b1c7b.png?size=512" alt="lutu" style="width:70%">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- <div class="card-columns">
+
+<div class="bot-card" style="display: inline-block; margin: 10px;">
+  <img class="bot-img" src="https://images.discordapp.net/avatars/512212602613399552/c7c2be5fc1dd6d5ca24c3f0d549b1c7b.png?size=512" alt="lutu" style="width:70%">
   <h1>Discord Tip</h1>
-  <p class="title">Moderation & Auto-mod bot and a bit longer description here with random text</p>
-  <div style="margin: 10px 0;">
-    <span href="#" class="label label-default">grey</span>
-    <span href="#" class="label label-primary">blue</span>
-    <span href="#" class="label label-success">green</span>
-    <span href="#" class="label label-info">also blue</span>
-    <span href="#" class="label label-warning">yellow</span>
-    <span href="#" class="label label-danger">red</span>
-   </div>
+  <h3 class="online">• Online</h3>
+  <div id='someid'>
+  </div>
+  <p class="bot-title title">Moderation & Auto-mod bot and a bit longer description here with random text</p>
   <div>
+      <script>
+          function hexToRgb(hex) {
+              var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+              return result ? {
+                  r: parseInt(result[1], 16),
+                  g: parseInt(result[2], 16),
+                  b: parseInt(result[3], 16)
+              } : null;
+          }
+        
+          const doc = document.getElementById("someid");
+          const rc = hexToRgb("#7289DA");
+          $("#someid").append(`<span class="tag" style="color: rgb(${rc.r}, ${rc.g}, ${rc.b}); background-color: rgba(${rc.r}, ${rc.g}, ${rc.b}, 0.0980392); border: 1px solid rgba(${rc.r}, ${rc.g}, ${rc.b}, 0.498039);"><i class="fas fa-tags"></i> Moderation</span>`);
+          
+        </script>
   <span style="display: inline;">
-      <button onclick="window.location.href = 'https://google.com';">View
-      <button onclick="window.location.href = 'https://google.com';">Vote
+      <button class="bot-button" onclick="window.location.href = 'https://google.com';">View
+      <button class="bot-button" onclick="window.location.href = 'https://google.com';">Vote
+  </div>
+  </div>
+
+</div> -->
+
+<div class="card" style="width: 18rem; background-color: #26272b; margin: 10px; color: #ffffff;">
+    <img class="card-img-top" src="https://images.discordapp.net/avatars/512212602613399552/c7c2be5fc1dd6d5ca24c3f0d549b1c7b.png?size=512" alt="Card image cap" style="width: 100%">
+    <div class="card-body">
+      <center>
+        <p class="card-title" style="font-size: 22px;">Amazinger</p>
+        <p class="offline">• OFFLINE</p>
+      </center>
+      <div class="tags"></div>
+      <p class="card-text muted">💸 Cryptocurrency tipbot - send and receive Bitcoin, Ethereum, Dogecoin, Ripple, Lumen, Tron, ERC20 and other on Discord! (free samples!)</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
   </div>
