@@ -270,6 +270,10 @@ module.exports = (client) => {
     });
   });
 
+  app.get("/profile", checkAuth, (req, res) => {
+    renderTemplate(res, req, "userprofile.ejs");
+  });
+
   app.get("/contact", checkAuth, (req, res) => {
     renderTemplate(res, req, "contact.ejs");
   });

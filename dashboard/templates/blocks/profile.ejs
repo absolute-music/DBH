@@ -1,0 +1,199 @@
+
+<style>
+  html *{
+      -webkit-font-smoothing: antialiased;
+  }
+  .profile-card-stats {
+    height: 75px;
+    padding: 10px 0px;
+    text-align: center;
+    overflow: hidden;
+  }
+  .profile-stat {
+    height: 100%;
+    width: 33.3333%;
+  }
+  .profile-stat:after {
+    color: #474d77d1;
+  }
+  .bots::after {
+    content: "bots";
+  }
+  .likes::after {
+    content: "likes";
+  }
+  /*.h6, h6 {
+      font-size: .75rem !important;
+      font-weight: 500;
+      font-family: Roboto,Helvetica,Arial,sans-serif;
+      line-height: 1.5em;
+      text-transform: uppercase;
+  }*/
+  .rela-block {
+    display: block;
+    position: relative;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  .rela-inline {
+    display: inline-block;
+    position: relative;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  .floated {
+    display: inline-block;
+    position: relative;
+    margin: false;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    float: left;
+  }
+  .floated.right {
+    float: right;
+  }
+  .name h3 {
+      margin-top: 10px;
+      margin-bottom: 10px;
+  }
+  
+  .profile-page .page-header {
+      height: 380px;
+      background-position:center;
+  }
+  
+  .page-header {
+      height: 100vh;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      display: flex;
+      align-items: center;
+      filter: blur(2px);
+     -webkit-filter: blur(2px);
+  }
+  
+  .main-raised {
+      border-radius: 6px;
+      box-shadow: 0 16px 24px 2px rgba(0,0,0,.14), 0 6px 30px 5px rgba(0,0,0,.12), 0 8px 10px -5px rgba(0,0,0,.2);
+      margin: -60px 100px 30px 100px
+      
+  }
+  
+  .main {
+      background: #FFF;
+      position: relative;
+      z-index: 3;
+  }
+  
+  .profile-page .profile {
+      text-align: center;
+  }
+  
+  .profile-page .profile img {
+      max-width: 160px;
+      width: 100%;
+      margin: 0 auto;
+      -webkit-transform: translate3d(0,-50%,0);
+      -moz-transform: translate3d(0,-50%,0);
+      -o-transform: translate3d(0,-50%,0);
+      -ms-transform: translate3d(0,-50%,0);
+      transform: translate3d(0,-50%,0);
+  }
+  
+  .img-raised {
+      box-shadow: 0 5px 15px -8px rgba(0,0,0,.24), 0 8px 10px -5px rgba(0,0,0,.2);
+  }
+  
+  .rounded-circle {
+      border-radius: 50%!important;
+  }
+  
+  .img-fluid, .img-thumbnail {
+      max-width: 100%;
+      height: auto;
+  }
+  
+  .title {
+      margin-top: 30px;
+      margin-bottom: 25px;
+      min-height: 32px;
+      color: #3C4858;
+      font-weight: 700;
+      font-family: "Roboto Slab","Times New Roman",serif;
+  }
+  
+  .profile-page .description {
+      margin: 1.071rem auto 0;
+      max-width: 600px;
+      color: #999;
+      font-weight: 300;
+      padding: 0px 0px 10px
+  }
+  
+  p {
+      font-size: 14px;
+      margin: 0 0 10px;
+  }
+  
+  .profile-page .profile-tabs {
+      margin-top: 4.284rem;
+  }
+  
+  .tab-content>.active {
+      display: block;
+  }
+  
+  
+  </style>
+  
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  
+  <div class="profile-page">
+   
+   <div class="page-header" data-parallax="true" style="margin:-20px 0 20px; background-image:url('https://i.ytimg.com/vi/hF_LjTUvP-U/maxresdefault.jpg');"></div>
+      <div class="main main-raised">
+      <div class="profile-content">
+              <div class="container">
+                  <div class="row">
+                    <div class="col-md-6 ml-auto mr-auto">
+                       <div class="profile">
+                            <div class="avatar" style="height:80px;">
+                                <img src="https://images.discordapp.net/avatars/538855659714641960/8f0563b48c69696692669af133b544c5.png?size=512" alt="Circle Image" class="img-raised rounded-circle img-fluid">
+                            </div>
+                            <div class="name">
+                                <h2 class="title"><%= user.username %></h2>
+                  <h4>Developer</h4>
+                            </div>
+                              <div class="rela-block profile-card-stats">
+              <div class="floated profile-stat bots" id="num_bots">4
+                  <br>
+              </div>
+              <div class="floated profile-stat likes" id="num_likes">0
+                  <br>
+              </div>
+              <a href="#" class="btn-primary-outline btn-lg">Like
+          </a>
+              </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="description text-center">
+                      <p>this is some random text here this is some random text here this is some random text here this is some random text here this is some random text here this is some random text here this is some random text here </p>
+                  </div>
+          
+    </div>
+  </div> 
+</div></div>
