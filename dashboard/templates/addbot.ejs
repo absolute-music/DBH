@@ -2,7 +2,7 @@
 <%
   if (sucess) {
 %>
-<div class="alert alert-success" role="alert">
+<div class="alert alert-success progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="margin: 10px; border: none;" role="alert">
     <%= sucess %>
 </div>
 <%
@@ -12,7 +12,7 @@
 <%
   if (fail) {
 %>
-<div class="alert alert-danger" role="alert">
+<div class="alert alert-danger bg-danger progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="margin: 10px; border: none;" role="alert">
     <%= fail %>
 </div>
 <%
@@ -38,7 +38,7 @@
       <label for="exampleSelect1" style="right: 100%;"><strong>Bot's Client ID <span style="color: #ff0000">*</span></strong></label>
 			<input type="text" style="width: 225px;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="clientID" placeholder="560869129310175243" required>
     </div>
-    
+
     <div class="form-group">
 			<p><strong>Library <span style="color: #ff0000">*</span></strong></p>
 			<select name="library" data-width="225px" class="selectpicker form-control"  required>
@@ -102,9 +102,9 @@
           xhr.send(opts.data)
           return xhr
         }
-        
+
         var editor = CodeMirror.fromTextArea(document.getElementById('longdesc'), {mode: 'markdown', lineNumbers: true, theme: 'monokai'});
-        
+
         function changeLang(el) {
           var sections = document.querySelectorAll('.example');
           for (var section of sections) {
@@ -227,7 +227,7 @@
 			<input type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="inviteURL">
   </div>
 
-  <button type="submit" onclick="document.forms[0].submit()" class="btn btn-outline-primary btn-block">Submit</button>
+  <button type="submit" onclick="document.forms[1].submit()" class="btn btn-outline-primary btn-block">Submit</button>
   </form>
 </div>
 

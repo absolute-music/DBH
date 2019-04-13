@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const botSchema = new mongoose.Schema({
   id: String,
+  name: String,
   mainOwner: String,
   owners: Array,
   library: String,

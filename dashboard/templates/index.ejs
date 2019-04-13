@@ -4,6 +4,150 @@
 
 <%- include('blocks/counter') %> -->
 
-<%- include("blocks/botcard") %>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<style>
+
+.bot-card-img-top {
+margin-top: 0px;
+border-radius: 0 10% 0% 10%;
+box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2);
+height: 150px;
+width: 150px;
+align: left
+}
+
+h3 {
+font-size: 15px;
+padding: 0px
+}
+.card-title {
+font-size: 25px;
+}
+.card-text {
+color: rgb(196, 196, 196);
+font-size: 13px;
+padding: 0px 0px 10px 10px
+}
+
+.bot-button {
+border: 0px ;
+outline: 0px ;
+padding: 10px;
+color: white;
+background-color: #33353d;
+text-align: center;
+cursor: pointer;
+width: 50%;
+font-size: 25px;
+box-shadow:0 8px 10px 0 rgba(0, 0, 0, 1.2);
+
+}
+
+.top-part{
+height: 160px;
+}
+
+.btn {
+padding:5px;/*important don't edit this shit*/
+margin-top: 30px
+}
+
+.bot-button:hover, .bot-a:hover {
+opacity: 0.8;
+}
+
+.tag {
+padding: 1px 2px 10px;
+font-size: 20px;
+}
+
+.status {
+box-sizing: border-box;
+border-width: 2px;
+border-radius: 50%;
+height: 15px;
+width: 15px;
+float: left;
+vertical-align: middle;
+margin: 5px;
+}
+
+.online {
+color: #42b581;
+border-color: #69c49a;
+}
+
+.idle {
+color: #faa61a;
+border-color: #fbb848;
+}
+
+.dnd {
+color: #f04747;
+border-color: #f36c6c;
+}
+
+.offline {
+color: #747f8d;
+border-color: #9099a4;
+}
+</style>
+<!-- <script>
+function hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
+}
+
+const doc = document.getElementById("someid");
+const rc = hexToRgb("#7289DA");
+$("#someid").append(`
+
+  <span class="tag" style="color: rgb(${rc.r}, ${rc.g}, ${rc.b}); background-color: rgba(${rc.r}, ${rc.g}, ${rc.b}, 0.0980392); border: 1px solid rgba(${rc.r}, ${rc.g}, ${rc.b}, 0.498039);"><center>
+    <i class="fas fa-tags"></i> Moderation
+  </center>
+  </span>`);
+
+</script> -->
+<%
+const htmlFor = {
+  "online": "Online",
+  "idle": "Idle",
+  "dnd": "DND",
+  "offline": "Offline"
+};
+%>
+<div class="row" style="margin-left: 30px;">
+  <% featuredBots.forEach(theBot => { if (!bot.users.get(theBot.id)) bot.users.get(theBot.id) = { presence: { status: "offline" }, username: theBot.name  } %>
+  <div class="collum">
+    <div class="card" style="width: 280px; height: auto; background-color: #26272b; margin: 10px; color: #ffffff;">
+      <div class="top-part">
+        <img class="card-img-top bot-card-img-top" src="<%= bot.users.get(theBot.id).displayAvatarURL({ format: 'png', size: 512 }) %>" alt="bot.png" align="left">
+        <center>
+          <a class="btn btn-primary"><%= theBot.serverCount == 0 ? "N/A" : theBot.serverCount %> Servers</a>
+          <p></p>
+          <p></p>
+          <i class="glyphicon glyphicon-menu-up"></i> <%= theBot.upvotes.toLocaleString() %>
+          <h3 class="<%= bot.users.get(theBot.id).presence.status %>">• <%= htmlFor[bot.users.get(theBot.id).presence.status] %></h3>
+        </center>
+      </div>
+        <div class="card-body" style="padding: 0px">
+          <center>
+            <p class="card-title"><%= bot.users.get(theBot.id).username %></p>
+          </center>
+          <p class="card-text"><%= theBot.shortDesc %></p>
+        </div>
+        <strong><%= theBot.tags.join(", ") %></span></strong>
+        <hr style="color: #000000">
+        <a href="#"></a><span ></span>
+        <a href="#"></a>
+    </div>
+    </div>
+  <% }); %>
+</div>
+
 
 <%- include('blocks/footer') %>

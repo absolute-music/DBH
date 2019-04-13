@@ -51,7 +51,7 @@ module.exports = (client) => {
   const dataDir = path.resolve(`${process.cwd()}${path.sep}dashboard`);
   const templateDir = path.resolve(`${dataDir}${path.sep}templates`);
   app.use("/public", express.static(path.resolve(`${dataDir}${path.sep}public`)));
-  
+
   passport.serializeUser((user, done) => {
     done(null, user);
   });
@@ -196,14 +196,16 @@ module.exports = (client) => {
       res.redirect("/");
     });
   });
-  
-  app.get("/", (req, res) => {
-    renderTemplate(res, req, "index.ejs");
+
+  app.get("/", async (req, res) => {
+    const query = new RegExp("u", "i")
+    let results = await Bots.find({ name: query });
+    renderTemplate(res, req, "index.ejs", { featuredBots: results });
   });
 
   app.get("/api/bots/:id", async (req, res) => {
-    if (typeof req.params.id !== "string") return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400 }, null, 4));
     res.setHeader("Content-Type", "application/json");
+    if (typeof req.params.id !== "string") return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400 }, null, 4));
     const data = await Bots.findOne({ id: req.params.id });;
     if (!data) return res.status(404).send(JSON.stringify({ "msg": "Not Found.", "code": 404 }, null, 4));
     const obj = {
@@ -234,8 +236,8 @@ module.exports = (client) => {
   });
 
   app.get("/api/profiles/:id", async (req, res) => {
-    if (typeof req.params.id !== "string") return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400 }, null, 4));
     res.setHeader("Content-Type", "application/json");
+    if (typeof req.params.id !== "string") return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400 }, null, 4));
     const data = await Profiles.findOne({ id: req.params.id });
     if (!data) return res.status(404).send(JSON.stringify({ "msg": "Not Found.", "code": 404 }, null, 4));
     const obj = {
@@ -252,6 +254,7 @@ module.exports = (client) => {
   });
 
   app.post("/api/stats/bot/:id", async (req, res) => {
+    res.setHeader("Content-Type", "application/json");
     if (typeof req.params.id !== "string") return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400 }, null, 4));
     if (!req.body) return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "No body was found within the request.", "errorCode": "NO_STATS_POST_BODY" }, null, 4));
     if (!req.body.serverCount) return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "No serverCount key was found within the request body.", "errorCode": "NO_STATS_POST_SERVERCOUNT" }, null, 4));
@@ -273,15 +276,24 @@ module.exports = (client) => {
   app.get("/contact", checkAuth, (req, res) => {
     renderTemplate(res, req, "contact.ejs");
   });
-  
+
   app.post("/contact", checkAuth, async (req, res) => {
-    // Handle Form Data
+    s
   });
-  
+
   app.get("/new", checkAuth, (req, res) => {
     renderTemplate(res, req, "addbot.ejs", { sucess: null, fail: null });
   });
-  
+
+  app.get("/api/search", async (req, res) => {
+    res.setHeader("Content-Type", "application/json");
+    if (!req.query.name) return res.send(JSON.stringify({ "msg": "Bad request.", "code": 400 }, null, 4));
+    const query = new RegExp(req.query.name, "i")
+    let results = await Bots.find({ name: query });
+    if (results.length < 1) return res.send(JSON.stringify({ "msg": "Not found.", "code": 404 }, null, 4));
+    res.send(JSON.stringify({ "msg": "Sucessfull request.", "code": 200, "results": results, "bot": client }, null, 4));
+  });
+
   app.post("/new", checkAuth, async (req, res) => {
     const bodyData = {
       clientID: req.body.clientID,
@@ -303,13 +315,16 @@ module.exports = (client) => {
     if (bodyData.longDesc.length < 250) return renderTemplate(res, req, "addbot.ejs", { sucess: null, fail: "Long description must be at last 250 characters long." });
     const invDetails = await fetchInviteURL(bodyData.supportServer);
     if (invDetails.valid === false) return renderTemplate(res, req, "addbot.ejs", { sucess: null, fail: "Invite code provided is invalid." });
-    
+
     const isBot = await Bots.findOne({ id: bodyData.clientID });
     if (isBot) return renderTemplate(res, req, "addbot.ejs", { sucess: null, fail: "This bot is already on list or approving queue." });
 
+    let self = await client.users.fetch(bodyData.clientID);
+    console.log(self);
     const newBot = new Bots({
       id: bodyData.clientID,
       mainOwner: req.user.id,
+      name: self.username,
       owners: bodyData.otherOwners.split(", ")[0] !== "" ? bodyData.otherOwners.split(", ") : [],
       library: bodyData.library,
       upvotes: 0,
@@ -355,6 +370,6 @@ module.exports = (client) => {
     client.channels.get("561622527919783938").send(bodyData.clientID, addEmbed);
     renderTemplate(res, req, "addbot.ejs", { sucess: "Bot has been successfully added on approving queue.", fail: null });
   });
-  
+
   client.site = app.listen(client.config.dashboard.port, null, null, () => console.log("Dashboard is up and running."));
 };
