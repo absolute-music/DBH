@@ -1,12 +1,6 @@
 <%- include('blocks/header', { bot, user, title: "Home" }) %>
 
-<%- include('blocks/intro') %>
-
-<%- include('blocks/counter') %> 
-
-<center>
-<h1 class='largetitleorwhatever'>Featured Bots</h1>
-</center>
+<h2 style="color: #fff; margin-left: 5%;"><i class="fas fa-star"></i> Featured Bots:</h2>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <style>
 h1.largetitleorwhatever {
@@ -28,11 +22,11 @@ font-size: 15px;
 padding: 0px
 }
 .card-title {
-font-size: 25px;
+font-size: 23px;
 }
 .card-text {
 color: rgb(196, 196, 196);
-font-size: 13px;
+font-size: 15px;
 padding: 10px 10px 10px 10px
 }
 
@@ -78,47 +72,8 @@ float: left;
 vertical-align: middle;
 margin: 5px;
 }
-
-.online {
-color: #42b581;
-border-color: #69c49a;
-}
-
-.idle {
-color: #faa61a;
-border-color: #fbb848;
-}
-
-.dnd {
-color: #f04747;
-border-color: #f36c6c;
-}
-
-.offline {
-color: #747f8d;
-border-color: #9099a4;
-}
 </style>
-<!-- <script>
-function hexToRgb(hex) {
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16)
-    } : null;
-}
 
-const doc = document.getElementById("someid");
-const rc = hexToRgb("#7289DA");
-$("#someid").append(`
-
-  <span class="tag" style="color: rgb(${rc.r}, ${rc.g}, ${rc.b}); background-color: rgba(${rc.r}, ${rc.g}, ${rc.b}, 0.0980392); border: 1px solid rgba(${rc.r}, ${rc.g}, ${rc.b}, 0.498039);"><center>
-    <i class="fas fa-tags"></i> Moderation
-  </center>
-  </span>`);
-
-</script> -->
 <%
 const htmlFor = {
   "online": "Online",
@@ -131,7 +86,7 @@ const htmlFor = {
 <div class="row">
   <% featuredBots.forEach(theBot => { if (!bot.users.get(theBot.id)) bot.users.get(theBot.id) = { presence: { status: "offline" }, username: theBot.name  } %>
   <div class="collum">
-    <div class="card" style="width: 250px;height: 400px; background-color: #26272b; margin: 10px; color: #ffffff;">
+    <div class="card" style="width: 270px; max-height: 450px; min-height: 350px; background-color: #26272b; margin: 10px; color: #ffffff;">
       <div class="top-part">
         <img class="card-img-top bot-card-img-top" src="<%= bot.users.get(theBot.id).displayAvatarURL({ format: 'png', size: 512 }) %>" alt="bot.png" align="left">
         <center>
@@ -151,7 +106,7 @@ const htmlFor = {
         <center>
         <div class="tag">
             <script>
-              
+
                 </script>
             <% for (var i = 0; i < theBot.tags.length; i++) {
               var tag = theBot.tags[i]

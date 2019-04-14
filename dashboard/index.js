@@ -386,5 +386,20 @@ module.exports = (client) => {
     renderTemplate(res, req, "addbot.ejs", { sucess: "Bot has been successfully added on approving queue.", fail: null });
   });
 
+  app.get("/privacy", (req, res) => {
+    renderTemplate(res, req, "privacy.ejs");
+  });
+
+  app.get("/terms", (req, res) => {
+    renderTemplate(res, req, "terms.ejs");
+  });
+
+  app.get("/license", (req, res) => {
+    renderTemplate(res, req, "license.ejs");
+  });
+  
+  app.get("*", (req, res) => renderTemplate(res, req, "404.ejs"));
+  app.post("*", (req, res) => renderTemplate(res, req, "404.ejs"));
+
   client.site = app.listen(client.config.dashboard.port, null, null, () => console.log("Dashboard is up and running."));
 };

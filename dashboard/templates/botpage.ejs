@@ -1,11 +1,10 @@
-<%- include('blocks/header', { bot, user, title: "Home" }) %>
+<%- include('blocks/header', { bot, user, title: thebot.data.name }) %>
 <!DOCTYPE html>
 <html>
 <head>
 <style>
 body{
         background: #f2f2f2;
-        font-family: 'Open Sans', sans-serif;
         background: url("https://i.imgur.com/eS4IxK3.png") center center no-repeat;
         background-size: cover;
       }
@@ -13,7 +12,6 @@ body{
         background-color: #26272b!important;
     }
 .main-section{
-	font-family: 'Abel', sans-serif;
     margin-top: 100px;
     margin-bottom:30px;
 
@@ -41,7 +39,7 @@ body{
 	letter-spacing: 2px;
 }
 .information-button{
-	margin-bottom:5px; 
+	margin-bottom:5px;
 }
 .bot-name p{
 	font-size:20px;
@@ -79,24 +77,9 @@ body{
 .about-detail .website{
 	margin-top:6px;
 }
-.contact-detail p{
+.contact-detail p {
 	color:black;
 	margin:5px;
-}
-.online {
-color: #42b581;
-}
-
-.idle {
-color: #faa61a;
-}
-
-.dnd {
-color: #f04747;
-}
-
-.offline {
-color: #747f8d;
 }
 </style>
 <%
@@ -123,7 +106,7 @@ const htmlFor = {
 	<div class="container main-section pt-20">
 		<div class="row">
 			<div class="col-lg-4 col-sm-12 col-12 text-center detail-part">
-				<div class="row image-part m-0">
+				<div class="row image-part m-0" style="background-color: #26272b; color: #fff;">
 					<div class="col-lg-12 col-sm-12 col-12 bot-img">
 						<div class="">
 							<img src="<%= bot.users.get(thebot.id).displayAvatarURL({size:512,format:"png"}) %>" class="border rounded-circle p-1">
@@ -131,8 +114,8 @@ const htmlFor = {
 					</div>
 					<div class="col-lg-12 col-sm-12 col-12 bot-name">
 						<h2><%= thebot.data.name %></h2>
-						<a class="btn btn"><span class="fa fa-angle-up"></span>  <%= thebot.data.upvotes.toLocaleString() %></a>
-                        <i class="<%= bot.users.get(thebot.id).presence.status %>">• <%= htmlFor[bot.users.get(thebot.id).presence.status] %></i>
+						<a class="btn btn"><i class="fas fa-arrow-up"></i>  <%= thebot.data.upvotes.toLocaleString() %></a>
+                        <span class="<%= bot.users.get(thebot.id).presence.status %>">• <%= htmlFor[bot.users.get(thebot.id).presence.status] %></span>
 						<p><%= thebot.data.library %></p>
 					</div>
 					<div class="col-lg-12 col-sm-12 col-12 information-button">
@@ -140,7 +123,7 @@ const htmlFor = {
 						<a href="/bot/<%= thebot.data.id %>/vote" class="btn btn-danger w-25">Vote</a>
 					</div>
 					<div class="col-lg-12 col-sm-12 col-12 bot-detail text-left p-2">
-						<p style="word-break: break-word;"><%= thebot.data.shortDesc %><p>Bot Prefix: <span><code><%= thebot.data.prefix %></code></span></p>
+						<p style="word-break: break-word; color: #fff;"><%= thebot.data.shortDesc %><p style="color: #fff;">Bot Prefix: <span><code><%= thebot.data.prefix %></code></span></p>
 
 					</div>
 					<div class="col-lg-12 col-sm-12 col-12 icon-section">
@@ -156,36 +139,37 @@ const htmlFor = {
 						<a ><i class="fa fa-tag" aria-hidden="true"></i></a>
 						<% for (var i = 0; i < thebot.data.tags.length; i++) {
 							var tag = thebot.data.tags[i]
-							%>	
+							%>
 						<a href="/tags/<%=tag%>"><%=tag%></a>
-					
+
 						<%  }; %>
 							 <p></p>
-							 <% //if(thebot.data.owner == IDK how to get the connected user id) {%>
+							 <% if(user && thebot.data.mainOwner == user.id || user && thebot.data.owners.includes(user.id)) { %>
                     <a class="btn btn-danger" href="/bot/<%= thebot.data.id %>/delete"><span class="fa fa-trash"></span> Delete</a>
                     <a class="btn btn-primary" href="/bot/<%= thebot.data.id %>/edit"><span class="fa fa-pencil"></span>Edit</a>
-</div>	 	<% // }; %>
+                <% }; %>
+</div>
 				</div>
 			</div>
 			<div class="col-lg-8 detail-part">
 				<div class="container">
           <div class="row">
 
-            <div class="col-lg-12 bg-white">   
+            <div class="col-lg-12" style="background-color: #26272b; color: #fff;">
               <div class="tab-content mt-4" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <div class="row">
-                       
+
                         <div class="col-lg-12 mt-2 about-detail">
-														<h5 class="text-primary mb-1">Developers</h5>
-														<span onclick="window.location.href ='/profiles/<%= thebot.data.mainOwner %>'" class="devloper"><kbd><%= bot.users.get(thebot.data.mainOwner).tag %> 👑</kbd></span>
+														<h5 class="text-primary mb-1">Developers:</h5>
+														<span onclick="window.location.href ='/profiles/<%= thebot.data.mainOwner %>'" class="devloper"><kbd><%= bot.users.get(thebot.data.mainOwner).tag %></kbd></span>
 														<% for (var i = 0; i < thebot.data.owners.length; i++) {
-															var owner = bot.users.get(thebot.data.owners[i]).tag
+															var owner = bot.users.get(thebot.data.owners[i]).tag || "Unknown#0000"
 														%>
 															<span onclick="window.location.href ='/profiles/<%= thebot.data.owners[i] %>'" class="devloper"><kbd><%= owner %></kbd></span>
 															<%  }; %>
-                            <h5>Description :</h5>
-                            <span style="max-width: 700px; word-break: break-word;"><code><%= thebot.data.longDesc %></code></span>
+                            <h5>Description:</h5>
+                            <span style="max-width: 700px; word-break: break-word;"><%- thebot.data.longDesc %></span>
                         </div>
                     </div>
                 </div>
@@ -199,4 +183,3 @@ const htmlFor = {
 <body>
 </html>
 <%- include('blocks/footer') %>
-

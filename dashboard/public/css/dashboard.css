@@ -231,7 +231,7 @@ body{
 }
 
 .searchButton {
-  position: absolute;  
+  position: absolute;
   right: 16px;
   width: 40px;
   height: 36px;
@@ -295,3 +295,24 @@ body{
         -o-transform: scale(1.1, 1.1);
         transform: scale(1.1, 1.1);
       }
+
+/* Online, Idle, DND, Offline Statuses */
+.online {
+  color: #42b581;
+  border-color: #69c49a;
+}
+
+.idle {
+  color: #faa61a;
+  border-color: #fbb848;
+}
+
+.dnd {
+  color: #f04747;
+  border-color: #f36c6c;
+}
+
+.offline {
+  color: #747f8d;
+  border-color: #9099a4;
+}
