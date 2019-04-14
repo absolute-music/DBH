@@ -288,6 +288,17 @@ module.exports = (client) => {
   app.get("/new", checkAuth, (req, res) => {
     renderTemplate(res, req, "addbot.ejs", { sucess: null, fail: null });
   });
+  app.get("/bot/:botID", async (req, res) => {
+    const thebot = client.users.get(req.params.botID);
+    if (!thebot) return res.redirect("/");
+    const Botsdata = await Bots.findOne({ id: thebot.id });
+    thebot.data = Botsdata;
+    renderTemplate(res, req, "/botpage.ejs", { thebot });
+  });
+  app.post("/bot/:botID", async (req, res) => {
+    const abot = client.users.get(req.params.botID);
+    if (!abot) return res.redirect("/");
+  });
 
   app.get("/api/search", async (req, res) => {
     res.setHeader("Content-Type", "application/json");
