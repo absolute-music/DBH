@@ -199,8 +199,9 @@ module.exports = (client) => {
 
   app.get("/", async (req, res) => {
     const query = new RegExp("u", "i")
-    let results = await Bots.find({ name: query });
-    renderTemplate(res, req, "index.ejs", { featuredBots: results });
+    let results = await Bots.find({ name: query,featured:true  });
+    let newbot = await Bots.find({ name: query }).sort( {'_id': -1} );
+    renderTemplate(res, req, "index.ejs", { featuredBots: results.splice(0,4),newbots: newbot });
   });
 
   app.get("/api/bots/:id", async (req, res) => {
@@ -285,6 +286,16 @@ module.exports = (client) => {
     s
   });
 
+  app.get("/top", async (req, res) => {
+    const query = new RegExp("u", "i")
+    let results = await Bots.find({ name: query }).sort([["upvotes", "descending"]]);
+    renderTemplate(res, req, "top.ejs", { featuredBots: results });
+  });
+  app.get("/certified", async (req, res) => {
+    const query = new RegExp("u", "i")
+    let results = await Bots.find({ name: query,certified:true }).sort([["upvotes", "descending"]]);
+    renderTemplate(res, req, "certified.ejs", { featuredBots: results });
+  });
   app.get("/new", checkAuth, (req, res) => {
     renderTemplate(res, req, "addbot.ejs", { sucess: null, fail: null });
   });

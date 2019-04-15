@@ -1,0 +1,144 @@
+<%- include('blocks/header', { bot, user, title: "Certified Bots" }) %>
+<div class="container1" style="margin-left: 3%; margin-right: 3%;margin-top: 5px;margin-bottom: 20px;box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2); color: #fff; background-color: #1d1e21;">
+<h2 style="color: #fff;padding-top: 20px; margin-left: 5%;"><i class="fas fa-certificate"></i> Best certified Bots:</h2>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<style>
+h1.largetitleorwhatever {
+  color: #fff;
+  letter-spacing: 0.1em;
+  font-size: 50px;
+}
+.bot-card-img-top {
+margin-top: 0px;
+border-radius: 0 10% 0% 10%;
+box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2);
+height: 150px;
+width: 150px;
+align: left;
+}
+
+h3 {
+font-size: 15px;
+padding: 0px
+}
+.card-title {
+font-size: 23px;
+}
+.card-text {
+color: rgb(196, 196, 196);
+font-size: 15px;
+padding: 10px 10px 10px 10px
+}
+
+.bot-button {
+border: 0px ;
+outline: 0px ;
+padding: 10px;
+color: white;
+background-color: #33353d;
+text-align: center;
+cursor: pointer;
+width: 50%;
+font-size: 25px;
+box-shadow:0 8px 10px 0 rgba(0, 0, 0, 1.2);
+
+}
+
+.top-part{
+height: 160px;
+}
+
+.btn {
+padding:5px;/*important don't edit this shit*/
+margin-top: 30px
+}
+
+.bot-button:hover, .bot-a:hover {
+opacity: 0.8;
+}
+
+.tag {
+padding: 1px 2px 5px;
+font-size: 18px;
+}
+
+.status {
+box-sizing: border-box;
+border-width: 2px;
+border-radius: 50%;
+height: 15px;
+width: 15px;
+float: left;
+vertical-align: middle;
+margin: 5px;
+}
+</style>
+
+<%
+const htmlFor = {
+  "online": "Online",
+  "idle": "Idle",
+  "dnd": "DND",
+  "offline": "Offline"
+};
+%>
+<div style="padding: 35px 20px 20px 35px">
+<div class="row">
+  <% featuredBots.forEach(theBot => { if (!bot.users.get(theBot.id)) bot.users.get(theBot.id) = { presence: { status: "offline" }, username: theBot.name  } %>
+  <div class="collum">
+    <div class="card" style="width: 270px; max-height: 450px; min-height: 350px; background-color: #26272b; margin: 10px; color: #ffffff; box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2);">
+      <div class="top-part">
+        <img class="card-img-top bot-card-img-top" src="<%= bot.users.get(theBot.id).displayAvatarURL({ format: 'png', size: 512 }) %>" alt="bot.png" align="left">
+        <center>
+          <a class="btn btn-primary"><%= theBot.serverCount == 0 ? "N/A" : theBot.serverCount %> Servers</a>
+          <p></p>
+          <p></p>
+          <i class="glyphicon glyphicon-menu-up"></i> <%= theBot.upvotes.toLocaleString() %>
+          <h3 class="<%= bot.users.get(theBot.id).presence.status %>">• <%= htmlFor[bot.users.get(theBot.id).presence.status] %></h3>
+        </center>
+      </div>
+        <div class="card-body" style="padding: 0px">
+          <center>
+            <p class="card-title"><%= bot.users.get(theBot.id).username %></p>
+            <% if(theBot.certified){ %>
+            <i class="fas fa-certificate" style="color:rgb(255, 187, 0); font-size: 15px; "> certified</i>
+            <%}%>
+            <% if(theBot.featured){ %>
+              <i class="fas fa-star" style="color:rgb(250, 77, 77); font-size: 15px; "> Featured</i>
+            <%}%>
+          </center>
+          <p class="card-text"><%= theBot.shortDesc %></p>
+        </div>
+        <center>
+        <div class="tag">
+            <script>
+
+                </script>
+            <% for (var i = 0; i < theBot.tags.length; i++) {
+              var tag = theBot.tags[i]
+              let label
+              const redtags = ['NSFW','Roleplay','Social','Anime','Music']
+              const bluetags = ['Moderation','Logging','Web Dashboard','Utility']
+              const graytags = ['Leveling','Statistics','Role Management']
+              const greentags = ['Fun','Game','Meme','Soundboard',]
+              if(redtags.includes(tag)) label = "danger"
+              if(bluetags.includes(tag)) label = "primary"
+              if(graytags.includes(tag)) label = "secondary"
+              if(greentags.includes(tag)) label = "success"
+              %>
+            <span onclick="window.location.href ='https://discordhouse.org/tags/<%=tag.toLowerCase()%>';" class="label label-<%=label%>"><%=tag%></span>
+            <%  }; %>
+          </div>
+     </center>
+        <span style="display: inline;">
+            <button class="bot-button" onclick="window.location.href ='bot/<%=theBot.id%>'">View
+            <button class="bot-button" onclick="window.location.href ='/bot/<%=theBot.id%>/vote'">Vote
+    </div>
+    </div>
+  <% }); %>
+</div>
+</div>
+</div>
+
+
+<%- include('blocks/footer') %>
