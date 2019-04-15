@@ -2,8 +2,9 @@
 body{
     background: #f2f2f2;
     font-family: 'Open Sans', sans-serif;
-    background: url("https://i.imgur.com/eS4IxK3.png") center center no-repeat;
-    background-size: cover;
+    background-image: url("https://cdn.discordapp.com/attachments/547315010360311819/567361980692955149/pattern.png");
+    background-repeat: repeat;
+    background-size: 150px;
   }
   .bg-primary {
     background-color: #26272b!important;
