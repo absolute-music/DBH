@@ -87,7 +87,7 @@ const htmlFor = {
 <div class="row">
   <% featuredBots.forEach(theBot => { if (!bot.users.get(theBot.id)) bot.users.get(theBot.id) = { presence: { status: "offline" }, username: theBot.name  } %>
   <div class="collum">
-    <div class="card" style="width: 270px; height: 390px; min-height: 350px; background-color: #26272b; margin: 10px; color: #ffffff; box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2);">
+    <div class="card" style="width: 270px; height: 400px; background-color: #26272b; margin: 10px; color: #ffffff; box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2);">
       <div class="top-part">
         <img class="card-img-top bot-card-img-top" src="<%= bot.users.get(theBot.id).displayAvatarURL({ format: 'png', size: 512 }) %>" alt="bot.png" align="left">
         <center>
@@ -127,7 +127,7 @@ const htmlFor = {
               if(graytags.includes(tag)) label = "default"
               if(greentags.includes(tag)) label = "success"
               %>
-            <span onclick="window.location.href ='https://discordhouse.org/tags/<%=tag.toLowerCase()%>';" class="label label-<%=label%>"><%=tag%></span>
+            <span onclick="window.location.href ='/tags/<%=tag%>';" class="label label-<%=label%>"><%=tag%></span>
             <%  }; %>
           </div>
      </center>
@@ -140,14 +140,14 @@ const htmlFor = {
 </div>
 </div>
 </div>
-<div ><center><img  onclick="window.location.href ='/contact'" style="width:640px;" src="http://goldhyips.org/images/728.gif"></center></img></div>
+<div ><center><img  onclick="window.location.href ='/contact'" style="width:728px;height:90px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div>
 <div class="container1" style="margin-left: 3%; margin-right: 3%;margin-top: 5px;margin-bottom: 20px;box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2); color: #fff; background-color: #1d1e21;">
   <h2 style="color: #fff;padding-top: 20px; margin-left: 5%;"><i class="fas fa-star"></i> Newly added Bots: (these are sorted)</h2>
   <div style="padding: 35px 20px 20px 35px">
   <div class="row">
     <% newbots.forEach(theBot => { if (!bot.users.get(theBot.id)) bot.users.get(theBot.id) = { presence: { status: "offline" }, username: theBot.name  } %>
     <div class="collum">
-      <div class="card" style="width: 270px; height: 390px; min-height: 350px; background-color: #26272b; margin: 10px; color: #ffffff; box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2);">
+      <div class="card" style="width: 270px; height: 400px; background-color: #26272b; margin: 10px; color: #ffffff; box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2);">
         <div class="top-part">
           <img class="card-img-top bot-card-img-top" src="<%= bot.users.get(theBot.id).displayAvatarURL({ format: 'png', size: 512 }) %>" alt="bot.png" align="left">
           <center>
@@ -187,7 +187,7 @@ const htmlFor = {
                 if(graytags.includes(tag)) label = "default"
                 if(greentags.includes(tag)) label = "success"
                 %>
-              <span onclick="window.location.href ='https://discordhouse.org/tags/<%=tag.toLowerCase()%>';" class="label label-<%=label%>"><%=tag%></span>
+              <span onclick="window.location.href ='/tags/<%=tag%>';" class="label label-<%=label%>"><%=tag%></span>
               <%  }; %>
             </div>
        </center>
@@ -200,5 +200,6 @@ const htmlFor = {
   </div>
   </div>
   </div>
+  <div ><center><img  onclick="window.location.href ='/contact'" style="width:728px;height:90px;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div>
 
 <%- include('blocks/footer') %>

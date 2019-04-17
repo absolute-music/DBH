@@ -1,8 +1,7 @@
-<%- include('blocks/header', { bot, user, title: "Certified Bots" }) %>
+<%- include('blocks/header', { bot, user, title: tag }) %>
 <div ><center><img  onclick="window.location.href ='/contact'" style="width:728px;height:90px;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div>
-
 <div class="container1" style="margin-left: 3%; margin-right: 3%;margin-top: 5px;margin-bottom: 20px;box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2); color: #fff; background-color: #1d1e21;">
-<h2 style="color: #fff;padding-top: 20px; margin-left: 5%;"><i class="fas fa-certificate"></i> Best certified Bots:</h2>
+<h2 style="color: #fff;padding-top: 20px; margin-left: 5%;"><i class="fas fa-tag"></i>  Bots tagged with <%=tag%></h2>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <style>
 h1.largetitleorwhatever {
@@ -86,6 +85,9 @@ const htmlFor = {
 %>
 <div style="padding: 35px 20px 20px 35px">
 <div class="row">
+  <% if (featuredBots.length == 0){%>
+    <h2 style="color: #fff;padding-top: 20px;padding-bottom: 20px; margin-left: 5%;"><i class="fas fa-walking"></i> Seems Empty here</h2>
+ <% } %>
   <% featuredBots.forEach(theBot => { if (!bot.users.get(theBot.id)) bot.users.get(theBot.id) = { presence: { status: "offline" }, username: theBot.name  } %>
   <div class="collum">
     <div class="card" style="width: 270px; height: 400px; background-color: #26272b; margin: 10px; color: #ffffff; box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2);">
@@ -103,11 +105,11 @@ const htmlFor = {
           <center>
             <p class="card-title"><%= bot.users.get(theBot.id).username %></p>
             <% if(theBot.certified){ %>
-            <i class="fas fa-certificate" style="color:rgb(255, 187, 0); font-size: 15px; "> certified</i>
-            <%}%>
-            <% if(theBot.featured){ %>
-              <i class="fas fa-star" style="color:rgb(250, 77, 77); font-size: 15px; "> Featured</i>
-            <%}%>
+              <i class="fas fa-certificate" style="color:rgb(255, 187, 0); font-size: 15px; "> certified</i>
+              <%}%>
+              <% if(theBot.featured){ %>
+                <i class="fas fa-star" style="color:rgb(250, 77, 77); font-size: 15px; "> Featured</i>
+              <%}%>
           </center>
           <p class="card-text" style="text-align:center"><%= theBot.shortDesc %></p>
         </div>
@@ -154,5 +156,4 @@ const htmlFor = {
 </div>
 
 <div ><center><img  onclick="window.location.href ='/contact'" style="width:728px;height:90px;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div>
-
 <%- include('blocks/footer') %>

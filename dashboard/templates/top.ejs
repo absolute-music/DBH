@@ -1,4 +1,6 @@
 <%- include('blocks/header', { bot, user, title: "Top" }) %>
+<div ><center><img  onclick="window.location.href ='/contact'" style="width:728px;height:90px;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div>
+
 <div class="container1" style="margin-left: 3%; margin-right: 3%;margin-top: 5px;margin-bottom: 20px;box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2); color: #fff; background-color: #1d1e21;">
 <h2 style="color: #fff;padding-top: 20px; margin-left: 5%;"><i class="fas fa-line-chart"></i> Most Voted Bots:</h2>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -86,7 +88,7 @@ const htmlFor = {
 <div class="row">
   <% featuredBots.forEach(theBot => { if (!bot.users.get(theBot.id)) bot.users.get(theBot.id) = { presence: { status: "offline" }, username: theBot.name  } %>
   <div class="collum">
-    <div class="card" style="width: 270px; max-height: 450px; min-height: 350px; background-color: #26272b; margin: 10px; color: #ffffff; box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2);">
+    <div class="card" style="width: 270px; height: 400px; background-color: #26272b; margin: 10px; color: #ffffff; box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2);">
       <div class="top-part">
         <img class="card-img-top bot-card-img-top" src="<%= bot.users.get(theBot.id).displayAvatarURL({ format: 'png', size: 512 }) %>" alt="bot.png" align="left">
         <center>
@@ -126,7 +128,7 @@ const htmlFor = {
               if(graytags.includes(tag)) label = "default"
               if(greentags.includes(tag)) label = "success"
               %>
-            <span onclick="window.location.href ='https://discordhouse.org/tags/<%=tag.toLowerCase()%>';" class="label label-<%=label%>"><%=tag%></span>
+            <span onclick="window.location.href ='/tags/<%=tag%>';" class="label label-<%=label%>"><%=tag%></span>
             <%  }; %>
           </div>
      </center>
@@ -137,8 +139,20 @@ const htmlFor = {
     </div>
   <% }); %>
 </div>
+<div class="pagination-wrapper">
+  <div class="pagination">
+    <a class="prev page-numbers" href="javascript:;">prev</a>
+    <span aria-current="page" class="page-numbers current">1</span>
+    <a class="page-numbers" href="javascript:;">2</a>
+    <a class="page-numbers" href="javascript:;">3</a>
+    <a class="page-numbers" href="javascript:;">4</a>
+    <a class="page-numbers" href="javascript:;">5</a>
+    <a class="next page-numbers" href="javascript:;">next</a>
+  </div>
+</div>
 </div>
 </div>
 
+<div ><center><img  onclick="window.location.href ='/contact'" style="width:728px;height:90px;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div>
 
 <%- include('blocks/footer') %>

@@ -285,7 +285,7 @@ module.exports = (client) => {
   });
 
   app.post("/profile/:userID",checkAuth, async (req, res) => {
-    const auser = client.users.get(req.params.botID);
+    const auser = client.users.get(req.params.userID);
     if (!auser) return res.redirect("/");
   });
 
@@ -302,12 +302,25 @@ module.exports = (client) => {
     let results = await Bots.find({ name: query }).sort([["upvotes", "descending"]]);
     renderTemplate(res, req, "top.ejs", { featuredBots: results });
   });
+
+  app.get("/new", async (req, res) => {
+    const query = new RegExp("u", "i")
+    let results = await Bots.find({ name: query }).sort( {'_id': -1} );
+    renderTemplate(res, req, "new.ejs", { featuredBots: results });
+  });
+
+  app.get("/tags/:tagname", async (req, res) => {
+    const query = new RegExp("u", "i")
+    let results = await Bots.find({ tags: req.params.tagname }).sort([["upvotes", "descending"]]);
+    renderTemplate(res, req, "tags.ejs", { tag:req.params.tagname ,featuredBots: results });
+  });
+
   app.get("/certified", async (req, res) => {
     const query = new RegExp("u", "i")
     let results = await Bots.find({ name: query,certified:true }).sort([["upvotes", "descending"]]);
     renderTemplate(res, req, "certified.ejs", { featuredBots: results });
   });
-  app.get("/new", checkAuth, (req, res) => {
+  app.get("/add", checkAuth, (req, res) => {
     renderTemplate(res, req, "addbot.ejs", { sucess: null, fail: null });
   });
   app.get("/bot/:botID", async (req, res) => {
@@ -321,7 +334,13 @@ module.exports = (client) => {
     const abot = client.users.get(req.params.botID);
     if (!abot) return res.redirect("/");
   });
-
+  app.get("/bot/:botID/vote", async (req, res) => {
+    const thebot = client.users.get(req.params.botID);
+    if (!thebot) return res.redirect("/");
+    const Botsdata = await Bots.findOne({ id: thebot.id });
+    thebot.data = Botsdata;
+    renderTemplate(res, req, "/vote.ejs", { thebot });
+  });
   app.get("/api/search", async (req, res) => {
     res.setHeader("Content-Type", "application/json");
     if (!req.query.name) return res.send(JSON.stringify({ "msg": "Bad request.", "code": 400 }, null, 4));
@@ -331,7 +350,7 @@ module.exports = (client) => {
     res.send(JSON.stringify({ "msg": "Sucessfull request.", "code": 200, "results": results, "bot": client }, null, 4));
   });
 
-  app.post("/new", checkAuth, async (req, res) => {
+  app.post("/add", checkAuth, async (req, res) => {
     const bodyData = {
       clientID: req.body.clientID,
       library: req.body.library,
