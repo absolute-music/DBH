@@ -1,10 +1,132 @@
-<section id="intro" class="section-intro">
+<style>
+.search-form {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  margin-top: 60px;
+  width: 550px;
+  height: 50px;
+  border-radius: 40px;
+  box-shadow: 10px 10px 16px rgb(12, 17, 34);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background: #fff;
+  transition: all 0.3s ease;
+}
+.search-input {
+  position: absolute;
+  top: 15px;
+  left: 38px;
+  font-size: 20px;
+  background: none;
+  color: #5a6674;
+  width: 480px;
+  height: 20px;
+  border: none;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  outline: none;
+}
+.search-input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+          appearance: none;
+}
+
+.search-button {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  height: 20px;
+  width: 20px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  outline: none !important;
+  cursor: pointer;
+}
+.search-button svg {
+  width: 20px;
+  height: 20px;
+  fill: #5a6674;
+}
+.search-button svg {
+  width: 20px;
+  height: 20px;
+  fill: #5a6674;
+}
+.hero-bkg-animated {
+  background: #2C2F33 url(https://cdn.discordapp.com/attachments/547315010360311819/567361980692955149/pattern.png) repeat 0 0;
+  background-size: 150px;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  box-sizing: border-box;
+  -webkit-animation: slide 20s linear infinite;
+}
+
+@-webkit-keyframes slide {
+    from { background-position: 0 0; }
+    to { background-position: -400px 0; }
+}
+</style>
+  <script>
+
+$(window).scroll(function(){
+    $("#intro").css("opacity", 1 - $(window).scrollTop() / 250);
+  });
+  </script>
+  
+<section  style="background-color:#2C2F33;margin-top: -20px;  box-shadow: 5px 5px 8px rgb(0, 0, 0);" id="intro" class="section-intro hero-bkg-animated">
     <div class="overlay">
         <div class="container">
         <div class="main-text">
           <h1 class="intro-title">Welcome To <span style="color: #3498DB">Discord Bot House</span></h1>
-          <p class="sub-title">Where you find discord bot idk what the fuck to write here lmao</p>
         </div>
+        <form class="search-form">
+            <input type="search" value="" placeholder="Search" class="search-input">
+            <button type="submit" class="search-button">
+              <svg class="submit-button">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
+              </svg>
+            </button>
+          </form>
+          <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" display="none">
+            <symbol id="search" viewBox="0 0 32 32">
+              <path d="M 19.5 3 C 14.26514 3 10 7.2651394 10 12.5 C 10 14.749977 10.810825 16.807458 12.125 18.4375 L 3.28125 27.28125 L 4.71875 28.71875 L 13.5625 19.875 C 15.192542 21.189175 17.250023 22 19.5 22 C 24.73486 22 29 17.73486 29 12.5 C 29 7.2651394 24.73486 3 19.5 3 z M 19.5 5 C 23.65398 5 27 8.3460198 27 12.5 C 27 16.65398 23.65398 20 19.5 20 C 15.34602 20 12 16.65398 12 12.5 C 12 8.3460198 15.34602 5 19.5 5 z" />
+            </symbol>
+          </svg>
       </div>
     </div>
-  </section>
+  <center>  <div class="tag" style="width:55%">
+      <script>
+
+          </script>
+      <% 
+      tags = ['NSFW','Roleplay','Social','Anime','Music','Moderation','Logging','Web Dashboard','Utility','Leveling','Statistics','Role Management','Fun','Game','Meme','Soundboard']
+      function shuffle(a) {
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+    tags = shuffle(tags)
+      for (var i = 0; i < tags.length; i++) {
+        var tag = tags[i]
+        let label
+        const redtags = ['NSFW','Roleplay','Social','Anime','Music']
+        const bluetags = ['Moderation','Logging','Web Dashboard','Utility']
+        const graytags = ['Leveling','Statistics','Role Management']
+        const greentags = ['Fun','Game','Meme','Soundboard']
+        if(redtags.includes(tag)) label = "danger"
+        if(bluetags.includes(tag)) label = "primary"
+        if(graytags.includes(tag)) label = "default"
+        if(greentags.includes(tag)) label = "success"
+        %>
+      <span onclick="window.location.href ='https://discordhouse.org/tags/<%=tag.toLowerCase()%>';" class="label label-<%=label%>"><%=tag%></span>
+      <%  }; %>
+    </div>
+  </center>
+</section>

@@ -274,8 +274,19 @@ module.exports = (client) => {
     });
   });
 
-  app.get("/profile", checkAuth, (req, res) => {
-    renderTemplate(res, req, "userprofile.ejs");
+  app.get("/profile/:userID", checkAuth, async (req, res) => {
+    const theuser = client.users.get(req.params.userID);
+    if (!theuser) return res.redirect("/");
+    const bots = await Bots.find({ mainOwner: theuser.id }); //here idk how to add also owners.includes(theuser.id)
+    const userData = await Profiles.findOne({ id: theuser.id });
+    theuser.data = userData;
+    theuser.bots = bots;
+    renderTemplate(res, req, "/userprofile.ejs", { theuser });
+  });
+
+  app.post("/profile/:userID",checkAuth, async (req, res) => {
+    const auser = client.users.get(req.params.botID);
+    if (!auser) return res.redirect("/");
   });
 
   app.get("/contact", checkAuth, (req, res) => {

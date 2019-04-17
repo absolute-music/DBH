@@ -58,7 +58,7 @@ opacity: 0.8;
 }
 
 .tag {
-padding: 1px 2px 5px;
+padding: 1px 2px 15px;
 font-size: 18px;
 }
 
@@ -107,7 +107,7 @@ const htmlFor = {
                 <i class="fas fa-star" style="color:rgb(250, 77, 77); font-size: 15px; "> Featured</i>
               <%}%>
           </center>
-          <p class="card-text"><%= theBot.shortDesc %></p>
+          <p class="card-text" style="text-align:center"><%= theBot.shortDesc %></p>
         </div>
         <center>
         <div class="tag">
@@ -123,7 +123,7 @@ const htmlFor = {
               const greentags = ['Fun','Game','Meme','Soundboard',]
               if(redtags.includes(tag)) label = "danger"
               if(bluetags.includes(tag)) label = "primary"
-              if(graytags.includes(tag)) label = "secondary"
+              if(graytags.includes(tag)) label = "default"
               if(greentags.includes(tag)) label = "success"
               %>
             <span onclick="window.location.href ='https://discordhouse.org/tags/<%=tag.toLowerCase()%>';" class="label label-<%=label%>"><%=tag%></span>

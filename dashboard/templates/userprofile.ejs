@@ -1,22 +1,7 @@
-<%- include('blocks/header', { bot, user, title: "Home" }) %>
+<%- include('blocks/header', { bot, user, title: theuser.name }) %>
 
 
 
 <%- include("blocks/profile") %>
-<div style="padding:10px 100px 20px 100px"> <!--this is important you can use it on the main page too-->>
-    <div class="row">
-        <div class="column">
-            <%- include("blocks/botcard") %>
-        </div>
-        <div class="column">
-            <%- include("blocks/botcard") %>
-        </div>
-        <div class="column">
-            <%- include("blocks/botcard") %>
-        </div>
-        <div class="column">
-            <%- include("blocks/botcard") %>
-        </div>
-      </div>
-</div>
+
 <%- include('blocks/footer') %>

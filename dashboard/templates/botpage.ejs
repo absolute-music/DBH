@@ -158,11 +158,11 @@ const htmlFor = {
 
                         <div class="col-lg-12 mt-2 about-detail">
 														<h5 class="text-primary mb-1">Developers:</h5>
-														<span onclick="window.location.href ='/profiles/<%= thebot.data.mainOwner %>'" class="devloper"><kbd><%= bot.users.get(thebot.data.mainOwner).tag %></kbd></span>
+														<span onclick="window.location.href ='/profile/<%= thebot.data.mainOwner %>'" class="devloper"><kbd><%= bot.users.get(thebot.data.mainOwner).tag %></kbd></span>
 														<% for (var i = 0; i < thebot.data.owners.length; i++) {
 															var owner = bot.users.get(thebot.data.owners[i]).tag || "Unknown#0000"
 														%>
-															<span onclick="window.location.href ='/profiles/<%= thebot.data.owners[i] %>'" class="devloper"><kbd><%= owner %></kbd></span>
+															<span onclick="window.location.href ='/profile/<%= thebot.data.owners[i] %>'" class="devloper"><kbd><%= owner %></kbd></span>
 															<%  }; %>
                             <h5>Description:</h5>
                             <span style="max-width: 700px; word-break: break-word;"><%- thebot.data.longDesc %></span>

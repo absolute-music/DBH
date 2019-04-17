@@ -6,6 +6,7 @@
   .profile-card-stats {
     height: 75px;
     padding: 10px 0px;
+    font-size: 20px;
     text-align: center;
     overflow: hidden;
   }
@@ -14,7 +15,7 @@
     width: 33.3333%;
   }
   .profile-stat:after {
-    color: #474d77d1;
+    color: #ffffff;
   }
   .bots::after {
     content: "bots";
@@ -22,13 +23,7 @@
   .likes::after {
     content: "likes";
   }
-  /*.h6, h6 {
-      font-size: .75rem !important;
-      font-weight: 500;
-      font-family: Roboto,Helvetica,Arial,sans-serif;
-      line-height: 1.5em;
-      text-transform: uppercase;
-  }*/
+ 
   .rela-block {
     display: block;
     position: relative;
@@ -84,13 +79,13 @@
   
   .main-raised {
       border-radius: 6px;
-      box-shadow: 0 16px 24px 2px rgba(0,0,0,.14), 0 6px 30px 5px rgba(0,0,0,.12), 0 8px 10px -5px rgba(0,0,0,.2);
+      box-shadow: 0 16px 24px 2px rgba(0,0,0,), 0 6px 30px 5px rgba(0,0,0), 0 8px 10px -5px rgba(0,0,0);
       margin: -60px 100px 30px 100px
       
   }
   
   .main {
-      background: #FFF;
+      background: #26272b;
       position: relative;
       z-index: 3;
   }
@@ -111,7 +106,8 @@
   }
   
   .img-raised {
-      box-shadow: 0 5px 15px -8px rgba(0,0,0,.24), 0 8px 10px -5px rgba(0,0,0,.2);
+      box-shadow: 0 5px 15px -8px rgb(24, 24, 24), 0 8px 10px -5px rgba(0,0,0);
+      background-color: #212529;
   }
   
   .rounded-circle {
@@ -127,7 +123,7 @@
       margin-top: 30px;
       margin-bottom: 25px;
       min-height: 32px;
-      color: #3C4858;
+      color: #fff;
       font-weight: 700;
       font-family: "Roboto Slab","Times New Roman",serif;
   }
@@ -135,7 +131,7 @@
   .profile-page .description {
       margin: 1.071rem auto 0;
       max-width: 600px;
-      color: #999;
+      color: #ffffcc;
       font-weight: 300;
       padding: 0px 0px 10px
   }
@@ -148,22 +144,55 @@
   .profile-page .profile-tabs {
       margin-top: 4.284rem;
   }
-  
+  #myModal { 
+    height:500px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
   .tab-content>.active {
       display: block;
   }
   
-  
   </style>
   
-
+  <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog modal-lg" >
+        <div class="modal-content"style="background-color: #26272b">
+          <p></p>
+          <h1 style="color:#ffffff;font-size: 25px">Edit profile</h1>
+            <div class="modal-header" style="padding:0px;margin: 0px">
+                <h1 style="color:#ffffff;font-size: 25px">Edit profile</h1>
+            </div>
+          <div class="modal-body">
+              <form>
+                <h2 style="color: #ffffff;font-size: 25px">Backgound url :</h2>
+                  <div class="md-form">
+                    <input style="background-color: #26272b" type="text" class="form-control" id="background-url">
+                  </div>
+                  <h2 style="color: #ffffff;font-size: 25px">Devloper bio :</h2>
+                  <div class="md-form">
+                    <textarea style="background-color: #26272b" type="text" id="bio-text" class="form-control md-textarea" rows="3"></textarea>
+                  </div>
+                </form>
+          </div>
+              <span style="display: inline;">
+                  <button class="bot-button" onclick="">Save
+                  <button class="bot-button" data-dismiss="modal" >Close
+        </div>
+      </div>
+    </div>
+  </div>
   
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script>
 
-  
+      $(window).scroll(function(){
+          $("#bgd").css("opacity", 1 - $(window).scrollTop() / 1000);
+        });
+      </script>    
   <div class="profile-page">
-   
-   <div class="page-header" data-parallax="true" style="margin:-20px 0 20px; background-image:url('https://i.ytimg.com/vi/hF_LjTUvP-U/maxresdefault.jpg');"></div>
+      <% if(theuser.data.bg){const bgd = theuser.data.bg}else{ bgd='https://designroast.org/wp-content/uploads/2015/08/is-web-design-going-out-of-style.jpg'}%>
+   <div id="bgd" class="page-header" data-parallax="true" style='margin:-20px 0 20px; background-image:url("<%= bgd %>");'></div>
       <div class="main main-raised">
       <div class="profile-content">
               <div class="container">
@@ -171,29 +200,186 @@
                     <div class="col-md-6 ml-auto mr-auto">
                        <div class="profile">
                             <div class="avatar" style="height:80px;">
-                                <img src="https://images.discordapp.net/avatars/538855659714641960/8f0563b48c69696692669af133b544c5.png?size=512" alt="Circle Image" class="img-raised rounded-circle img-fluid">
+                                <img src='<%= bot.users.get(theuser.id).displayAvatarURL({size:512})%>' alt="<%= theuser.username %> image" class="img-raised rounded-circle img-fluid">
                             </div>
                             <div class="name">
-                                <h2 class="title"><%= user.username %></h2>
-                  <h4>Developer</h4>
+                                <h2 class="title"><%= theuser.username %></h2>
+                       <% if(theuser.data.certifiedDev) {%>         
+                        <h4 style="color:white">Certified Developer</h4>
+                        <% }else{%>
+                  <h4 style="color:white">Developer</h4>
+                  <%}%>
                             </div>
                               <div class="rela-block profile-card-stats">
-              <div class="floated profile-stat bots" id="num_bots">4
+              <div class="floated profile-stat bots" style="color:white" id="num_bots"><%=theuser.bots.length%>       
                   <br>
               </div>
-              <div class="floated profile-stat likes" id="num_likes">0
+              <div  style="color:white "class="floated profile-stat likes" id="num_likes"><%=0%>
                   <br>
               </div>
-              <a href="#" class="btn-primary-outline btn-lg">Like
+              <a href="#" style="color:white" class="btn-Dark btn-lg" ><i class="fa fa-thumbs-o-up"></i>
           </a>
               </div>
                         </div>
                     </div>
                   </div>
                   <div class="description text-center">
-                      <p>this is some random text here this is some random text here this is some random text here this is some random text here this is some random text here this is some random text here this is some random text here </p>
+                      <p><%=theuser.data.bio%></p>
                   </div>
-          
+                  <% if(user.id == theuser.id){%>
+                  <center>
+                      <p><button data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-lg" ><i class="fa fa-pencil" style="color:white;"> edit profile</i></button></p>
+                </center>
+              <%}%>
     </div>
   </div> 
 </div></div>
+<div class="container1" style="margin-left: 3%; margin-right: 3%;margin-top: 5px;margin-bottom: 20px;box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2); color: #fff; background-color: #1d1e21;">
+    <%
+    const htmlFor = {
+      "online": "Online",
+      "idle": "Idle",
+      "dnd": "DND",
+      "offline": "Offline"
+    };
+    %>
+<%if (theuser.bots.length == 0) {%>
+    <div><center>
+      <p></p>
+<p style="font-size: 25px; padding: 10px">this user has no bots yet</p>
+<p></p>
+</center>   
+</div>
+<%} else {%>
+  <div style="padding: 35px 20px 20px 35px">
+      <div class="row">
+        <% theuser.bots.forEach(theBot => { if (!bot.users.get(theBot.id)) bot.users.get(theBot.id) = { presence: { status: "offline" }, username: theBot.name  } %>
+        <div class="collum">
+          <div class="card" style="width: 270px; height: 390px; min-height: 350px; background-color: #26272b; margin: 10px; color: #ffffff; box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2);">
+            <div class="top-part">
+              <img class="card-img-top bot-card-img-top" src="<%= bot.users.get(theBot.id).displayAvatarURL({ format: 'png', size: 512 }) %>" alt="bot.png" align="left">
+              <center>
+                <a class="btn btn-primary"><%= theBot.serverCount == 0 ? "N/A" : theBot.serverCount %> Servers</a>
+                <p></p>
+                <p></p>
+                <i class="glyphicon glyphicon-menu-up"></i> <%= theBot.upvotes.toLocaleString() %>
+                <h3 class="<%= bot.users.get(theBot.id).presence.status %>">• <%= htmlFor[bot.users.get(theBot.id).presence.status] %></h3>
+              </center>
+            </div>
+              <div class="card-body" style="padding: 0px">
+                <center>
+                  <p class="card-title"><%= bot.users.get(theBot.id).username %></p>
+                  <% if(theBot.certified){ %>
+                    <i class="fas fa-certificate" style="color:rgb(255, 187, 0); font-size: 15px; "> certified</i>
+                    <%}%>
+                    <% if(theBot.featured){ %>
+                      <i class="fas fa-star" style="color:rgb(250, 77, 77); font-size: 15px; "> Featured</i>
+                    <%}%>
+                </center>
+                <p class="card-text" style="text-align:center"><%= theBot.shortDesc %></p>
+              </div>
+              <center>
+              <div class="tag">
+                  <script>
+      
+                      </script>
+                  <% for (var i = 0; i < theBot.tags.length; i++) {
+                    var tag = theBot.tags[i]
+                    let label
+                    const redtags = ['NSFW','Roleplay','Social','Anime','Music']
+                    const bluetags = ['Moderation','Logging','Web Dashboard','Utility']
+                    const graytags = ['Leveling','Statistics','Role Management']
+                    const greentags = ['Fun','Game','Meme','Soundboard',]
+                    if(redtags.includes(tag)) label = "danger"
+                    if(bluetags.includes(tag)) label = "primary"
+                    if(graytags.includes(tag)) label = "secondary"
+                    if(greentags.includes(tag)) label = "success"
+                    %>
+                  <span onclick="window.location.href ='https://discordhouse.org/tags/<%=tag.toLowerCase()%>';" class="label label-<%=label%>"><%=tag%></span>
+                  <%  }; %>
+                </div>
+           </center>
+              <span style="display: inline;">
+                  <button class="bot-button" onclick="window.location.href ='bot/<%=theBot.id%>'">View
+                  <button class="bot-button" onclick="window.location.href ='/bot/<%=theBot.id%>/vote'">Vote
+          </div>
+          </div>
+        <% }); %>
+      </div>
+      </div>
+      </div>
+<%}%>
+</div>
+<style>
+    h1.largetitleorwhatever {
+      color: #fff;
+      letter-spacing: 0.1em;
+      font-size: 50px;
+    }
+    .bot-card-img-top {
+    margin-top: 0px;
+    border-radius: 0 10% 0% 10%;
+    box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2);
+    height: 150px;
+    width: 150px;
+    align: left;
+    }
+    
+    h3 {
+    font-size: 15px;
+    padding: 0px
+    }
+    .card-title {
+    font-size: 23px;
+    }
+    .card-text {
+    color: rgb(196, 196, 196);
+    font-size: 15px;
+    padding: 10px 10px 10px 10px
+    }
+    
+    .bot-button {
+    border: 0px ;
+    outline: 0px ;
+    padding: 10px;
+    color: white;
+    background-color: #33353d;
+    text-align: center;
+    cursor: pointer;
+    width: 50%;
+    font-size: 25px;
+    box-shadow:0 8px 10px 0 rgba(0, 0, 0, 1.2);
+    
+    }
+    
+    .top-part{
+    height: 160px;
+    }
+    
+    .btn {
+    padding:5px;/*important don't edit this shit*/
+    margin-top: 30px
+    }
+    
+    .bot-button:hover, .bot-a:hover {
+    opacity: 0.8;
+    }
+    
+    .tag {
+    padding: 1px 2px 15px;
+    font-size: 18px;
+    }
+    
+    .status {
+    box-sizing: border-box;
+    border-width: 2px;
+    border-radius: 50%;
+    height: 15px;
+    width: 15px;
+    float: left;
+    vertical-align: middle;
+    margin: 5px;
+    }
+    </style>
+    
+   
