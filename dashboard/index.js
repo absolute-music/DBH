@@ -330,6 +330,13 @@ module.exports = (client) => {
     thebot.data = Botsdata;
     renderTemplate(res, req, "/botpage.ejs", { thebot });
   });
+  app.get("/widget/:botID", async (req, res) => {
+    const thebot = client.users.get(req.params.botID);
+    if (!thebot) return res.redirect("/");
+    const Botsdata = await Bots.findOne({ id: thebot.id });
+    thebot.data = Botsdata;
+    renderTemplate(res, req, "/widget.ejs", { thebot });
+  });
   app.post("/bot/:botID", async (req, res) => {
     const abot = client.users.get(req.params.botID);
     if (!abot) return res.redirect("/");
