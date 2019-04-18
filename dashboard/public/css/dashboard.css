@@ -392,3 +392,220 @@ body{
     content: none;
   }
 }
+
+.bg-primary {
+        background-color: #26272b!important;
+    }
+.main-section{
+    margin-top: 100px;
+    margin-bottom:30px;
+
+}
+.detail-part{
+    margin-bottom: 30px;
+}
+.image-part{
+	background-color: #fff;
+    box-shadow:10px 10px 5px black;
+
+}
+.image-part .bot-img img{
+	width:50%;
+    margin-top:30px;
+
+}
+.devloper {
+	cursor: pointer;
+}
+.bot-name h2{
+	margin-top:10px;
+	font-size:22px;
+	font-weight: bold;
+	letter-spacing: 2px;
+}
+.information-button{
+	margin-bottom:5px;
+}
+.bot-name p{
+	font-size:20px;
+}
+.bot-detail p{
+	color:black;
+	padding-left:30px;
+	margin:5px;
+}
+.icon-section{
+	margin:5px 0px;
+	padding-bottom:10px;
+}
+.icon-section i{
+	margin:0px 5px;
+	background-color:#d2d2d2;
+	color:black;
+	border-radius: 50%;
+	height:25px;
+	width: 25px;
+	padding-top:4px;
+}
+.bot-detail span{
+	color:#b2b2b2;
+}
+.tab-head{
+	padding: 10px;
+}
+.tab-content{
+	padding-bottom: 10px;
+	box-shadow:10px 10px 5px black;
+}
+.about-detail h5{
+	margin-top: 10px;
+}
+.about-detail .website{
+	margin-top:6px;
+}
+.contact-detail p {
+	color:black;
+	margin:5px;
+}
+
+.search-form {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  margin-top: 60px;
+  width: 80%!important;
+  height: 50px;
+  border-radius: 40px;
+  box-shadow: 10px 10px 16px rgb(12, 17, 34);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background: #fff;
+  transition: all 0.3s ease;
+}
+.search-input {
+  position: absolute;
+  top: 15px;
+  left: 38px;
+  font-size: 20px;
+  background: none;
+  color: #5a6674;
+  width: 480px;
+  height: 20px;
+  border: none;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  outline: none;
+}
+.search-input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+          appearance: none;
+}
+
+.search-button {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  height: 20px;
+  width: 20px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  outline: none !important;
+  cursor: pointer;
+}
+.search-button svg {
+  width: 20px;
+  height: 20px;
+  fill: #5a6674;
+}
+.search-button svg {
+  width: 20px;
+  height: 20px;
+  fill: #5a6674;
+}
+.hero-bkg-animated {
+  background: #2C2F33 url(https://cdn.discordapp.com/attachments/547315010360311819/567361980692955149/pattern.png) repeat 0 0;
+  background-size: 150px;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  box-sizing: border-box;
+  -webkit-animation: slide 20s linear infinite;
+}
+
+ @-webkit-keyframes slide {
+    from { background-position: 0 0; }
+    to { background-position: -400px 0; }
+}
+
+h1.largetitleorwhatever {
+  color: #fff;
+  letter-spacing: 0.1em;
+  font-size: 50px;
+}
+.bot-card-img-top {
+margin-top: 0px;
+border-radius: 0 10% 0% 10%;
+box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2);
+height: 150px;
+width: 150px;
+align: left;
+}
+
+h3 {
+font-size: 15px;
+padding: 0px
+}
+.card-title {
+font-size: 23px;
+}
+.card-text {
+color: rgb(196, 196, 196);
+font-size: 15px;
+padding: 10px 10px 10px 10px
+}
+
+.bot-button {
+border: 0px ;
+outline: 0px ;
+padding: 10px;
+color: white;
+background-color: #33353d;
+text-align: center;
+cursor: pointer;
+width: 50%;
+font-size: 25px;
+box-shadow:0 8px 10px 0 rgba(0, 0, 0, 1.2);
+
+}
+
+.top-part{
+height: 160px;
+}
+
+.btn {
+padding:5px;
+margin-top: 30px
+}
+
+.bot-button:hover, .bot-a:hover {
+opacity: 0.8;
+}
+
+.tag {
+padding: 1px 2px 15px;
+font-size: 18px;
+}
+
+.status {
+box-sizing: border-box;
+border-width: 2px;
+border-radius: 50%;
+height: 15px;
+width: 15px;
+float: left;
+vertical-align: middle;
+margin: 5px;
+}
