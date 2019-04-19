@@ -16,6 +16,7 @@ const Profiles = require("../models/profile");
 const Bots = require("../models/bots");
 const config = require("../config");
 const mongoose = require("mongoose");
+const rateLimit = require("express-rate-limit");
 
 mongoose.connect(config.dbUrl, { useNewUrlParser: true });
 
@@ -108,6 +109,12 @@ module.exports = (client) => {
     saveUninitialized: false,
   }));
 
+  const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 75
+  });
+
+  app.use(limiter);
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(helmet());
@@ -198,15 +205,15 @@ module.exports = (client) => {
   });
 
   app.get("/", async (req, res) => {
-    let results = await Bots.find({ featured: true  });
-    let newbot = await Bots.find().sort({ "_id": -1 });
+    let results = await Bots.find({ featured: true, approved: true  });
+    let newbot = await Bots.find({ approved: true }).sort({ "_id": -1 });
     renderTemplate(res, req, "index.ejs", { featuredBots: results.splice(0, 4) ,newbots: newbot });
   });
 
   app.get("/api/bots/:id", async (req, res) => {
     res.setHeader("Content-Type", "application/json");
     if (typeof req.params.id !== "string") return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400 }, null, 4));
-    const data = await Bots.findOne({ id: req.params.id });;
+    const data = await Bots.findOne({ id: req.params.id, approved: true });;
     if (!data) return res.status(404).send(JSON.stringify({ "msg": "Not Found.", "code": 404 }, null, 4));
     const obj = {
       "msg": "Sucessfull request.",
@@ -238,7 +245,7 @@ module.exports = (client) => {
   app.get("/api/profiles/:id", async (req, res) => {
     res.setHeader("Content-Type", "application/json");
     if (typeof req.params.id !== "string") return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400 }, null, 4));
-    const data = await Profiles.findOne({ id: req.params.id });
+    const data = await Profiles.findOne({ id: req.params.id, });
     if (!data) return res.status(404).send(JSON.stringify({ "msg": "Not Found.", "code": 404 }, null, 4));
     const obj = {
       "msg": "Sucessfull request.",
@@ -262,7 +269,7 @@ module.exports = (client) => {
     if (isNaN(parseInt(req.body.serverCount))) return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "serverCount must be a number.", "errorCode": "STATS_POST_INVALID_SERVERCOUNT" }, null, 4));
     if (typeof req.body.authorization !== "string") return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "authorization must be a string.", "errorCode": "STATS_POST_INVALID_AUTHORIZATION" }, null, 4));
     if (req.body.shardCount && isNaN(parseInt(req.body.shardCount))) return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "shardCount must be a number.", "errorCode": "STATS_POST_INVALID_SHARDCOUNT" }, null, 4));
-    Bots.findOne({ id: req.params.id }, async (err, itself) => {
+    Bots.findOne({ id: req.params.id, approved: true }, async (err, itself) => {
       if (err) console.log(err);
       if (!itself) return res.status(404).send(JSON.stringify({ "msg": "Not Found.", "code": 404 }, null, 4));
       if (req.body.authorization !== itself.token) return res.status(401).send(JSON.stringify({ "msg": "Unauthorized.", "code": 401, "error": "Invalid authorization token was provided for this bot." }, null, 4));
@@ -276,16 +283,11 @@ module.exports = (client) => {
   app.get("/profile/:userID", checkAuth, async (req, res) => {
     const theuser = client.users.get(req.params.userID);
     if (!theuser) return res.redirect("/");
-    const bots = await Bots.find({ mainOwner: theuser.id }); //here idk how to add also owners.includes(theuser.id)
+    const bots = await Bots.find({ mainOwner: theuser.id, approved: true });
     const userData = await Profiles.findOne({ id: theuser.id });
     theuser.data = userData;
     theuser.bots = bots;
     renderTemplate(res, req, "/userprofile.ejs", { theuser });
-  });
-
-  app.post("/profile/:userID",checkAuth, async (req, res) => {
-    const auser = client.users.get(req.params.userID);
-    if (!auser) return res.redirect("/");
   });
 
   app.get("/contact", checkAuth, (req, res) => {

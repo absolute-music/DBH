@@ -3,6 +3,11 @@ const client = new Discord.Client();
 const fs = require("fs");
 client.config = require("./config.js");
 client.commands = new Discord.Collection();
+const config = require("./config");
+const mongoose = require("mongoose");
+const bots = require("./models/bots.js");
+
+mongoose.connect(config.dbUrl, { useNewUrlParser: true });
 
 fs.readdir("./events/", (err, files) => {
     if (err) return console.error(err);
@@ -21,12 +26,17 @@ fs.readdir("./commands/", (err, files) => {
       console.log("No commands we're found!!!");
       return;
     }
-  
+
     jsfile.forEach((f, i) => {
       let props = require(`./commands/${f}`);
       console.log(`Command Loaded: ${f.split(".")[0]}`);
       client.commands.set(props.help.name, props);
     });
+});
+
+client.on("updatePresence", async () => {
+  const totalBots = await bots.countDocuments({ approved: true });
+  await client.user.setActivity(`${totalBots} Bots On List`, { type: "WATCHING" });
 });
 
 client.login(client.config.token);
