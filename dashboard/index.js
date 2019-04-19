@@ -198,10 +198,9 @@ module.exports = (client) => {
   });
 
   app.get("/", async (req, res) => {
-    const query = new RegExp("u", "i")
-    let results = await Bots.find({ name: query,featured:true  });
-    let newbot = await Bots.find({ name: query }).sort( {'_id': -1} );
-    renderTemplate(res, req, "index.ejs", { featuredBots: results.splice(0,4),newbots: newbot });
+    let results = await Bots.find({ featured: true  });
+    let newbot = await Bots.find().sort({ "_id": -1 });
+    renderTemplate(res, req, "index.ejs", { featuredBots: results.splice(0, 4) ,newbots: newbot });
   });
 
   app.get("/api/bots/:id", async (req, res) => {
@@ -310,14 +309,13 @@ module.exports = (client) => {
   });
 
   app.get("/tags/:tagname", async (req, res) => {
-    const query = new RegExp("u", "i")
     let results = await Bots.find({ tags: req.params.tagname }).sort([["upvotes", "descending"]]);
     renderTemplate(res, req, "tags.ejs", { tag:req.params.tagname ,featuredBots: results });
   });
 
   app.get("/certified", async (req, res) => {
     const query = new RegExp("u", "i")
-    let results = await Bots.find({ name: query,certified:true }).sort([["upvotes", "descending"]]);
+    let results = await Bots.find({ name: query ,certified:true }).sort([["upvotes", "descending"]]);
     renderTemplate(res, req, "certified.ejs", { featuredBots: results });
   });
   app.get("/add", checkAuth, (req, res) => {
@@ -328,15 +326,9 @@ module.exports = (client) => {
     if (!thebot) return res.redirect("/");
     const Botsdata = await Bots.findOne({ id: thebot.id });
     thebot.data = Botsdata;
-    renderTemplate(res, req, "/botpage.ejs", { thebot });
+    renderTemplate(res, req, "botpage.ejs", { thebot });
   });
-  app.get("/widget/:botID", async (req, res) => {
-    const thebot = client.users.get(req.params.botID);
-    if (!thebot) return res.redirect("/");
-    const Botsdata = await Bots.findOne({ id: thebot.id });
-    thebot.data = Botsdata;
-    renderTemplate(res, req, "/widget.ejs", { thebot });
-  });
+
   app.post("/bot/:botID", async (req, res) => {
     const abot = client.users.get(req.params.botID);
     if (!abot) return res.redirect("/");
@@ -346,7 +338,7 @@ module.exports = (client) => {
     if (!thebot) return res.redirect("/");
     const Botsdata = await Bots.findOne({ id: thebot.id });
     thebot.data = Botsdata;
-    renderTemplate(res, req, "/vote.ejs", { thebot });
+    renderTemplate(res, req, "vote.ejs", { thebot });
   });
   app.get("/api/search", async (req, res) => {
     res.setHeader("Content-Type", "application/json");
@@ -445,7 +437,7 @@ module.exports = (client) => {
   app.get("/license", (req, res) => {
     renderTemplate(res, req, "license.ejs");
   });
-  
+
   app.get("*", (req, res) => renderTemplate(res, req, "404.ejs"));
   app.post("*", (req, res) => renderTemplate(res, req, "404.ejs"));
 
