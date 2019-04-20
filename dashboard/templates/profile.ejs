@@ -1,0 +1,71 @@
+<%- include('blocks/header', { bot, user, title: `${discordUser.username}'s Profile` }) %>
+<script>
+  $(window).scroll(function(){
+    $("#bgd").css("opacity", 1 - $(window).scrollTop() / 1000);
+  });
+</script>
+
+  <div class="profile-page">
+   <div id="bgd" class="page-header section-intro profile-bkg hero-bkg-animated" data-parallax="true" style='margin:-20px 0 20px; background-image: url("<%= profile.bg || `https://cdn.discordapp.com/attachments/558283306500751371/568944922304970753/Yk5mBUSsvyAAAAAElFTkSuQmCC.png` %>") repeat;'></div>
+      <div class="main main-raised main-bkg" >
+      <div  style="border-radius: 5%;">
+              <div style="border-radius: 5%;">
+                  <div class="row" style="border-radius: 5%;">
+                    <div class="col-md-6 ml-auto mr-auto">
+                       <div class="profile">
+                            <div class="avatar" style="height:80px;">
+                                <img src='<%= bot.users.get(discordUser.id).displayAvatarURL({ size:512 }); %>' alt="Unknown Image" class="img-raised rounded-circle img-fluid">
+                            </div>
+                            <div class="name">
+                                <h2 class="title"><%= discordUser.username %></h2>
+                       <% if (profile.certifiedDev) {%>
+                         <h4 style="color:white">Certified Developer</h4>
+                       <% } else {%>
+                  <h4 style="color:white">Developer</h4>
+                  <% }  %>
+                            </div>
+                              <div class="rela-block profile-card-stats">
+              <div class="floated profile-stat bots" style="color:white" id="num_bots"><%= bots.length %>
+                  <br>
+              </div>
+              <div  style="color:white "class="floated profile-stat likes" id="num_likes"><%= 0 %>
+              </div>
+              <a href="#" style="color:white" class="btn-Dark btn-lg" ><i class="fa fa-thumbs-o-up"></i>
+          </a>
+              </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="description text-center" >
+                      <p style="font-size:20px"><%= profile.bio %></p>
+                  </div>
+                  <% if (user.id == discordUser.id){%>
+
+                 <% } %>
+    </div>
+  </div>
+</div></div>
+<div class="container1 main-bkg" style="margin-left: 3%; margin-right: 3%;margin-top: 5px;margin-bottom: 20px;box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2); color: #fff; background-color: #1d1e21;">
+
+<% if (bots.length == 0) { %>
+    <div><center>
+      <p></p>
+<p style="font-size: 25px; padding: 10px">This user hasn't listed any bots yet.</p>
+<p></p>
+</center>
+</div>
+<%} else {%>
+  <div style="padding: 35px 20px 20px 35px">
+      <div class="row">
+        <% bots.forEach(theBot => { if (!bot.users.get(theBot.id)) bot.users.get(theBot.id) = { presence: { status: "offline" }, username: theBot.name  } %>
+          <%- include("blocks/card.ejs", { theBot, bot }); %>
+        <% }); %>
+      </div>
+      </div>
+      </div>
+<%}%>
+</div>
+
+
+<!--<div ><center><img  onclick="window.location.href ='/contact'" style="width:728px;height:90px;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div>-->
+<%- include('blocks/footer') %>

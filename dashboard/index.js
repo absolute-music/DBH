@@ -294,13 +294,12 @@ module.exports = (client) => {
   });
 
   app.get("/profile/:userID", checkAuth, async (req, res) => {
-    const theuser = client.users.get(req.params.userID);
-    if (!theuser) return res.redirect("/");
-    const bots = await Bots.find({ mainOwner: theuser.id, approved: true });
-    const userData = await Profiles.findOne({ id: theuser.id });
-    theuser.data = userData;
-    theuser.bots = bots;
-    renderTemplate(res, req, "/userprofile.ejs", { theuser });
+    const discordUser = client.users.get(req.params.userID);
+    if (!discordUser) return res.redirect("/");
+    const bots = await Bots.find({ mainOwner: discordUser.id, approved: true });
+    var userData = await Profiles.findOne({ id: discordUser.id });
+    if (!userData) userData = { bg: null, bio: "I'm a very misteryious person.", certifiedDev: null, mod: null, admin: null };
+    renderTemplate(res, req, "/profile.ejs", { profile: userData, bots, discordUser });
   });
 
   app.get("/contact", checkAuth, (req, res) => {
