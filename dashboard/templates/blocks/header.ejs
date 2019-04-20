@@ -34,7 +34,7 @@
       <script src="https://discordbots.org/lib/codemirror/codemirror.js"></script>
       <script src="https://discordbots.org/lib/codemirror/markdown.js"></script>
       <script src="https://discordbots.org/lib/codemirror/xml.js"></script>
-      
+
       <!-- CSS Stylesheets -->
       <link rel="stylesheet" href="/public/css/dashboard.css">
 
@@ -55,7 +55,7 @@
                         <li class="nav-item active"><a class="nav-link" href="/top"><i class="fas fa-list"></i> Top</a></li>
                         <li class="nav-item active"><a class="nav-link" href="/certified"><i class="fas fa-award"></i> Certified</a></li>
                         <li class="nav-item active"><a class="nav-link" href="/"><i class="fas fa-code"></i> Api</a></li>
-                        <li class="nav-item active"><a class="nav-link" href="/discord"><i class="fab fa-discord"></i> Join Discord</a></li>
+                      <% if (!user || user && !bot.guilds.get("560865387206672384").members.get(user.id)) { %>  <li class="nav-item active"><a class="nav-link" href="/discord"><i class="fab fa-discord"></i> Join Discord</a></li><% } %>
                       <% if (user) { %>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= user.username %></a>
@@ -78,7 +78,7 @@
                         <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" required>Search</button>
                       </form>-->
                   </ul>
-                  
+
                     </div>
                   </nav>
                   </body>

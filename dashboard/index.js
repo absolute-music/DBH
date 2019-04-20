@@ -74,6 +74,19 @@ module.exports = (client) => {
     }
   };
 
+  const getClientIp = (req) => {
+    var ipAddress = req.connection.remoteAddress;
+    if (!ipAddress) {
+      return '';
+    }
+
+    if (ipAddress.substr(0, 7) == "::ffff:") {
+      ipAddress = ipAddress.substr(7)
+    }
+
+    return ipAddress;
+  };
+
   const fetchInviteURL = async (invite) => {
     try {
       const inv = await client.fetchInvite(invite);
@@ -295,7 +308,19 @@ module.exports = (client) => {
   });
 
   app.post("/contact", checkAuth, async (req, res) => {
-    s
+    if (!req.body.message) return res.redirect("/contact");
+
+    const embed = new Discord.MessageEmbed()
+      .setAuthor("Contact Form", req.user.avatarURL)
+      .setDescription(req.body.message)
+      .addField("Submitted by:",`${req.user.username}#${req.user.discriminator} (ID: ${req.user.id})`)
+      .addField("Internet Protocol:", `${getClientIp(req)}`)
+      .addField("E-mail:", `${req.user.email}`)
+      .setColor("BLUE")
+      .setTimestamp();
+
+    client.channels.get("569068982947151876").send(embed);
+    res.redirect("/");
   });
 
   app.get("/top", async (req, res) => {
