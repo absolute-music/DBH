@@ -1,0 +1,137 @@
+<%-  include("blocks/header.ejs", { bot, user, title: "API" }) %>
+
+<div class="jumbotron main-bkg" style="margin: 5%; color: #fff; background-color: #113438;">
+  <h2>Base URL: <kbd style="font-size: 65%; top: -2px; position: relative;">https://discordhouse.org/api</kbd></h2>
+  <h2>1. Get Bot Info</h2>
+  <hr>
+  <a style="font-size: 20px; top: -2px; position: relative;" class="badge bg-success">GET</a> <kbd style="font-size: 18px;">/bot/:id</kbd><br>
+  <p>Options in response body:</p>
+  <table class="table table-dark" style="border-radius: 10px 10px 10px 10px; top: 10px; position: relative;">
+  <thead>
+    <tr>
+      <th scope="col">Field</th>
+      <th scope="col">Type</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>name</td>
+      <td>String</td>
+      <td>The name of the bot. (May be outdated sometimes.)</td>
+    </tr>
+    <tr>
+      <td>id</td>
+      <td>Snowflake</td>
+      <td>The id of the bot.</td>
+    </tr>
+    <tr>
+      <td>msg</td>
+      <td>String</td>
+      <td>Human readable message of request status.</td>
+    </tr>
+    <tr>
+      <td>code</td>
+      <td>Number</td>
+      <td>HTTP status code of the request.</td>
+    </tr>
+    <tr>
+      <td>owner</td>
+      <td>Snowflake</td>
+      <td>The id of the main bot's owner.</td>
+    </tr>
+    <tr>
+      <td>owners</td>
+      <td>Array, Snowflake</td>
+      <td>The array of bot owner ids. (Doesn't include main owner's id.)</td>
+    </tr>
+    <tr>
+      <td>library</td>
+      <td>String</td>
+      <td>The library bot is written in.</td>
+    </tr>
+    <tr>
+      <td>monthlyUpvotes</td>
+      <td>Number</td>
+      <td>The number of upvotes bot collected since 1th current month.</td>
+    </tr>
+    <tr>
+      <td>allTimeUpvotes</td>
+      <td>Number</td>
+      <td>The number of upvotes bot collected since it has been added on list.</td>
+    </tr>
+    <tr>
+      <td>website</td>
+      <td>String</td>
+      <td>The bot's website url. (If bot doesnt have one, it's value is 'none'.)</td>
+    </tr>
+    <tr>
+      <td>votes</td>
+      <td>Array</td>
+      <td>The website's upvoting track, emptyed monthly, each timestamp is renewed when user votes again.</td>
+    </tr>
+    <tr>
+      <td>githubUrl</td>
+      <td>String</td>
+      <td>The bot's github repository url. (If bot doesn't have one, it's value is 'none'.)</td>
+    </tr>
+    <tr>
+      <td>supportServerInvite</td>
+      <td>Setring</td>
+      <td>The discord server invite of the bot's support server.</td>
+    </tr>
+    <tr>
+      <td>prefix</td>
+      <td>String</td>
+      <td>The bot's command prefix.</td>
+    </tr>
+    <tr>
+      <td>verified</td>
+      <td>Boolean</td>
+      <td>The bot's status in our verification program.</td>
+    </tr>
+    <tr>
+      <td>trusted</td>
+      <td>Boolean</td>
+      <td>The bot's status in our partner campaign.</td>
+    </tr>
+    <tr>
+      <td>vanityUrl</td>
+      <td>String</td>
+      <td>The bot's custom id replacement. (This works like an id.)</td>
+    </tr>
+    <tr>
+      <td>inviteUrl</td>
+      <td>String</td>
+      <td>The bot's invite url.</td>
+    </tr>
+    <tr>
+      <td>tags</td>
+      <td>String</td>
+      <td>The bot's tags.</td>
+    </tr>
+    <tr>
+      <td>shardID</td>
+      <td>Number</td>
+      <td>The shard stats has been received from.</td>
+    </tr>
+    <tr>
+      <td>serverCount</td>
+      <td>Number</td>
+      <td>Amount of servers (aka guilds) bot is in.</td>
+    </tr>
+    <tr>
+      <td>shardCount</td>
+      <td>Number</td>
+      <td>Amount of shards bot have.</td>
+    </tr>
+  </tbody>
+</table>
+
+<br><br>
+<h2>2. Bot search by name:</h2>
+<hr>
+<a style="font-size: 20px; top: -2px; position: relative;" class="badge bg-success">GET</a> <kbd style="font-size: 18px;">/bot/:id</kbd><br>
+</div>
+
+<%- include("blocks/footer.ejs") %>

@@ -223,7 +223,7 @@ module.exports = (client) => {
     renderTemplate(res, req, "index.ejs", { featuredBots: results.splice(0, 4) ,newbots: newbot });
   });
 
-  app.get("/api/bots/:id", async (req, res) => {
+  app.get("/api/bot/:id", async (req, res) => {
     res.setHeader("Content-Type", "application/json");
     if (typeof req.params.id !== "string") return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400 }, null, 4));
     const data = await Bots.findOne({ id: req.params.id, approved: true });;
@@ -463,6 +463,10 @@ module.exports = (client) => {
 
   app.get("/license", (req, res) => {
     renderTemplate(res, req, "license.ejs");
+  });
+
+  app.get("/api/docs", (req, res) => {
+    renderTemplate(res, req, "api.ejs");
   });
 
   app.get("*", (req, res) => renderTemplate(res, req, "404.ejs"));

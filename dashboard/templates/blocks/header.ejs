@@ -38,6 +38,15 @@
       <!-- CSS Stylesheets -->
       <link rel="stylesheet" href="/public/css/dashboard.css">
 
+      <!-- Google AdSense -->
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-7160194497484683",
+          enable_page_level_ads: true
+        });
+      </script>
+
       <!-- Website Tab Icon -->
       <link rel='icon' href="https://cdn.discordapp.com/attachments/560865387206672386/560889415472513024/largelogo4.png">
     </head>
@@ -54,7 +63,7 @@
                         <li class="nav-item active"><a class="nav-link" href="/new"><i class="fas fa-hourglass"></i> New</a></li>
                         <li class="nav-item active"><a class="nav-link" href="/top"><i class="fas fa-list"></i> Top</a></li>
                         <li class="nav-item active"><a class="nav-link" href="/certified"><i class="fas fa-award"></i> Certified</a></li>
-                        <li class="nav-item active"><a class="nav-link" href="/"><i class="fas fa-code"></i> Api</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="/api/docs"><i class="fas fa-code"></i> Api</a></li>
                       <% if (!user || user && !bot.guilds.get("560865387206672384").members.get(user.id)) { %>  <li class="nav-item active"><a class="nav-link" href="/discord"><i class="fab fa-discord"></i> Join Discord</a></li><% } %>
                       <% if (user) { %>
                         <li class="nav-item dropdown">
