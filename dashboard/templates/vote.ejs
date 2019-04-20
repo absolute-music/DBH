@@ -14,121 +14,21 @@
                               <h2 class="title"><%= thebot.username %></h2>
                               <h2 class="description"><i class="fa fa-chevron-up"></i> <%= thebot.data.upvotes.toLocaleString() %></h2>                
                       </div>
+                      <center><button class="btn bot-button" style="margin-bottom:20px;">vote</button></center>
+
                   </div>
                 </div>
               </div>
          </div>
-         <center><button class="bot-button" style="margin-bottom:20px;">vote</button></center>
     </div> 
 </div>
 </div>
 <!--<div ><center><img  onclick="window.location.href ='/contact'" style="width:728px;height:90px;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div>-->
 <%- include('blocks/footer') %>
 <style>
-    html *{
-        -webkit-font-smoothing: antialiased;
-    }
-
-.bot-button {
-border: 0px ;
-outline: 0px ;
-padding: 10px;
-color: white;
-background-color: #154147;
-text-align: center;
-cursor: pointer;
-width: 50%;
-font-size: 25px;
-box-shadow:0 8px 10px 0 rgba(0, 0, 0, 1.2);
-
-}
-.bot-button:hover, .bot-a:hover {
-opacity: 0.8;
-}
-    .name h3 {
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
     .profile-page .page-header {
         height: 170px;
         background-position:center;
     }
-    
-    .page-header {
-        background-size: cover;
-        margin: 0;
-        padding: 0;
-        border: 0;
-        display: flex;
-        align-items: center;
-    }
-    
-    .main-raised {
-        border-radius: 6px;
-        box-shadow: 0 16px 24px 2px rgba(0,0,0,), 0 6px 30px 5px rgba(0,0,0), 0 8px 10px -5px rgba(0,0,0);
-        margin: -60px 100px 30px 100px
-        
-    }
-    
-    .main {
-        background: #194e55;
-        position: relative;
-        z-index: 3;
-        
-    }
-    
-    .profile-page .profile {
-        text-align: center;
-    }
-    
-    .profile-page .profile img {
-        max-width: 160px;
-        width: 100%;
-        margin: 0 auto;
-        -webkit-transform: translate3d(0,-50%,0);
-        -moz-transform: translate3d(0,-50%,0);
-        -o-transform: translate3d(0,-50%,0);
-        -ms-transform: translate3d(0,-50%,0);
-        transform: translate3d(0,-50%,0);
-    }
-    
-    .img-raised {
-        box-shadow: 0 5px 15px -8px rgb(24, 24, 24), 0 8px 10px -5px rgba(0,0,0);
-        background-color: #212529;
-    }
-    
-    .rounded-circle {
-        border-radius: 50%!important;
-    }
-    
-    .img-fluid, .img-thumbnail {
-        max-width: 100%;
-        height: auto;
-    }
-    
-    .title {
-        margin-top: 30px;
-        margin-bottom: 25px;
-        min-height: 32px;
-        color: #fff;
-        font-weight: 700;
-        font-family: "Roboto Slab","Times New Roman",serif;
-    }
-    
-    .profile-page .description {
-        margin: 1.071rem auto 0;
-        max-width: 600px;
-        color: #ffffcc;
-        font-weight: 300;
-        font-size: 25px;
-        font-family: Georgia, 'Times New Roman', Times, serif;
-        padding: 0px 0px 10px
-    }
-    
-    p {
-        font-size: 14px;
-        margin: 0 0 10px;
-    }
-    
     
     </style>

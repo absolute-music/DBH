@@ -209,41 +209,7 @@ body{
 /*====================================================
       That header seaech bar style BRUH
  ====================================================*/
-@import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
-.search {
-  width: 30%;
-  position: relative
-}
-
-.searchTerm {
-  float: left;
-  width: 30%;
-  border: 3px solid #154147;
-  padding: 5px;
-  height: 40px;
-  border-radius: 5px;
-  outline: none;
-  color: #9DBFAF;
-}
-
-.searchTerm:focus{
-  color: #00B4CC;
-}
-
-.searchButton {
-  position: absolute;
-  right: 16px;
-  width: 40px;
-  height: 36px;
-  border: 1px solid #154147;
-  background: #154147;
-  text-align: center;
-  color: #fff;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 20px;
-}
 /* ==========================================================================
     Counter Style
     ========================================================================== */
@@ -563,9 +529,11 @@ html *{
   content: "bots";
 }
 .likes::after {
-  content: "likes";
+  content: "karma";
 }
-
+.rank::after {
+  content: "Rank";
+}
 .rela-block {
   display: block;
   position: relative;
@@ -604,12 +572,12 @@ html *{
 
 .profile-page .page-header {
     height: 380px;
-    background-position:center;
+  /*  background-position:center;*/
 }
 
 .page-header {
     height: 100vh;
-    background-size: cover;
+  /*  background-size: cover;*/
     margin: 0;
     padding: 0;
     border: 0;
@@ -694,7 +662,7 @@ p {
     display: block;
 }
 
-.profile-bkg {
+.main-shit-bkg {
   -webkit-animation: slide 20s linear infinite;
 }
 @-webkit-keyframes slide {
