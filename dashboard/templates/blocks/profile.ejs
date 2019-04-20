@@ -80,12 +80,13 @@
   .main-raised {
       border-radius: 6px;
       box-shadow: 0 16px 24px 2px rgba(0,0,0,), 0 6px 30px 5px rgba(0,0,0), 0 8px 10px -5px rgba(0,0,0);
-      margin: -60px 100px 30px 100px
+      margin: -60px 7vw 30px 7vw
+  /*  margin: -10% 20% 10% 20%*/
       
   }
   
   .main {
-      background: #26272b;
+      background: #194e55;
       position: relative;
       z-index: 3;
   }
@@ -157,21 +158,21 @@
   
   <div class="modal fade" id="myModal" role="dialog">
       <div class="modal-dialog modal-lg" >
-        <div class="modal-content"style="background-color: #26272b">
+        <div class="modal-content"style="background-color: #194e55">
           <p></p>
           <h1 style="color:#ffffff;font-size: 25px">Edit profile</h1>
-            <div class="modal-header" style="padding:0px;margin: 0px">
+            <div class="modal-header main-bkg" style="padding:0px;margin: 0px">
                 <h1 style="color:#ffffff;font-size: 25px">Edit profile</h1>
             </div>
-          <div class="modal-body">
+          <div class="modal-body main-bkg">
               <form>
                 <h2 style="color: #ffffff;font-size: 25px">Backgound url :</h2>
                   <div class="md-form">
-                    <input style="background-color: #26272b" type="text" class="form-control" id="background-url">
+                    <input style="color:white;background-color: #194e55" type="text" class="form-control main-bkg" id="background-url">
                   </div>
                   <h2 style="color: #ffffff;font-size: 25px">Devloper bio :</h2>
                   <div class="md-form">
-                    <textarea style="background-color: #26272b" type="text" id="bio-text" class="form-control md-textarea" rows="3"></textarea>
+                    <textarea style="color:white;background-color: #194e55" type="text" id="bio-text" class="main-bkg form-control md-textarea" rows="3"></textarea>
                   </div>
                 </form>
           </div>
@@ -193,10 +194,10 @@
   <div class="profile-page">
       <% if(theuser.data.bg){const bgd = theuser.data.bg}else{ bgd='https://designroast.org/wp-content/uploads/2015/08/is-web-design-going-out-of-style.jpg'}%>
    <div id="bgd" class="page-header" data-parallax="true" style='margin:-20px 0 20px; background-image:url("<%= bgd %>");'></div>
-      <div class="main main-raised">
-      <div class="profile-content">
-              <div class="container">
-                  <div class="row">
+      <div class="main main-raised main-bkg" >
+      <div  style="border-radius: 5%;">
+              <div style="border-radius: 5%;">
+                  <div class="row" style="border-radius: 5%;">
                     <div class="col-md-6 ml-auto mr-auto">
                        <div class="profile">
                             <div class="avatar" style="height:80px;">
@@ -223,8 +224,8 @@
                         </div>
                     </div>
                   </div>
-                  <div class="description text-center">
-                      <p><%=theuser.data.bio%></p>
+                  <div class="description text-center" >
+                      <p style="font-size:20px"><%=theuser.data.bio%></p>
                   </div>
                   <% if(user.id == theuser.id){%>
                   <center>
@@ -234,7 +235,7 @@
     </div>
   </div> 
 </div></div>
-<div class="container1" style="margin-left: 3%; margin-right: 3%;margin-top: 5px;margin-bottom: 20px;box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2); color: #fff; background-color: #1d1e21;">
+<div class="container1 main-bkg" style="margin-left: 3%; margin-right: 3%;margin-top: 5px;margin-bottom: 20px;box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2); color: #fff; background-color: #1d1e21;">
     <%
     const htmlFor = {
       "online": "Online",
@@ -255,7 +256,7 @@
       <div class="row">
         <% theuser.bots.forEach(theBot => { if (!bot.users.get(theBot.id)) bot.users.get(theBot.id) = { presence: { status: "offline" }, username: theBot.name  } %>
         <div class="collum">
-          <div class="card" style="width: 270px; height: 390px; min-height: 350px; background-color: #26272b; margin: 10px; color: #ffffff; box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2);">
+          <div class="card" style="width: 270px; height: 390px; min-height: 350px; background-color: #194e55; margin: 10px; color: #ffffff; box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2);">
             <div class="top-part">
               <img class="card-img-top bot-card-img-top" src="<%= bot.users.get(theBot.id).displayAvatarURL({ format: 'png', size: 512 }) %>" alt="bot.png" align="left">
               <center>
@@ -343,7 +344,7 @@
     outline: 0px ;
     padding: 10px;
     color: white;
-    background-color: #33353d;
+    background-color: #154147;
     text-align: center;
     cursor: pointer;
     width: 50%;

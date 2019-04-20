@@ -8,16 +8,16 @@
 
 	<div class="container main-section pt-20">
 		<div class="row">
-			<div class="col-lg-4 col-sm-12 col-12 text-center detail-part">
-				<div class="row image-part m-0" style="background-color: #26272b; color: #fff;">
+			<div class="col-lg-4 col-sm-12 col-12 text-center detail-part ">
+				<div class="row image-part m-0 main-bkg" >
 					<div class="col-lg-12 col-sm-12 col-12 bot-img">
 						<div class="">
-							<img src="<%= bot.users.get(thebot.id).displayAvatarURL({size:512,format:"png"}) %>" class="border rounded-circle p-1">
+							<img src="<%= bot.users.get(thebot.id).displayAvatarURL({size:512,format:"png"}) %>" class="rounded-circle p-1">
 						</div>
 					</div>
 					<div class="col-lg-12 col-sm-12 col-12 bot-name">
 						<h2><%= thebot.data.name %></h2>
-						<a class="btn btn"><i class="fas fa-arrow-up"></i>  <%= thebot.data.upvotes.toLocaleString() %></a>
+						<a class="btn" style="margin-top:0px;"><i class="fas fa-arrow-up"></i>  <%= thebot.data.upvotes.toLocaleString() %></a>
                         <span class="<%= bot.users.get(thebot.id).presence.status %>">• <%= htmlFor[bot.users.get(thebot.id).presence.status] %></span>
 						<p><%= thebot.data.library %></p>
 					</div>
@@ -26,7 +26,7 @@
 						<a href="/bot/<%= thebot.data.id %>/vote" class="btn btn-danger w-25">Vote</a>
 					</div>
 					<div class="col-lg-12 col-sm-12 col-12 bot-detail text-left p-2">
-						<p style="word-break: break-word; color: #fff;"><%= thebot.data.shortDesc %><p style="color: #fff;">Bot Prefix: <span><code><%= thebot.data.prefix %></code></span></p>
+						<p style="word-break: break-word;color:white;"><%= thebot.data.shortDesc %><p style="color:white;">Bot Prefix: <span><code><%= thebot.data.prefix %></code></span></p>
 
 					</div>
 					<div class="col-lg-12 col-sm-12 col-12 icon-section">
@@ -43,7 +43,7 @@
 						<% for (var i = 0; i < thebot.data.tags.length; i++) {
 							var tag = thebot.data.tags[i]
 							%>
-						<a href="/tags/<%=tag%>"><%=tag%></a>
+						<a style="color:white;" href="/tags/<%=tag%>"><%=tag%></a>
 
 						<%  }; %>
 							 <p></p>
@@ -55,23 +55,23 @@
 				</div>
 			</div>
 			<div class="col-lg-8 detail-part">
-				<div class="container">
-          <div class="row">
+				<div class="container"style="max-width: 800px;">
+          <div class="row" style="box-shadow:10px 10px 5px black;">
 
-            <div class="col-lg-12" style="background-color: #26272b; color: #fff;">
+            <div class="col-lg-12 main-bkg" style=" color: #000000;max-width: 800px">
               <div class="tab-content mt-4" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <div class="row">
 
-                        <div class="col-lg-12 mt-2 about-detail">
-														<h5 class="text-primary mb-1">Developers:</h5>
-														<span onclick="window.location.href ='/profile/<%= thebot.data.mainOwner %>'" class="devloper"><kbd><%= bot.users.get(thebot.data.mainOwner).tag %></kbd></span>
+                        <div  class="col-lg-12 mt-2 about-detail">
+														<h5  style="font-size:20px; color:white">Developers:</h5>
+														<span onclick="window.location.href ='/profile/<%= thebot.data.mainOwner %>'" class="devloper"style="font-size:15px"><kbd style="background-color:#0c272a"><%= bot.users.get(thebot.data.mainOwner).tag || "Unknown#0000" %> 👑</kbd></span>
 														<% for (var i = 0; i < thebot.data.owners.length; i++) {
 															var owner = bot.users.get(thebot.data.owners[i]).tag || "Unknown#0000"
 														%>
-															<span onclick="window.location.href ='/profile/<%= thebot.data.owners[i] %>'" class="devloper"><kbd><%= owner %></kbd></span>
+															<span onclick="window.location.href ='/profile/<%= thebot.data.owners[i] %>'" class="devloper"><kbd style="background-color:#0c272a"><%= owner %></kbd></span>
 															<%  }; %>
-                            <h5>Description:</h5>
+                            <h3 style="font-size:20px;color:white">Description:</h3>
                             <span style="max-width: 700px; word-break: break-word;"><%- thebot.data.longDesc %></span>
                         </div>
                     </div>
@@ -85,5 +85,5 @@
 	</div>
 <body>
 </html>
-<!-- <div><center><img  onclick="window.location.href ='/contact'" style="width:728px;height:90px;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div> -->
+ <div><center><img  onclick="window.location.href ='/contact'" style="width:56vw;height:6.91vw;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div> 
 <%- include('blocks/footer') %>

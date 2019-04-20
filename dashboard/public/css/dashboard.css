@@ -2,23 +2,23 @@
 body{
     background: #f2f2f2;
     font-family: 'Open Sans', sans-serif;
-    background-image: url("https://cdn.discordapp.com/attachments/547315010360311819/567361980692955149/pattern.png");
+    background-image: url(https://cdn.discordapp.com/attachments/558283306500751371/568944922304970753/Yk5mBUSsvyAAAAAElFTkSuQmCC.png);
     background-repeat: repeat;
     background-size: 150px;
   }
   .bg-primary {
-    background-color: #26272b!important;
+    background-color: #2b828e!important;
 }
 /* ==========================================================================
    Footer Style its beautiful but as you see 166 line of css lmfao but who cares
    ========================================================================== */
    .site-footer
    {
-     background-color:#26272b;
+     background-color:#2b828e;
      padding:45px 0 20px;
      font-size:15px;
      line-height:24px;
-     color:#737373;
+     color:#fff;
    }
    .site-footer hr
    {
@@ -39,7 +39,7 @@ body{
    }
    .site-footer a
    {
-     color:#737373;
+     color:#ffffff;
    }
    .site-footer a:hover
    {
@@ -57,7 +57,7 @@ body{
    }
    .footer-links a
    {
-     color:#737373
+     color:#ebebeb
    }
    .footer {
     position: relative;
@@ -85,7 +85,7 @@ body{
      margin-left:6px;
      margin-right:0;
      border-radius:100%;
-     background-color:#33353d
+     background-color:#154147
    }
    .copyright-text
    {
@@ -219,7 +219,7 @@ body{
 .searchTerm {
   float: left;
   width: 30%;
-  border: 3px solid #33353d;
+  border: 3px solid #154147;
   padding: 5px;
   height: 40px;
   border-radius: 5px;
@@ -236,8 +236,8 @@ body{
   right: 16px;
   width: 40px;
   height: 36px;
-  border: 1px solid #33353d;
-  background: #33353d;
+  border: 1px solid #154147;
+  background: #154147;
   text-align: center;
   color: #fff;
   border-radius: 5px;
@@ -317,84 +317,9 @@ body{
   color: #747f8d;
   border-color: #9099a4;
 }
-/* pagination */
-
-.pagination-wrapper {
-  text-align: center;
-  margin: 5px;
-}
-
-.pagination {
-  display: inline-block;
-  height: 45px;
-  margin-top: 20px;
-  padding: 0 25px;
-  border-radius: 35px;
-  background-color: #eee;
-}
-@media only screen and (max-width: 1199px) {
-  .pagination {
-    height: 25px;
-    margin-top: 25px;
-    padding: 0 10px;
-    border-radius: 20px;
-  }
-}
-
-.page-numbers {
-  display: block;
-  padding: 0 25px;
-  float: left;
-  transition: 400ms ease;
-  color: #595959;
-  font-size: 20px;
-  letter-spacing: 0.1em;
-  line-height: 45px;
-}
-.page-numbers:hover, .page-numbers.current {
-  background-color: #33353d;
-  color: #fff;
-}
-.page-numbers.prev:hover, .page-numbers.next:hover {
-  background-color: transparent;
-  color: #33353d;
-}
-@media only screen and (max-width: 1199px) {
-  .page-numbers {
-    padding: 0 15px;
-    font-size: 16px;
-    line-height: 45px;
-  }
-}
-@media only screen and (min-width: 120px) and (max-width: 1024px) {
-  .page-numbers {
-    padding: 0 14px;
-    display: none;
-  }
-  .page-numbers:nth-of-type(2) {
-    position: relative;
-    padding-right: 50px;
-  }
-  .page-numbers:nth-of-type(2)::after {
-    content: '...';
-    position: absolute;
-    font-size: 25px;
-    top: 0;
-    left: 45px;
-  }
-  .page-numbers:nth-child(-n+3), .page-numbers:nth-last-child(-n+3) {
-    display: block;
-  }
-  .page-numbers:nth-last-child(-n+4) {
-    padding-right: 14px;
-  }
-  .page-numbers:nth-last-child(-n+4)::after {
-    content: none;
-  }
-}
 
 .bg-primary {
-        background-color: #26272b!important;
+        background-color: #2b828e!important;
     }
 .main-section{
     margin-top: 100px;
@@ -402,22 +327,23 @@ body{
 
 }
 .detail-part{
+  color:white;
     margin-bottom: 30px;
 }
 .image-part{
 	background-color: #fff;
-    box-shadow:10px 10px 5px black;
+  box-shadow:10px 10px 5px black;
 
 }
 .image-part .bot-img img{
 	width:50%;
     margin-top:30px;
-
 }
 .devloper {
 	cursor: pointer;
 }
 .bot-name h2{
+  color:white;
 	margin-top:10px;
 	font-size:22px;
 	font-weight: bold;
@@ -432,7 +358,8 @@ body{
 .bot-detail p{
 	color:black;
 	padding-left:30px;
-	margin:5px;
+  margin:5px;
+  
 }
 .icon-section{
 	margin:5px 0px;
@@ -448,14 +375,14 @@ body{
 	padding-top:4px;
 }
 .bot-detail span{
-	color:#b2b2b2;
+	color:#fff;
 }
 .tab-head{
 	padding: 10px;
 }
 .tab-content{
 	padding-bottom: 10px;
-	box-shadow:10px 10px 5px black;
+	
 }
 .about-detail h5{
 	margin-top: 10px;
@@ -473,10 +400,10 @@ body{
   top: 50%;
   left: 50%;
   margin-top: 60px;
-  width: 80%!important;
+  width: 80vw!important;
   height: 50px;
   border-radius: 40px;
-  box-shadow: 10px 10px 16px rgb(12, 17, 34);
+  box-shadow: 10px 10px 16px rgb(0, 0, 0);
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
   background: #fff;
@@ -488,8 +415,8 @@ body{
   left: 38px;
   font-size: 20px;
   background: none;
-  color: #5a6674;
-  width: 480px;
+  color: #000000;
+  width:  70vw;
   height: 20px;
   border: none;
   -webkit-appearance: none;
@@ -515,18 +442,14 @@ body{
   outline: none !important;
   cursor: pointer;
 }
+
 .search-button svg {
   width: 20px;
   height: 20px;
-  fill: #5a6674;
-}
-.search-button svg {
-  width: 20px;
-  height: 20px;
-  fill: #5a6674;
+  fill: #2B828E;
 }
 .hero-bkg-animated {
-  background: #2C2F33 url(https://cdn.discordapp.com/attachments/547315010360311819/567361980692955149/pattern.png) repeat 0 0;
+  background: #fff url(https://cdn.discordapp.com/attachments/558283306500751371/568944922304970753/Yk5mBUSsvyAAAAAElFTkSuQmCC.png) repeat 0 0;
   background-size: 150px;
   width: 100%;
   margin: 0;
@@ -572,7 +495,7 @@ border: 0px ;
 outline: 0px ;
 padding: 10px;
 color: white;
-background-color: #33353d;
+background-color: #113438;
 text-align: center;
 cursor: pointer;
 width: 50%;
@@ -608,4 +531,13 @@ width: 15px;
 float: left;
 vertical-align: middle;
 margin: 5px;
+}
+/*bakcground loop*/
+.main-bkg {
+  background-image: url(https://cdn.discordapp.com/attachments/558283306500751371/568945766337478656/3gh5C4OddWAAAAAElFTkSuQmCC.png);
+/*  -webkit-animation: slide 20s linear infinite;*/
+}
+@-webkit-keyframes slide {
+    from { background-position: 0 0; }
+    to { background-position: -400px 0; }
 }

@@ -1,80 +1,8 @@
 <%- include('blocks/header', { bot, user, title: "New bots" }) %>
-<div ><center><img  onclick="window.location.href ='/contact'" style="width:728px;height:90px;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div>
-<div class="container1" style="margin-left: 3%; margin-right: 3%;margin-top: 5px;margin-bottom: 20px;box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2); color: #fff; background-color: #1d1e21;">
+<!--<div ><center><img  onclick="window.location.href ='/contact'" style="width:728px;height:90px;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div>-->
+<div class="container1 main-bkg" style="margin-left: 3%; margin-right: 3%;margin-top: 5px;margin-bottom: 20px;box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2); color: #fff; background-color: #2b828e;">
 <h2 style="color: #fff;padding-top: 20px; margin-left: 5%;"><i class="fas fa-hourglass"></i> New Added Bots:</h2>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<style>
-h1.largetitleorwhatever {
-  color: #fff;
-  letter-spacing: 0.1em;
-  font-size: 50px;
-}
-.bot-card-img-top {
-margin-top: 0px;
-border-radius: 0 10% 0% 10%;
-box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2);
-height: 150px;
-width: 150px;
-align: left;
-}
-
-h3 {
-font-size: 15px;
-padding: 0px
-}
-.card-title {
-font-size: 23px;
-}
-.card-text {
-color: rgb(196, 196, 196);
-font-size: 15px;
-padding: 10px 10px 10px 10px
-}
-
-.bot-button {
-border: 0px ;
-outline: 0px ;
-padding: 10px;
-color: white;
-background-color: #33353d;
-text-align: center;
-cursor: pointer;
-width: 50%;
-font-size: 25px;
-box-shadow:0 8px 10px 0 rgba(0, 0, 0, 1.2);
-
-}
-
-.top-part{
-height: 160px;
-}
-
-.btn {
-padding:5px;/*important don't edit this shit*/
-margin-top: 30px
-}
-
-.bot-button:hover, .bot-a:hover {
-opacity: 0.8;
-}
-
-.tag {
-padding: 1px 2px 15px;
-font-size: 18px;
-}
-
-.status {
-box-sizing: border-box;
-border-width: 2px;
-border-radius: 50%;
-height: 15px;
-width: 15px;
-float: left;
-vertical-align: middle;
-margin: 5px;
-}
-</style>
-
 <%
 const htmlFor = {
   "online": "Online",
@@ -87,7 +15,7 @@ const htmlFor = {
 <div class="row">
   <% featuredBots.forEach(theBot => { if (!bot.users.get(theBot.id)) bot.users.get(theBot.id) = { presence: { status: "offline" }, username: theBot.name  } %>
   <div class="collum">
-    <div class="card" style="width: 270px; height: 400px; background-color: #26272b; margin: 10px; color: #ffffff; box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2);">
+    <div class="card" style="width: 270px; height: 400px; background-color: #194e55; margin: 10px; color: #ffffff; box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2);">
       <div class="top-part">
         <img class="card-img-top bot-card-img-top" src="<%= bot.users.get(theBot.id).displayAvatarURL({ format: 'png', size: 512 }) %>" alt="bot.png" align="left">
         <center>
@@ -138,19 +66,17 @@ const htmlFor = {
     </div>
   <% }); %>
 </div>
-<div class="pagination-wrapper">
-  <div class="pagination">
-    <a class="prev page-numbers" href="javascript:;">prev</a>
-    <span aria-current="page" class="page-numbers current">1</span>
-    <a class="page-numbers" href="javascript:;">2</a>
-    <a class="page-numbers" href="javascript:;">3</a>
-    <a class="page-numbers" href="javascript:;">4</a>
-    <a class="page-numbers" href="javascript:;">5</a>
-    <a class="next page-numbers" href="javascript:;">next</a>
-  </div>
-</div>
+<center><nav aria-label="...">
+  <ul class="pagination pagination-lg">
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1">1</a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+  </ul>
+</nav></center>
 </div>
 </div>
 
-<div ><center><img  onclick="window.location.href ='/contact'" style="width:728px;height:90px;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div>
+<!--<div ><center><img  onclick="window.location.href ='/contact'" style="width:728px;height:90px;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div>-->
 <%- include('blocks/footer') %>

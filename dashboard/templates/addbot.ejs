@@ -20,7 +20,7 @@
   }
 %>
 
-<div class="jumbotron" style="margin: 10px; background-color:#26272b; color: #ffffff;">
+<div class="jumbotron main-bkg" style="margin: 10px; background-color:#113438; color: #ffffff;">
   <form method="post">
     <strong><span style="color: #ff0000">* = requiered field</span></strong><br><br>
     <div class="form-group">
@@ -30,7 +30,7 @@
 
     <div class="form-group">
 			<p><strong>Library <span style="color: #ff0000">*</span></strong></p>
-			<select name="library" data-width="225px" class="selectpicker form-control"  required>
+			<select name="library"  data-width="225px" class="selectpicker" required>
           <option value="">Pick one...</option>
           <option value="discordcr">discordcr</option>
           <option value="Nyxx">Nyxx</option>
@@ -171,7 +171,7 @@
 
   <div class="form-group">
     <p><strong>Tags <span style="color: #ff0000">*</span></strong></p>
-    <select name="tags" style="width: 100%;" class="selectpicker form-control" data-live-search="true" multiple required>
+    <select name="tags" style="width: 100%;" class="selectpicker" data-live-search="true" multiple required>
     <option data-tokens="Music" value="Music">Music</option>
     <option data-tokens="Moderation" value="Moderation">Moderation</option>
     <option data-tokens="Fun" value="Fun">Fun</option>
@@ -216,8 +216,8 @@
 			<input type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="inviteURL">
   </div>
 
-  <button type="submit" onclick="document.forms[1].submit()" class="btn btn-outline-primary btn-block">Submit</button>
+  <button type="submit" onclick="document.forms[1].submit()" class="bot-button" style="max-width:200px">Submit</button>
   </form>
 </div>
-<div ><center><img  onclick="window.location.href ='/contact'" style="width:728px;height:90px;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div>
+<!--<div ><center><img  onclick="window.location.href ='/contact'" style="width:728px;height:90px;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div>-->
 <%- include('blocks/footer') %>

@@ -1,16 +1,16 @@
 <%- include('blocks/header', { bot, user, title: "Vote" }) %>
 <div class="profile-page">
- <div class="page-header" data-parallax="true" style='margin:-20px 0 20px; '></div>
-    <div class="main main-raised" >
-    <div class="profile-content" style="box-shadow:0 8px 10px 0 rgba(0, 0, 0, 1.2);">
-            <div class="container">
-                <div class="row" >
-                  <div class="col-md-6 ml-auto mr-auto">
-                     <div class="profile">
+ <div class="page-header " data-parallax="true" style='margin:-20px 0 20px; '></div>
+ <div class="main main-raised main-bkg" >
+    <div class="main-bkg"  style="border-radius: 5%;">
+            <div style="border-radius: 5%;">
+                <div class="row " style="border-radius: 5%;">
+                  <div class="col-md-6 ml-auto mr-auto main-bkg">
+                     <div class="profile ">
                           <div class="avatar" style="height:80px;">
                               <img src='<%= bot.users.get(thebot.id).displayAvatarURL({size:512})%>' alt="<%= thebot.name %> image" class="img-raised rounded-circle img-fluid">
                           </div>
-                          <div class="name">
+                          <div class="name ">
                               <h2 class="title"><%= thebot.username %></h2>
                               <h2 class="description"><i class="fa fa-chevron-up"></i> <%= thebot.data.upvotes.toLocaleString() %></h2>                
                       </div>
@@ -22,7 +22,7 @@
     </div> 
 </div>
 </div>
-<div ><center><img  onclick="window.location.href ='/contact'" style="width:728px;height:90px;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div>
+<!--<div ><center><img  onclick="window.location.href ='/contact'" style="width:728px;height:90px;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div>-->
 <%- include('blocks/footer') %>
 <style>
     html *{
@@ -34,7 +34,7 @@ border: 0px ;
 outline: 0px ;
 padding: 10px;
 color: white;
-background-color: #33353d;
+background-color: #154147;
 text-align: center;
 cursor: pointer;
 width: 50%;
@@ -71,7 +71,7 @@ opacity: 0.8;
     }
     
     .main {
-        background: #26272b;
+        background: #194e55;
         position: relative;
         z-index: 3;
         
