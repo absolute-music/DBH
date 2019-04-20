@@ -33,12 +33,15 @@ const htmlFor = {
         <div class="card-body" style="padding: 0px">
           <center>
             <p class="card-title"><%= bot.users.get(theBot.id).username %></p>
-            <% if(theBot.certified){ %>
-              <i class="fas fa-certificate" style="color:rgb(255, 187, 0); font-size: 15px; "> certified</i>
-              <%}%>
-              <% if(theBot.featured){ %>
-                <i class="fas fa-star" style="color:rgb(250, 77, 77); font-size: 15px; "> Featured</i>
-              <%}%>
+            <% if (theBot.certified) { %>
+              <i class="fas fa-award"></i> Certified <br>
+            <% } %>
+            <% if (theBot.featured) { %>
+              <i class="fas fa-star"></i> Featured <br>
+            <% } %>
+            <% if (true) { %>
+              <i class="fas fa-infinity"></i> Partner
+            <% } %>
           </center>
           <p class="card-text" style="text-align:center"><%= theBot.shortDesc %></p>
         </div>
