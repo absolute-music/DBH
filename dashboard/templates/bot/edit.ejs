@@ -1,4 +1,4 @@
-<%- include('blocks/header', { bot, user, title: "New Bot" }) %>
+<%- include('../blocks/header', { bot, user, title: "Edit Bot" }) %>
 <!-- <div ><center><img  onclick="window.location.href ='/contact'" style="width:728px;height:90px;margin-top: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div> -->
 <%
   if (sucess) {
@@ -25,51 +25,51 @@
     <strong><span style="color: #ff0000">* = requiered field</span></strong><br><br>
     <div class="form-group">
       <label for="exampleSelect1" style="right: 100%;"><strong>Bot's Client ID <span style="color: #ff0000">*</span></strong></label>
-			<input type="text" style="width: 225px;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="clientID" placeholder="560869129310175243" required>
+			<input type="text" style="width: 225px;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="clientID" value="<%= theBot.id %>" placeholder="560869129310175243" required readonly>
     </div>
 
     <div class="form-group">
 			<p><strong>Library <span style="color: #ff0000">*</span></strong></p>
 			<select name="library"  data-width="225px" class="selectpicker" required>
-          <option value="">Pick one...</option>
-          <option value="discordcr">discordcr</option>
-          <option value="Nyxx">Nyxx</option>
-          <option value="Discord.Net">Discord.Net</option>
-          <option value="DSharpPlus">DSharpPlus</option>
-          <option value="Nostrum">Nostrum</option>
-          <option value="coxir">coxir</option>
-          <option value="DiscordGo">DiscordGo</option>
-          <option value="Discord4J">Discord4J</option>
-          <option value="Javacord">Javacord</option>
-          <option value="JDA">JDA</option>]
-          <option value="discord.js">discord.js</option>
-          <option value="Eris">Eris</option>
-          <option value="Discordia">Discordia</option>
-          <option value="RestCord">RestCord</option>
-          <option value="Yasmin">Yasmin</option>
-          <option value="disco">disco</option>
-          <option value="discord.py">discord.py</option>
-          <option value="discordrb">discordrb</option>
-          <option value="serenity">serenity</option>
-          <option value="SwiftDiscord">SwiftDiscord</option>
-          <option value="Sword">Sword</option>
-          <option value="Other">Other</option>
+          <option value="" <%= theBot.library === "" ? "selected" : "" %>>Pick one...</option>
+          <option value="discordcr" <%= theBot.library === "discordcr" ? "selected" : "" %>>discordcr</option>
+          <option value="Nyxx" <%= theBot.library === "Nyxx" ? "selected" : "" %>>Nyxx</option>
+          <option value="Discord.Net" <%= theBot.library === "Discord.Net" ? "selected" : "" %>>Discord.Net</option>
+          <option value="DSharpPlus" <%= theBot.library === "DSharpPlus" ? "selected" : "" %>>DSharpPlus</option>
+          <option value="Nostrum" <%= theBot.library === "Nostrum" ? "selected" : "" %>>Nostrum</option>
+          <option value="coxir" <%= theBot.library === "coxir" ? "selected" : "" %>>coxir</option>
+          <option value="DiscordGo" <%= theBot.library === "DiscordGo" ? "selected" : "" %> >DiscordGo</option>
+          <option value="Discord4J" <%= theBot.library === "Discord4J" ? "selected" : "" %>>Discord4J</option>
+          <option value="Javacord" <%= theBot.library === "Javacord" ? "selected" : "" %>>Javacord</option>
+          <option value="JDA"<%= theBot.library === "JDA" ? "selected" : "" %>>JDA</option>]
+          <option value="discord.js" <%= theBot.library === "discord.js" ? "selected" : "" %>>discord.js</option>
+          <option value="Eris" <%= theBot.library === "Eris" ? "selected" : "" %>>Eris</option>
+          <option value="Discordia" <%= theBot.library === "Discordia" ? "selected" : "" %>>Discordia</option>
+          <option value="RestCord" <%= theBot.library === "RestCord" ? "selected" : "" %>>RestCord</option>
+          <option value="Yasmin" <%= theBot.library === "Yasmin" ? "selected" : "" %>>Yasmin</option>
+          <option value="disco" <%= theBot.library === "disco" ? "selected" : "" %>>disco</option>
+          <option value="discord.py" <%= theBot.library === "discord.py" ? "selected" : "" %>>discord.py</option>
+          <option value="discordrb" <%= theBot.library === "discordrb" ? "selected" : "" %>>discordrb</option>
+          <option value="serenity" <%= theBot.library === "serenity" ? "selected" : "" %>>serenity</option>
+          <option value="SwiftDiscord" <%= theBot.library === "SwiftDiscord" ? "selected" : "" %>>SwiftDiscord</option>
+          <option value="Sword" <%= theBot.library === "Sword" ? "selected" : "" %>>Sword</option>
+          <option value="Other" <%= theBot.library === "Other" ? "selected" : "" %>>Other</option>
 			</select>
 		</div>
 
     <div class="form-group">
       <label for="exampleSelect1" style="right: 100%;"><strong>Prefix <span style="color: #ff0000">*</span></strong></label>
-      <input type="text" style="width: 225px;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="prefix" placeholder="!" required>
+      <input type="text" style="width: 225px;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="prefix" placeholder="!" value="<%= theBot.prefix %>" required>
     </div>
 
     <div class="form-group">
         <label for="exampleSelect1" style="right: 100%;"><strong>Short Description <span style="color: #ff0000">*</span></strong></label>
-        <input type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="shortDesc" placeholder="A small multipurpose bot with a wide range of features." maxlength="140" required>
+        <input type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="shortDesc" placeholder="A small multipurpose bot with a wide range of features." value="<%= theBot.shortDesc %>" maxlength="140" required>
     </div>
 
     <div class="form-group">
         <label for="exampleSelect1" style="right: 100%;"><strong>Long Description <span style="color: #ff0000">*</span></strong></label>
-        <textarea type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0 longdesc" id="longdesc" name="longdesc" placeholder="A small multipurpose bot with a wide range of features." required></textarea>
+        <textarea type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0 longdesc" value="<%= theBot.longDesc %>" id="longdesc" name="longdesc" placeholder="A small multipurpose bot with a wide range of features." required></textarea>
     </div>
 
     <script>
@@ -172,52 +172,51 @@
   <div class="form-group">
     <p><strong>Tags <span style="color: #ff0000">*</span></strong></p>
     <select name="tags" style="width: 100%;" class="selectpicker" data-live-search="true" multiple required>
-    <option data-tokens="Music" value="Music">Music</option>
-    <option data-tokens="Moderation" value="Moderation">Moderation</option>
-    <option data-tokens="Fun" value="Fun">Fun</option>
-    <option data-tokens="Logging" value="Logging">Logging</option>
-    <option data-tokens="Role Management" value="Role Management">Role Management</option>
-    <option data-tokens="Game" value="Game">Game</option>
-    <option data-tokens="Meme" value="Meme">Meme</option>
-    <option data-tokens="Anime" value="Anime">Anime</option>
-    <option data-tokens="NSFW" value="NSFW">NSFW</option>
-    <option data-tokens="Social" value="Social">Social</option>
-    <option data-tokens="Web Dashboard" value="Web Dashboard">Web Dashboard</option>
-    <option data-tokens="Leveling" value="Leveling">Leveling</option>
-    <option data-tokens="Roleplay" value="Roleplay">Roleplay</option>
-    <option data-tokens="Utility" value="Utility">Utility</option>
-    <option data-tokens="Soundboard" value="Soundboard">Soundboard</option>
-    <option data-tokens="Statistics" value="Statistics">Statistics</option>
+    <option data-tokens="Music" value="Music" <%= theBot.tags.includes("Music") ? "selected" : "" %>>Music</option>
+    <option data-tokens="Moderation" value="Moderation" <%= theBot.tags.includes("Moderation") ? "selected" : "" %>>Moderation</option>
+    <option data-tokens="Fun" value="Fun" <%= theBot.tags.includes("Fun") ? "selected" : "" %>>Fun</option>
+    <option data-tokens="Logging" value="Logging" <%= theBot.tags.includes("Logging") ? "selected" : "" %>>Logging</option>
+    <option data-tokens="Role Management" value="Role Management" <%= theBot.tags.includes("Role Management") ? "selected" : "" %>>Role Management</option>
+    <option data-tokens="Game" value="Game" <%= theBot.tags.includes("Game") ? "selected" : "" %>>Game</option>
+    <option data-tokens="Meme" value="Meme" <%= theBot.tags.includes("Meme") ? "selected" : "" %>>Meme</option>
+    <option data-tokens="Anime" value="Anime" <%= theBot.tags.includes("Anime") ? "selected" : "" %>>Anime</option>
+    <option data-tokens="Social" value="Social" <%= theBot.tags.includes("Social") ? "selected" : "" %>>Social</option>
+    <option data-tokens="Web Dashboard" value="Web Dashboard" <%= theBot.tags.includes("Web Dashboard") ? "selected" : "" %>>Web Dashboard</option>
+    <option data-tokens="Leveling" value="Leveling" <%= theBot.tags.includes("Leveling") ? "selected" : "" %>>Leveling</option>
+    <option data-tokens="Roleplay" value="Roleplay" <%= theBot.tags.includes("Roleplay") ? "selected" : "" %>>Roleplay</option>
+    <option data-tokens="Utility" value="Utility" <%= theBot.tags.includes("Utility") ? "selected" : "" %>>Utility</option>
+    <option data-tokens="Soundboard" value="Soundboard" <%= theBot.tags.includes("Soundboard") ? "selected" : "" %>>Soundboard</option>
+    <option data-tokens="Statistics" value="Statistics" <%= theBot.tags.includes("Statistics") ? "selected" : "" %>>Statistics</option>
     </select>
   </div>
 
   <div class="form-group">
       <label for="exampleSelect1" style="right: 100%;"><strong>Support Server Invite <span style="color: #ff0000">*</span></strong></label><br>
-			<h5 style="float: left; top: 6px!important; position: relative;">https://discord.gg/</h5><input type="text" style="width: 100px;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="supportServer" placeholder="ak7tde" required>
+			<h5 style="float: left; top: 6px!important; position: relative;">https://discord.gg/</h5><input type="text" style="width: 100px;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="supportServer" placeholder="ak7tde" value="<%= theBot.server.spit('https://discord.gg/')[0] %>" required>
   </div>
 
   <div class="form-group">
       <label for="exampleSelect1" style="right: 100%;"><strong>Other owners of this bot</strong></label>
-			<input type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="otherOwners" placeholder="414764511489294347, 538855659714641960">
+			<input type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="otherOwners" value="<%= theBot.owners.join(", ") || "" %>" placeholder="414764511489294347, 538855659714641960">
   </div>
 
   <div class="form-group">
       <label for="exampleSelect1" style="right: 100%;"><strong>GitHub URL</strong></label>
-			<input type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="github" placeholder="https://github.com/MrAugu/lutu-bot">
+			<input type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0" value="<%= theBot.github %>" name="github" placeholder="https://github.com/MrAugu/lutu-bot">
   </div>
 
   <div class="form-group">
       <label for="exampleSelect1" style="right: 100%;"><strong>Website URL</strong></label>
-			<input type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="website" placeholder="https://mybot.com">
+			<input type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0" value="<%= theBot.website %>" name="website" placeholder="https://mybot.com">
   </div>
 
   <div class="form-group">
       <label for="exampleSelect1" style="right: 100%;"><strong>Invite URL [<a href="https://discordapi.com/permissions.html" target="_blank">Generator</a>]</strong></label>
-			<input type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="inviteURL">
+			<input type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0" value="<%= theBot.invite %>" name="inviteURL">
   </div>
 
   <button type="submit" onclick="document.forms[0].submit()" class="bot-button" style="max-width:200px">Submit</button>
   </form>
 </div>
 <!--<div ><center><img  onclick="window.location.href ='/contact'" style="width:728px;height:90px;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div>-->
-<%- include('blocks/footer') %>
+<%- include('../blocks/footer') %>

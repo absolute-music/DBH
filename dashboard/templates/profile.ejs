@@ -6,7 +6,24 @@
 </script>
 
   <div class="profile-page ">
-   <div id="bgd" class="page-header main-shit-bkg" data-parallax="true" style='margin:-20px 0 20px; background-image: url("<%= profile.bg || `https://cdn.discordapp.com/attachments/558283306500751371/568944922304970753/Yk5mBUSsvyAAAAAElFTkSuQmCC.png` %>")  '></div>
+    <script>
+      $(window).scroll(function(){
+        $("#intro").css("opacity", 1 - $(window).scrollTop() / 250);
+      });
+    </script>
+
+    <section  style="background-color:#2C2F33;min-height:250px; margin-top: -20px;  box-shadow: 5px 5px 8px rgb(0, 0, 0); width: 100%!important; height: 20%!important;" id="intro" class="section-intro hero-bkg-animated">
+      <div class="overlay">
+        <div class="container">
+          <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" display="none">
+            <symbol id="search" viewBox="0 0 32 32">
+              <path d="M 19.5 3 C 14.26514 3 10 7.2651394 10 12.5 C 10 14.749977 10.810825 16.807458 12.125 18.4375 L 3.28125 27.28125 L 4.71875 28.71875 L 13.5625 19.875 C 15.192542 21.189175 17.250023 22 19.5 22 C 24.73486 22 29 17.73486 29 12.5 C 29 7.2651394 24.73486 3 19.5 3 z M 19.5 5 C 23.65398 5 27 8.3460198 27 12.5 C 27 16.65398 23.65398 20 19.5 20 C 15.34602 20 12 16.65398 12 12.5 C 12 8.3460198 15.34602 5 19.5 5 z" />
+            </symbol>
+          </svg>
+        </div>
+      </div>
+    </section>
+
       <div class="main main-raised main-bkg" >
       <div  style="border-radius: 5%;">
               <div style="border-radius: 5%;">
@@ -31,15 +48,16 @@
               <div  style="color:white "class="floated profile-stat likes" id="num_likes"><%= 0 %>
                 <br>
               </div>
-              <div style="color:white" class="floated profile-stat rank" >#16
+              <div style="color:white" class="floated profile-stat rank" >#11
                 <br>  </div>
-         
+
               </div>
                         </div>
                     </div>
                   </div>
+                  <br>
                   <div class="description text-center" >
-                      <p style="font-size:20px"><%= profile.bio %></p>
+                      <p style="font-size:20px">"<%= profile.bio %>"</p>
                   </div>
                   <% if (user.id == discordUser.id){%>
 

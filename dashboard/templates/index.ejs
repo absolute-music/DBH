@@ -1,5 +1,13 @@
 <%- include('blocks/header', { bot, user, title: "Home" }) %>
 
+<style media="screen">
+  @media (max-width: 400px) {
+    .container1 {
+      background-color: red!important;
+    }
+  }
+</style>
+
 <script>
   $(window).scroll(function(){
     $("#intro").css("opacity", 1 - $(window).scrollTop() / 250);
@@ -55,8 +63,8 @@
   </center>
 </section>
 
-<div class="container1  main-bkg" style="margin-left: 3%; margin-right: 3%;margin-top: 5px;margin-bottom: 20px;box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2);">
-  <h2 style="padding-top: 10px; margin-left: 5%;color:#fff"><i class="fas fa-star"></i> Featured Bots: (here will be max 4)</h2>
+<div class="container1  main-bkg" style="margin-left: 3%; margin-right: 3%;margin-top: 5px;margin-bottom: 10px;box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2);">
+  <h2 style="padding-top: 20px; margin-left: 3%;color:#fff"><i class="fas fa-star"></i> Featured Bots:</h2>
 
 <div style="padding: 35px 20px 20px 35px">
 <div class="row">
@@ -67,8 +75,8 @@
 </div>
 </div>
  <!--<div ><center><img  onclick="window.location.href ='/contact'" style="width:56vw;height:6.91vw;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div>-->
-<div class="container1 main-bkg" style="margin-left: 3%; margin-right: 3%;margin-top: 5px;margin-bottom: 20px;box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2);">
-  <h2 style="padding-top: 20px; margin-left: 5%;color:white"><i class="fas fa-star"></i> Newly added Bots: (these are sorted)</h2>
+<div class="container1 main-bkg" style="margin-left: 3%; margin-right: 3%;margin-top: 5px;margin-bottom: 10px;box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2);">
+  <h2 style="padding-top: 20px; margin-left: 3%;color:white"><i class="fas fa-chart-line"></i> Newly added Bots:</h2>
   <div style="padding: 35px 20px 20px 35px">
   <div class="row">
     <% newbots.forEach(theBot => { if (!bot.users.get(theBot.id)) bot.users.get(theBot.id) = { presence: { status: "offline" }, username: theBot.name  } %>

@@ -1,0 +1,24 @@
+<%- include("../blocks/header.ejs", { bot, user, path, title: `Delete ${theBot.name}` }) %>
+
+<div class="jumbotron main-bkg" style="margin: 20px; color: #fff;">
+  <center>
+  <h2>Delete Bot</h2>
+  <hr>
+  <form>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Insert Bot Name Below: <span style="color: red;">*</span> </label>
+      <input style="width: 50%;" name="name" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+
+    <div class="form-check">
+    <input name="conset" type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" style="margin-left: 20px; position: relative;" for="exampleCheck1">I give my conset for the bot to be removed from list and im aware of all the consequences.</label>
+  </div>
+
+  <button type="submit" style="width: 50%;" class="btn btn-danger">Delete</button>
+</form>
+</center>
+</div>
+
+
+<%- include("../blocks/footer.ejs") %>

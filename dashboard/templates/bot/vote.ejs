@@ -1,0 +1,12 @@
+<%- include('../blocks/header', { bot, user, title: "Upvote Bot" }) %>
+
+<div class="jumbotron">
+  <center>
+    <img src="<%= bot.users.get(botID) ? bot.users.get(botID).displayAvatarURL() : '' %>" class="rounded" alt="img.png">
+    <form method="post">
+      <button type="submit" class="btn btn-primary btn-lg">Vote</button>
+    </form>
+  </center>
+</div>
+
+<%- include('../blocks/footer') %>

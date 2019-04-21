@@ -347,12 +347,12 @@ module.exports = (client) => {
   app.get("/add", checkAuth, (req, res) => {
     renderTemplate(res, req, "addbot.ejs", { sucess: null, fail: null });
   });
+
   app.get("/bot/:botID", async (req, res) => {
-    const thebot = client.users.get(req.params.botID);
-    if (!thebot) return res.redirect("/");
-    const Botsdata = await Bots.findOne({ id: thebot.id });
-    thebot.data = Botsdata;
-    renderTemplate(res, req, "botpage.ejs", { thebot });
+    var Botsdata = await Bots.findOne({ vanityUrl: req.params.botID });
+    if (!Botsdata) Botsdata = await Bots.findOne({ id: thebot.id });
+    if (!Botsdata) return res.redirect("/");
+    renderTemplate(res, req, "botpage.ejs", { thebot: Botsdata });
   });
 
   app.post("/bot/:botID", async (req, res) => {
@@ -467,6 +467,16 @@ module.exports = (client) => {
   app.get("/api/docs", (req, res) => {
     renderTemplate(res, req, "api.ejs");
   });
+
+
+  app.get("/bot/:id/delete", (req, res) => {
+    renderTemplate(res, req, "bot/delete.ejs", { theBot: { name: "Lutu" } });
+  });
+
+  app.get("/bot/:id/edit", (req, res) => {
+    renderTemplate(res, req, "bot/edit.ejs", { theBot: { id: "523552979664633858" }, sucess: null, fail: null });
+  });
+
 
   app.get("*", (req, res) => renderTemplate(res, req, "404.ejs"));
   app.post("*", (req, res) => renderTemplate(res, req, "404.ejs"));

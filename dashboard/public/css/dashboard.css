@@ -526,10 +526,10 @@ html *{
   color: #ffffff;
 }
 .bots::after {
-  content: "bots";
+  content: "Bots";
 }
 .likes::after {
-  content: "karma";
+  content: "Karma";
 }
 .rank::after {
   content: "Rank";
