@@ -37,7 +37,7 @@
   </div>
   <center>
     <div class="tag" style="width:70%">
-      <% tags = ['NSFW','Roleplay','Social','Anime','Music','Moderation','Logging','Web Dashboard','Utility','Leveling','Statistics','Role Management','Fun','Game','Meme','Soundboard']
+      <% tags = ['Roleplay','Social','Anime','Music','Moderation','Logging','Web Dashboard','Utility','Leveling','Statistics','Role Management','Fun','Game','Meme','Soundboard']
         function shuffle(a) {
           for (let i = a.length - 1; i > 0; i--) {
               const j = Math.floor(Math.random() * (i + 1));
@@ -49,7 +49,7 @@
         for (var i = 0; i < tags.length; i++) {
           var tag = tags[i]
           let label
-          const redtags = ['NSFW','Roleplay','Social','Anime','Music']
+          const redtags = ['Roleplay','Social','Anime','Music']
           const bluetags = ['Moderation','Logging','Web Dashboard','Utility']
           const graytags = ['Leveling','Statistics','Role Management']
           const greentags = ['Fun','Game','Meme','Soundboard']
@@ -57,7 +57,7 @@
           if(bluetags.includes(tag)) label = "primary"
           if(graytags.includes(tag)) label = "default"
           if(greentags.includes(tag)) label = "success" %>
-      <span onclick="window.location.href ='/tags/<%=tag%>';" class="label label-<%=label%>"><%= tag %></span>
+      <span onclick="window.location.href ='/tag/<%=tag%>';" class="label label-<%=label%>"><%= tag %></span>
       <%  }; %>
     </div>
   </center>

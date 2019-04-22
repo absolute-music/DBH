@@ -562,7 +562,7 @@ module.exports = (client) => {
     thebot.data = Botsdata;
     renderTemplate(res, req, "bot/vote.ejs", { thebot });
   });
-  
+
   app.get("/api/search", async (req, res) => {
     res.setHeader("Content-Type", "application/json");
     if (!req.query.name) return res.send(JSON.stringify({ "msg": "Bad request.", "code": 400 }, null, 4));
