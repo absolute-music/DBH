@@ -555,12 +555,13 @@ module.exports = (client) => {
     res.redirect("/bot/" + Bot.id);
   });
 
-  app.get("/bot/:botID/vote", async (req, res) => {
-    const thebot = client.users.get(req.params.botID);
-    if (!thebot) return res.redirect("/");
-    const Botsdata = await Bots.findOne({ id: thebot.id });
-    thebot.data = Botsdata;
-    renderTemplate(res, req, "bot/vote.ejs", { thebot });
+  app.get("/bot/:id/vote", checkAuth, async (req, res) => {
+    var Bot = await Bots.findOne({ vanityUrl: req.params.id });
+    if (!Bot) Bot = await Bots.findOne({ id: req.params.id });
+    if (!Bot) return res.redirect("/");
+    var discordUser = client.users.get(Bot.id);
+    if (!discordUser) return res.redirect(`/bot/${Bot.id}`);
+    renderTemplate(res, req, "bot/vote.ejs", { entry: Bot, discordUser });
   });
 
   app.get("/api/search", async (req, res) => {

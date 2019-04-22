@@ -1,21 +1,22 @@
-<%- include('../blocks/header', { bot, user, title: "Vote" }) %>
+<%- include('../blocks/header', { bot, user, title: `Vote ${discordUser.username}` }) %>
 <div class="profile-page">
  <div class="page-header " data-parallax="true" style='margin:-20px 0 20px; '></div>
- <div class="main main-raised main-bkg" >
+ <div class="main main-raised main-bkg-a" >
     <div class="main-bkg"  style="border-radius: 5%;">
             <div style="border-radius: 5%;">
                 <div class="row " style="border-radius: 5%;">
-                  <div class="col-md-6 ml-auto mr-auto main-bkg">
+                  <div class="col-md-6 ml-auto mr-auto main-bkg-a">
                      <div class="profile ">
                           <div class="avatar" style="height:80px;">
-                              <img src='<%= bot.users.get(thebot.id).displayAvatarURL({size:512})%>' alt="<%= thebot.name %> image" class="img-raised rounded-circle img-fluid">
+                              <img src='<%= discordUser.displayAvatarURL() %>' alt="<%= entry.name %> image" class="img-raised rounded-circle img-fluid">
                           </div>
                           <div class="name ">
-                              <h2 class="title"><%= thebot.username %></h2>
-                              <h2 class="description"><i class="fa fa-chevron-up"></i> <%= thebot.data.upvotes.toLocaleString() %></h2>
+                              <h2 class="title"><%= discordUser.username %></h2>
+                              <h2 class="description"><i class="fa fa-chevron-up"></i> <%= entry.upvotes.toLocaleString() %></h2>
                       </div>
-                      <center><button class="btn bot-button" style="margin-bottom:20px;">vote</button></center>
-
+                      <form method="post">
+                      <center><button type="submit " class="btn bot-button" style="margin-bottom:20px;">Vote!</button></center>
+                      </form>
                   </div>
                 </div>
               </div>
