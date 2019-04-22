@@ -1,3 +1,4 @@
+<% thebot.data = thebot %>
 <%- include('blocks/header', { bot, user, title: thebot.data.name }) %>
 <% const htmlFor = {
   "online": "Online",
@@ -6,84 +7,96 @@
   "offline": "Offline"
 }; %>
 
-	<div class="container main-section pt-20">
-		<div class="row">
-			<div class="col-lg-4 col-sm-12 col-12 text-center detail-part ">
-				<div class="row image-part m-0 main-bkg" >
-					<div class="col-lg-12 col-sm-12 col-12 bot-img">
-						<div class="">
-							<img src="<%= bot.users.get(thebot.id).displayAvatarURL({size:512,format:"png"}) %>" class="rounded-circle p-1">
-						</div>
-					</div>
-					<div class="col-lg-12 col-sm-12 col-12 bot-name">
-						<h2><%= thebot.data.name %></h2>
-						<a class="btn" style="margin-top:0px;"><i class="fas fa-arrow-up"></i>  <%= thebot.data.upvotes.toLocaleString() %></a>
-                        <span class="<%= bot.users.get(thebot.id).presence.status %>">• <%= htmlFor[bot.users.get(thebot.id).presence.status] %></span>
-						<p><%= thebot.data.library %></p>
-					</div>
-					<div class="col-lg-12 col-sm-12 col-12 information-button">
-						<a href="<%= thebot.data.invite %>" class="btn btn-success w-25">Invite</a>
-						<a href="/bot/<%= thebot.data.id %>/vote" class="btn btn-danger w-25">Vote</a>
-					</div>
-					<div class="col-lg-12 col-sm-12 col-12 bot-detail text-left p-2">
-						<p style="word-break: break-word;color:white;"><%= thebot.data.shortDesc %><p style="color:white;">Bot Prefix: <span><code><%= thebot.data.prefix %></code></span></p>
 
-					</div>
-					<div class="col-lg-12 col-sm-12 col-12 icon-section">
-							<% if(thebot.data.website !== "none") {%>
-                    <button  onclick="window.location.href = '<%= thebot.data.website %>';" type="button" class="btn btn-secondary">Visit Website</button>
-					<% }%>
-					<button  onclick="window.location.href = '<%= thebot.data.server %>';" type="button" class="btn btn-secondary">Join Server</button>
-                                            <p></p>
-                    <button type="button"  onclick="window.location.href = '/report/<%= thebot.data.id %>';" class="btn btn-dark">Report</button>
-						<a class="btn btn-success"><span></span><%= thebot.data.serverCount %> Servers</a>
-                        <a class="btn btn-success"><span></span><%= thebot.data.shardCount %> Shard(s)</a>
-                        <p></p>
-						<a ><i class="fa fa-tag" aria-hidden="true"></i></a>
-						<% for (var i = 0; i < thebot.data.tags.length; i++) {
-							var tag = thebot.data.tags[i]
-							%>
-						<a style="color:white;" href="/tags/<%=tag%>"><%=tag%></a>
 
-						<%  }; %>
-							 <p></p>
-							 <% if(user && thebot.data.mainOwner == user.id || user && thebot.data.owners.includes(user.id)) { %>
-                    <a class="btn btn-danger" href="/bot/<%= thebot.data.id %>/delete"><span class="fa fa-trash"></span> Delete</a>
-                    <a class="btn btn-primary" href="/bot/<%= thebot.data.id %>/edit"><span class="fa fa-pencil"></span>Edit</a>
-                <% }; %>
+
+
+
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.6.3/font-awesome.min.css" 
+integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJtE" crossorigin="anonymous">
+<style>
+/*MrAugu don't move this to dashboard.css*/
+.btn {
+	margin-top: 0px !important
+}
+</style>
+
+<div class="container" style="margin-top: 30px;">
+    <div class="profile-head main-bkg-a ">
+        <div class="col-md- col-sm-4 col-xs-12">
+            <img src="<%= bot.users.get(thebot.id).displayAvatarURL({size:512,format:"png"}) %>" class="img-responsive rounded-circle p-1"/>
+					<center>
+						<h6><%= thebot.data.name %></h6>
+						<span class="<%= bot.users.get(thebot.id).presence.status %>">• <%= htmlFor[bot.users.get(thebot.id).presence.status] %></span>						
+						<span class="btn btn-lg" style="margin-top:0px;margin-bottom:0px;"><i class="fas fa-chevron-up"></i>  <%= thebot.data.upvotes.toLocaleString() %></span><br>
+						<p></p>	<p></p>
+						<a class="label label-primary" style="color:white; background-color: #184f57;"><%= thebot.data.serverCount %> Servers</a>
+						<a class="label label-primary" style="color:white; background-color: #184f57;"><%= thebot.data.shardCount %> Shard(s)</a><br>      
+						<% if(user && thebot.data.mainOwner == user.id || user && thebot.data.owners.includes(user.id) ||1==1) { %>
+						<p></p>	<p></p>
+						<a class="btn w-25" href="/bot/<%= thebot.data.id %>/delete"><span class="fa fa-trash"></span> Delete</a>
+						<a class="btn w-25" href="/bot/<%= thebot.data.id %>/edit"><span class="fa fa-pencil"></span>Edit</a>
+				  	<% }; %>
+					</center>         
+				       
+        </div>
+
+        <div class="col-md-5 col-sm-5 col-xs-12">
+            <h5><%= thebot.data.name %></h5>
+						<p>Bot / Certified bot </p>
+            <ul>
+                <li><p style="word-break: break-word;color:white;"></p><%= thebot.data.shortDesc %></li>
+                <li><p style="color:white;">Bot Prefix: <span><code><%= thebot.data.prefix %></code></span></p></li>
+								<li><p>Library: <span><code><%= thebot.data.library %></code></p></li>								
+						    <li><% if(thebot.data.website !== "none" || 1==1) {%>
+									<button  onclick="window.location.href = '<%= thebot.data.website %>';" style=" background-color: #184f57;" type="button" class="btn">Visit Website</button>
+				<% }%>
+				<button  onclick="window.location.href = '<%= thebot.data.server %>';" style=" background-color: #184f57;"type="button" class="btn">Join Server</button>
+				<button type="button"  onclick="window.location.href = '/report/<%= thebot.data.id %>';" style=" background-color: #184f57;"class="btn">Report</button></li>
+				<li><a href="<%= thebot.data.invite %>" style=" background-color: #184f57;" class="btn w-25">Invite</a>
+					<a href="/bot/<%= thebot.data.id %>/vote" style=" background-color: #184f57;" class="btn w-25">Vote</a></li>
+			</ul>
+					</div>
+    </div>
 </div>
-				</div>
-			</div>
-			<div class="col-lg-8 detail-part">
-				<div class="container"style="max-width: 800px;">
-          <div class="row" style="box-shadow:10px 10px 5px black;">
-
-            <div class="col-lg-12 main-bkg" style=" color: #000000;max-width: 800px">
-              <div class="tab-content mt-4" id="myTabContent">
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <div class="row">
-
-                        <div  class="col-lg-12 mt-2 about-detail">
-														<h5  style="font-size:20px; color:white">Developers:</h5>
+<br/>
+<br/>
+<div class="container1" style="border-radius: 30px;padding: 2%;width: 100%">
+    <div class="">
+        <div data-spy="scroll" class="tabbable-panel">
+            <div class="tabbable-line">
+                <div class="tab-content main-bkg"style="border-radius: 5px;">
+                    <div class="tab-pane active" id="tab_default_1">
+                        <div class="well well-sm" style="border-radius: 5px;margin: 1%;">
+														<% for (var i = 0; i < thebot.data.tags.length; i++) {
+															var tag = thebot.data.tags[i]
+															%>
+														<a class="badge badge-primary" href="/tags/<%=tag%>"><%=tag%></a>
+														<%  }; %>											
+														<h5  style="font-size:20px; ">Developers:</h5>
 														<span onclick="window.location.href ='/profile/<%= thebot.data.mainOwner %>'" class="devloper"style="font-size:15px"><kbd style="background-color:#0c272a"><%= bot.users.get(thebot.data.mainOwner).tag || "Unknown#0000" %> 👑</kbd></span>
 														<% for (var i = 0; i < thebot.data.owners.length; i++) {
 															var owner = bot.users.get(thebot.data.owners[i]).tag || "Unknown#0000"
 														%>
 															<span onclick="window.location.href ='/profile/<%= thebot.data.owners[i] %>'" class="devloper"><kbd style="background-color:#0c272a"><%= owner %></kbd></span>
 															<%  }; %>
-                            <h3 style="font-size:20px;color:white">Description:</h3>
+                            <h3 style="font-size:20px;">Description:</h3>
                             <span style="max-width: 700px; word-break: break-word;"><%- thebot.data.longDesc %></span>
-                        </div>
-                    </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-			</div>
-		</div>
-	</div>
-<body>
-</html>
- <div><center><img  onclick="window.location.href ='/contact'" style="width:80vw;height:13.91vw;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br/>
+				<br/>
+ <div><center><img  onclick="window.location.href ='/contact'" style="width:59vw;height:6.91vw;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div>
 <%- include('blocks/footer') %>

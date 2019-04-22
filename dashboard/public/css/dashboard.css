@@ -287,24 +287,6 @@ body{
 .bg-primary {
         background-color: #2b828e!important;
     }
-.main-section{
-    margin-top: 100px;
-    margin-bottom:30px;
-
-}
-.detail-part{
-  color:white;
-    margin-bottom: 30px;
-}
-.image-part{
-	background-color: #fff;
-  box-shadow:10px 10px 5px black;
-
-}
-.image-part .bot-img img{
-	width:50%;
-    margin-top:30px;
-}
 .devloper {
 	cursor: pointer;
 }
@@ -318,48 +300,7 @@ body{
 .information-button{
 	margin-bottom:5px;
 }
-.bot-name p{
-	font-size:20px;
-}
-.bot-detail p{
-	color:black;
-	padding-left:30px;
-  margin:5px;
 
-}
-.icon-section{
-	margin:5px 0px;
-	padding-bottom:10px;
-}
-.icon-section i{
-	margin:0px 5px;
-	background-color:#d2d2d2;
-	color:black;
-	border-radius: 50%;
-	height:25px;
-	width: 25px;
-	padding-top:4px;
-}
-.bot-detail span{
-	color:#fff;
-}
-.tab-head{
-	padding: 10px;
-}
-.tab-content{
-	padding-bottom: 10px;
-
-}
-.about-detail h5{
-	margin-top: 10px;
-}
-.about-detail .website{
-	margin-top:6px;
-}
-.contact-detail p {
-	color:black;
-	margin:5px;
-}
 
 .search-form {
   position: relative;
@@ -668,4 +609,120 @@ p {
 @-webkit-keyframes slide {
     from { background-position: 0 0; }
     to { background-position: -400px 0; }
+}
+.main-bkg-a {
+  background-image: url(https://cdn.discordapp.com/attachments/558283306500751371/568945766337478656/3gh5C4OddWAAAAAElFTkSuQmCC.png);
+  -webkit-animation: slide 60s linear infinite;
+}
+
+
+.page-header {background:#ccc;margin:0;}
+
+.profile-head { width:100%;background-color: #205f68;float: left;padding: 15px 5px;border-radius: 30px;}
+.profile-head img { height:180px; width:180px; margin:0 auto; border:5px solid #fff; border-radius:5px;}
+.profile-head h5 {width: 100%;padding:5px 5px 0px 5px;text-align:justify;font-weight: bold;color: #fff;font-size: 25px;text-transform:capitalize;
+margin-bottom: 0;}
+.profile-head p {width: 100%;text-align: justify;padding:0px 5px 5px 5px;color: #fff;font-size:17px;text-transform:capitalize;margin:0;}
+.profile-head a {width: 100%;text-align: center;padding: 10px 5px;color: #fff;font-size: 15px;text-transform: capitalize;}
+
+.profile-head ul { list-style:none;padding: 0;}
+.profile-head ul li { display:block; color:#ffffff;padding:5px;font-weight: 400;font-size: 15px;}
+.profile-head ul li:hover span { color: #7fb4bb;}
+.profile-head ul li span { color:#ffffff;padding-right: 10px;}
+.profile-head ul li a { color:#ffffff;}
+.profile-head h6 {width: 100%;text-align: center;font-weight: 100;color: #fff;font-size: 15px;text-transform: uppercase;margin-bottom: 0;}
+
+.tab-content>.active {margin-top:50px;/*width:100% !important;*/} 
+
+/***
+Bootstrap Line Tabs by @keenthemes
+A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
+Licensed under MIT
+***/
+
+/* Tabs panel */
+.tabbable-panel {
+	padding: 10px;
+	border-radius: 30px;
+}
+
+/* Default mode */
+.tabbable-line > .nav-tabs {
+  border: none;
+  margin: 0px;
+}
+.tabbable-line > .nav-tabs > li {
+  margin-right: 2px;
+}
+.tabbable-line > .nav-tabs > li > a {
+  border: 0;
+  margin-right: 0;
+  color: #737373;
+}
+.tabbable-line > .nav-tabs > li > a > i {
+  color: #a6a6a6;
+}
+.tabbable-line > .nav-tabs > li.open, .tabbable-line > .nav-tabs > li:hover {
+  border-bottom: 4px solid #fbcdcf;
+}
+.tabbable-line > .nav-tabs > li.open > a, .tabbable-line > .nav-tabs > li:hover > a {
+  border: 0;
+  background: none !important;
+  color: #333333;
+}
+.tabbable-line > .nav-tabs > li.open > a > i, .tabbable-line > .nav-tabs > li:hover > a > i {
+  color: #a6a6a6;
+}
+.tabbable-line > .nav-tabs > li.open .dropdown-menu, .tabbable-line > .nav-tabs > li:hover .dropdown-menu {
+  margin-top: 0px;
+}
+.tabbable-line > .nav-tabs > li.active {
+  border-bottom: 4px solid #f3565d;
+  position: relative;
+}
+.tabbable-line > .nav-tabs > li.active > a {
+  border: 0 !important;
+  color: #333333;
+}
+.tabbable-line > .nav-tabs > li.active > a > i {
+  color: #404040;
+}
+.tabbable-line > .tab-content {
+  margin-top: -3px;
+  background-color: #154147;
+  border: 0;
+  border-top: 1px solid #154147;
+  padding: 15px 0;
+}
+.portlet .tabbable-line > .tab-content {
+  padding-bottom: 0;
+}
+
+/* Below tabs mode */
+
+.tabbable-line.tabs-below > .nav-tabs > li {
+  border-top: 4px solid transparent;
+}
+.tabbable-line.tabs-below > .nav-tabs > li > a {
+  margin-top: 0;
+}
+.tabbable-line.tabs-below > .nav-tabs > li:hover {
+  border-bottom: 0;
+  border-top: 4px solid #fbcdcf;
+}
+.tabbable-line.tabs-below > .nav-tabs > li.active {
+  margin-bottom: -2px;
+  border-bottom: 0;
+  border-top: 4px solid #f3565d;
+}
+.tabbable-line.tabs-below > .tab-content {
+  margin-top: -10px;
+  border-top: 0;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+}
+.menu_title {
+    padding: 15px 10px;
+    border-bottom: 1px solid #eee;
+    margin: 0 5px;
 }
