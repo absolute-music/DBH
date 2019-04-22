@@ -69,7 +69,7 @@
 
     <div class="form-group">
         <label for="exampleSelect1" style="right: 100%;"><strong>Long Description <span style="color: #ff0000">*</span></strong></label>
-        <textarea type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0 longdesc" value="<%= theBot.longDesc %>" id="longdesc" name="longdesc" placeholder="A small multipurpose bot with a wide range of features." required></textarea>
+        <textarea type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0 longdesc" value="<%= theBot.longDesc %>" id="longdesc" name="longdesc" placeholder="A small multipurpose bot with a wide range of features." required><%= theBot.longDesc %></textarea>
     </div>
 
     <script>
@@ -93,7 +93,7 @@
         }
 
         var editor = CodeMirror.fromTextArea(document.getElementById('longdesc'), {mode: 'markdown', lineNumbers: true, theme: 'monokai'});
-
+        editor.replaceSelection(document.getElementById("CODE").innerHTML, "");
         function changeLang(el) {
           var sections = document.querySelectorAll('.example');
           for (var section of sections) {
@@ -167,6 +167,8 @@
           }
         }
         githubChange(document.getElementById('github'));
+
+
         </script>
 
   <div class="form-group">
@@ -192,7 +194,7 @@
 
   <div class="form-group">
       <label for="exampleSelect1" style="right: 100%;"><strong>Support Server Invite <span style="color: #ff0000">*</span></strong></label><br>
-			<h5 style="float: left; top: 6px!important; position: relative;">https://discord.gg/</h5><input type="text" style="width: 100px;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="supportServer" placeholder="ak7tde" value="<%= theBot.server.spit('https://discord.gg/')[0] %>" required>
+			<h5 style="float: left; top: 6px!important; position: relative;">https://discord.gg/</h5><input type="text" style="width: 100px;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="supportServer" placeholder="ak7tde" value="<%= theBot.server.split("/")[3] %>" required>
   </div>
 
   <div class="form-group">
@@ -215,7 +217,7 @@
 			<input type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0" value="<%= theBot.invite %>" name="inviteURL">
   </div>
 
-  <button type="submit" onclick="document.forms[0].submit()" class="bot-button" style="max-width:200px">Submit</button>
+  <button type="submit" class="btn bot-button" style="max-width:200px">Submit</button>
   </form>
 </div>
 <!--<div ><center><img  onclick="window.location.href ='/contact'" style="width:728px;height:90px;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div>-->

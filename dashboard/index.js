@@ -180,6 +180,10 @@ module.exports = (client) => {
       await usr.save().catch(e => console.log(e));
       userdata = { id: req.user.id, bio: "I'm a very mysterious person.", certifiedDev: false, bg: null, mod: false, admin: false };
 
+      if (userdata.mod === true) req.session.permLevel = 1;
+      if (userdata.admin === true) req.session.permLevel = 2;
+      if (!req.session.permLevel) req.session.permLevel = 0;
+
       if (userdata !== req.user.email) {
         Profiles.findOne({ id: req.user.id }, async (err, res) => {
           if (err) console.log(err);
@@ -348,17 +352,115 @@ module.exports = (client) => {
     renderTemplate(res, req, "addbot.ejs", { sucess: null, fail: null });
   });
 
-  app.get("/bot/:botID", async (req, res) => {
-    var Botsdata = await Bots.findOne({ vanityUrl: req.params.botID });
-    if (!Botsdata) Botsdata = await Bots.findOne({ id: thebot.id });
+  app.get("/bot/:id", async (req, res) => {
+    var Botsdata = await Bots.findOne({ vanityUrl: req.params.id });
+    if (!Botsdata) Botsdata = await Bots.findOne({ id: req.params.id });
     if (!Botsdata) return res.redirect("/");
     renderTemplate(res, req, "botpage.ejs", { thebot: Botsdata });
   });
 
-  app.post("/bot/:botID", async (req, res) => {
-    const abot = client.users.get(req.params.botID);
-    if (!abot) return res.redirect("/");
+  app.get("/bot/:id/delete", checkAuth, async (req, res) => {
+    var Bot = await Bots.findOne({ vanityUrl: req.params.id });
+    if (!Bot) Bot = await Bots.findOne({ id: req.params.id });
+    if (!Bot) return res.redirect("/");
+    if (req.user.id !== Bot.mainOwner && req.session.permLevel < 1) return res.redirect("/");
+    renderTemplate(res, req, "bot/delete.ejs", { theBot: Bot });
   });
+
+  app.post("/bot/:id/delete", checkAuth, async (req, res) => {
+    const name = req.body.name || "";
+    const conset = req.name.conset || "no";
+    var Bot = await Bots.findOne({ vanityUrl: req.params.id });
+    if (!Bot) Bot = await Bots.findOne({ id: req.params.id });
+    if (!Bot) return res.redirect("/");
+    if (req.user.id !== Bot.mainOwner && req.session.permLevel < 1) return res.redirect("/");
+    if (name !== Bot.name) return res.redirect("/");
+    if (conset !== "on") return res.redirect("/");
+    if (Bot.vanityUrl === req.params.id) {
+      await Bots.findOneAndDelete({ vanityUrl: req.params.id }).catch(e => console.log(e));
+    } else {
+      await Bots.findOneAndDelete({ id: req.params.id }).catch(e => console.log(e));
+    }
+    return res.redirect("/");
+  });
+
+  app.get("/bot/:id/edit", checkAuth, async (req, res) => {
+    var Bot = await Bots.findOne({ vanityUrl: req.params.id });
+    if (!Bot) Bot = await Bots.findOne({ id: req.params.id });
+    if (!Bot) return res.redirect("/");
+    if (req.user.id !== Bot.mainOwner && req.session.permLevel < 1 || !Bot.owners.includes(req.user.id) && req.session.permLevel < 1) return res.redirect("/");
+    renderTemplate(res, req, "bot/edit.ejs", { theBot: Bot, sucess: null, fail: null });
+  });
+
+  app.post("/bot/:id/edit", checkAuth, async (req, res) => {
+    var Bot = await Bots.findOne({ vanityUrl: req.params.id });
+    if (!Bot) Bot = await Bots.findOne({ id: req.params.id });
+    if (!Bot) return res.redirect("/");
+    if (req.user.id !== Bot.mainOwner && req.session.permLevel < 1 || !Bot.owners.includes(req.user.id) && req.session.permLevel < 1) return res.redirect("/");
+
+    const bodyData = {
+      clientID: req.body.clientID,
+      library: req.body.library,
+      prefix: req.body.prefix,
+      shortDesc: req.body.shortDesc,
+      longDesc: req.body.longdesc,
+      supportServer: `https://discord.gg/${req.body.supportServer}`,
+      tags: req.body.tags,
+      supportServerCode: req.body.supportServer,
+      otherOwners: req.body.otherOwners,
+      inviteURL: req.body.inviteURL,
+      github: req.body.github,
+      website: req.body.website
+    }
+
+    const validBot = await validateBotForID(bodyData.clientID);
+    if (validBot === false) return renderTemplate(res, req, "bot/edit.ejs", { theBot: Bot, sucess: null, fail: "Invalid ClientID/provided ClientID was not a bot." });
+    if (bodyData.shortDesc.length < 40) return renderTemplate(res, req, "bot/edit.ejs", { theBot: Bot, sucess: null, fail: "Short description must be at least 40 characters long." });
+    if (bodyData.shortDesc.length > 100) return renderTemplate(res, req, "bot/edit.ejs", { theBot: Bot, sucess: null, fail: "Short description can be maximum 100 characters long." });
+    if (bodyData.longDesc.length < 250) return renderTemplate(res, req, "bot/edit.ejs", { theBot: Bot, sucess: null, fail: "Long description must be at last 250 characters long." });
+    const invDetails = await fetchInviteURL(bodyData.supportServer);
+    if (invDetails.valid === false) return renderTemplate(res, req, "bot/edit.ejs", { theBot: Bot, sucess: null, fail: "Invite code provided is invalid." });
+
+    let self = await client.users.fetch(bodyData.clientID);
+
+    if (Bot.vanityUrl === req.params.id) {
+      Bots.findOne({ vanityUrl: req.params.id }, async (err, entry) => {
+        entry.name = self.username;
+        entry.owners = bodyData.otherOwners.split(", ")[0] !== "" ? bodyData.otherOwners.split(", ") : [];
+        entry.library = bodyData.library;
+        entry.website = bodyData.website || "none";
+        entry.github = bodyData.github || "none";
+        entry.shortDesc = bodyData.shortDesc;
+        entry.longDesc = bodyData.longDesc;
+        entry.server = bodyData.supportServer;
+        entry.prefix = bodyData.prefix;
+        entry.invite =  bodyData.inviteURL.indexOf("https://discordapp.com/api/oauth2/authorize") !== 0 ? `https://discordapp.com/api/oauth2/authorize?client_id=${bodyData.clientID}&permissions=0&scope=bot` : bodyData.inviteURL;
+        entry.tags = bodyData.tags;
+
+        await entry.save().catch(e => console.log(e));
+      });
+    } else  {
+      Bots.findOne({ vanityUrl: req.params.id }, async (err, entry) => {
+        entry.name = self.username;
+        entry.owners = bodyData.otherOwners.split(", ")[0] !== "" ? bodyData.otherOwners.split(", ") : [];
+        entry.library = bodyData.library;
+        entry.website = bodyData.website || "none";
+        entry.github = bodyData.github || "none";
+        entry.shortDesc = bodyData.shortDesc;
+        entry.longDesc = bodyData.longDesc;
+        entry.server = bodyData.supportServer;
+        entry.prefix = bodyData.prefix;
+        entry.invite =  bodyData.inviteURL.indexOf("https://discordapp.com/api/oauth2/authorize") !== 0 ? `https://discordapp.com/api/oauth2/authorize?client_id=${bodyData.clientID}&permissions=0&scope=bot` : bodyData.inviteURL;
+        entry.tags = bodyData.tags;
+
+        await entry.save().catch(e => console.log(e));
+      });
+    }
+
+    client.channels.get("561622522798407740").send(`🖋 <@${req.user.id}> edited <@${Bot.id}>.\nURL: https://discordhouse.org/bot/${Bot.id}`);
+    res.redirect("/bot/" + Bot.id);
+  });
+
   app.get("/bot/:botID/vote", async (req, res) => {
     const thebot = client.users.get(req.params.botID);
     if (!thebot) return res.redirect("/");
@@ -401,7 +503,7 @@ module.exports = (client) => {
     if (isBot) return renderTemplate(res, req, "addbot.ejs", { sucess: null, fail: "This bot is already on list or approving queue." });
 
     let self = await client.users.fetch(bodyData.clientID);
-    console.log(self);
+
     const newBot = new Bots({
       id: bodyData.clientID,
       mainOwner: req.user.id,
@@ -466,15 +568,6 @@ module.exports = (client) => {
 
   app.get("/api/docs", (req, res) => {
     renderTemplate(res, req, "api.ejs");
-  });
-
-
-  app.get("/bot/:id/delete", (req, res) => {
-    renderTemplate(res, req, "bot/delete.ejs", { theBot: { name: "Lutu" } });
-  });
-
-  app.get("/bot/:id/edit", (req, res) => {
-    renderTemplate(res, req, "bot/edit.ejs", { theBot: { id: "523552979664633858" }, sucess: null, fail: null });
   });
 
 
