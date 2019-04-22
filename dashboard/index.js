@@ -573,7 +573,7 @@ module.exports = (client) => {
     res.send(JSON.stringify({ "msg": "Sucessfull request.", "code": 200, "results": results, "bot": client }, null, 4));
   });
 
-  app.post("/add", checkAuth, async (req, res) => {
+  app.post("/bot/new", checkAuth, async (req, res) => {
     const bodyData = {
       clientID: req.body.clientID,
       library: req.body.library,
@@ -633,23 +633,12 @@ module.exports = (client) => {
     });
 
     newBot.save().catch(e => console.log(e));
-    client.channels.get("561622522798407740").send(`📥 <@${req.user.id}> just submitted <@${bodyData.clientID}>.`);
-    const addEmbed = new Discord.MessageEmbed()
-      .setTitle(`${req.user.username}#${req.user.discriminator} submitted a bot.`)
-      .addField("Client ID:", `${bodyData.clientID}`)
-      .addField("Owner:", `${req.user.id}`)
-      .addField("Prefix:", `\`|${bodyData.prefix}|\``)
-      .setDescription(`${bodyData.shortDesc}`)
-      .addField("Tags:", `${bodyData.tags.join(", ")}`)
-      .addField("Library:", `${bodyData.library}`)
-      .addField("Website:", `${bodyData.website.length < 1 ? "No Website" : bodyData.website}`)
-      .addField("GitHub:", `${bodyData.github.length < 1 ? "No GitHub" : bodyData.github}`)
-      .addField("Support Server:", `${bodyData.supportServer}`)
-      .addField("Other Owners:", `${bodyData.otherOwners.split(", ")[0] !== "" ? bodyData.otherOwners.split(", ").join(", ") : "No Other Owners"}`)
-      .addField("InviteURL:", `${bodyData.inviteURL.indexOf("https://discordapp.com/api/oauth2/authorize") !== 0 ? "No Url" : `Custom Url: ${bodyData.inviteURL}\n`}Pre-Made URL: ${`https://discordapp.com/api/oauth2/authorize?client_id=${bodyData.clientID}&permissions=0&scope=bot`}`)
-      .setColor("BLUE")
-      .setTimestamp();
-    client.channels.get("561622527919783938").send(bodyData.clientID, addEmbed);
+    client.channels.get("561622522798407740").send(`<@${req.user.id}> added <@${bodyData.clientID}>.\n**URL**: https://discordhouse.org/bot/${bodyData.clientID}`);
+    const embed = new Discord.MessageEmbed()
+      .setTitle("New Bot Added")
+      .setDescription(`**Bot**: ${self.tag} (ID: ${bodyData.clientID})\n**Owner**: ${req.user.username}#${req.user.discriminator} (ID: ${req.user.id})\n**Prefix**: \`${bodyData.prefix}\`\n**Sort Desc**: ${bodyData.shortDesc}\n**Tags**: ${bodyData.tags.join(", ")}\n**Library**: ${bodyData.library}\n**Website**: ${bodyData.website.length < 1 ? "No Website" : bodyData.website}\n**GitHub**: ${bodyData.github.length < 1 ? "No GitHub" : bodyData.github}\n**Support Server**: ${bodyData.supportServer}\n**Other Owners**: ${bodyData.otherOwners.split(", ")[0] !== "" ? bodyData.otherOwners.split(", ").join(", ") : "No Other Owners"}\n**Invite**: ${bodyData.inviteURL.indexOf("https://discordapp.com/api/oauth2/authorize") !== 0 ? `https://discordapp.com/api/oauth2/authorize?client_id=${bodyData.clientID}&permissions=0&scope=bot` : `${bodyData.inviteURL}`}\n**URL**: https://discordhouse.org/bot/${bodyData.clientID}`)
+      .setColor("BLUE");
+    client.channels.get("561622527919783938").send(embed);
     renderTemplate(res, req, "bot/new.ejs", { sucess: "Bot has been successfully added on approving queue.", fail: null });
   });
 
