@@ -1,0 +1,24 @@
+<%- include('../blocks/header', { bot, user, title: "Top" }) %>
+<!--<div ><center><img  onclick="window.location.href ='/contact'" style="width:728px;height:90px;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div>-->
+
+<div class="container1 main-bkg" style="margin-left: 3%; margin-right: 3%;margin-top: 5px;margin-bottom: 20px;box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2); color: #fff; background-color: #1d1e21;">
+<h2 style="padding-top: 20px; margin-left: 3%;color:white"><i class="fas fa-line-chart"></i> Most Voted Bots:</h2>
+<div style="padding: 35px 20px 20px 35px">
+<div class="row">
+  <% featuredBots.forEach(theBot => { if (!bot.users.get(theBot.id)) bot.users.get(theBot.id) = { presence: { status: "offline" }, username: theBot.name  } %>
+    <%- include("../blocks/card.ejs", { theBot, bot }); %>
+  <% }); %>
+</div>
+<center><nav aria-label="...">
+  <ul class="pagination pagination-lg">
+    <% for (var i = 0; i < numberOfPages; i++) { %>
+      <li class="page-item"><a class="page-link" href="/list/top?page=<%= i + 1 %>"><%= i + 1 %></a></li>
+     <% } %>
+  </ul>
+</nav></center>
+</div>
+</div>
+
+<!--<div ><center><img  onclick="window.location.href ='/contact'" style="width:728px;height:90px;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div>-->
+
+<%- include('../blocks/footer') %>

@@ -1,12 +1,34 @@
-<%- include('../blocks/header', { bot, user, title: "Upvote Bot" }) %>
+<%- include('../blocks/header', { bot, user, title: "Vote" }) %>
+<div class="profile-page">
+ <div class="page-header " data-parallax="true" style='margin:-20px 0 20px; '></div>
+ <div class="main main-raised main-bkg" >
+    <div class="main-bkg"  style="border-radius: 5%;">
+            <div style="border-radius: 5%;">
+                <div class="row " style="border-radius: 5%;">
+                  <div class="col-md-6 ml-auto mr-auto main-bkg">
+                     <div class="profile ">
+                          <div class="avatar" style="height:80px;">
+                              <img src='<%= bot.users.get(thebot.id).displayAvatarURL({size:512})%>' alt="<%= thebot.name %> image" class="img-raised rounded-circle img-fluid">
+                          </div>
+                          <div class="name ">
+                              <h2 class="title"><%= thebot.username %></h2>
+                              <h2 class="description"><i class="fa fa-chevron-up"></i> <%= thebot.data.upvotes.toLocaleString() %></h2>
+                      </div>
+                      <center><button class="btn bot-button" style="margin-bottom:20px;">vote</button></center>
 
-<div class="jumbotron">
-  <center>
-    <img src="<%= bot.users.get(botID) ? bot.users.get(botID).displayAvatarURL() : '' %>" class="rounded" alt="img.png">
-    <form method="post">
-      <button type="submit" class="btn btn-primary btn-lg">Vote</button>
-    </form>
-  </center>
+                  </div>
+                </div>
+              </div>
+         </div>
+    </div>
 </div>
-
+</div>
+<!--<div ><center><img  onclick="window.location.href ='/contact'" style="width:728px;height:90px;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div>-->
 <%- include('../blocks/footer') %>
+<style>
+    .profile-page .page-header {
+        height: 170px;
+        background-position:center;
+    }
+
+    </style>

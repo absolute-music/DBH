@@ -1,10 +1,10 @@
-<%-  include("blocks/header.ejs", { bot, user, title: "API" }) %>
+<%-  include("../blocks/header.ejs", { bot, user, title: "API" }) %>
 
 <div class="jumbotron main-bkg" style="margin: 5%; color: #fff; background-color: #113438;">
   <h2>Base URL: <kbd style="font-size: 65%; top: -2px; position: relative;">https://discordhouse.org/api</kbd></h2>
   <h2>1. Get Bot Info</h2>
   <hr>
-  <a style="font-size: 20px; top: -2px; position: relative;" class="badge bg-success">GET</a> <kbd style="font-size: 18px;">/bot/:id</kbd><br>
+  <a id="spme" style="font-size: 20px; top: -2px; position: relative;" class="badge bg-success">GET</a> <kbd style="font-size: 18px;">/bot/:id</kbd><br>
   <p>Options in response body:</p>
   <table class="table table-dark" style="opacity:0.8;border-radius: 10px 10px 10px 10px; top: 10px; position: relative;">
   <thead style="background-color: #113438;">
@@ -134,4 +134,4 @@
 <a style="font-size: 20px; top: -2px; position: relative;" class="badge bg-success">GET</a> <kbd style="font-size: 18px;">/bot/:id</kbd><br>
 </div>
 
-<%- include("blocks/footer.ejs") %>
+<%- include("../blocks/footer.ejs") %>

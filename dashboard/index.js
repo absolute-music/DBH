@@ -87,6 +87,12 @@ module.exports = (client) => {
     return ipAddress;
   };
 
+  const paginate = (arr, pageSize, selectedPage) => {
+    --selectedPage;
+    const output = arr.slice(selectedPage * pageSize, (selectedPage + 1) * pageSize);
+    return output;
+  }
+
   const fetchInviteURL = async (invite) => {
     try {
       const inv = await client.fetchInvite(invite);
@@ -326,37 +332,124 @@ module.exports = (client) => {
     res.redirect("/");
   });
 
-  app.get("/top", async (req, res) => {
-    const query = new RegExp("u", "i")
-    let results = await Bots.find({ name: query }).sort([["upvotes", "descending"]]);
-    renderTemplate(res, req, "top.ejs", { featuredBots: results });
+  app.get("/list/top", async (req, res) => {
+    var currentPage = req.query.page || "1";
+    if (isNaN(parseInt(currentPage))) {
+      currentPage = 1
+    } else {
+      currentPage = parseInt(currentPage);
+    };
+
+    let results = await Bots.find({ approved: true }).sort([["upvotes", "descending"]]);
+    const lengthOfRes = results.length;
+    var totalPages;
+    if (Math.round(lengthOfRes / 16) === lengthOfRes / 16) {
+      totalPages = lengthOfRes / 16;
+    } else {
+      totalPages = Math.round(lengthOfRes / 16) + 1;
+    }
+    results = paginate(results, 16, currentPage);
+    renderTemplate(res, req, "lists/top.ejs", { featuredBots: results, numberOfPages: totalPages });
   });
 
-  app.get("/new", async (req, res) => {
-    const query = new RegExp("u", "i")
-    let results = await Bots.find({ name: query }).sort( {'_id': -1} );
-    renderTemplate(res, req, "new.ejs", { featuredBots: results });
+  app.get("/search", async (req, res) => {
+    var currentPage = req.query.page || "1";
+    if (isNaN(parseInt(currentPage))) {
+      currentPage = 1
+    } else {
+      currentPage = parseInt(currentPage);
+    };
+
+    const queryName = req.query.name;
+    if (!queryName) return res.redirect("/");
+
+    const query = new RegExp(queryName, "i");
+    var results = await Bots.find({ name: query, approved: true }).sort([["upvotes", "descending"]]);
+    const lengthOfRes = results.length;
+    var totalPages;
+    if (Math.round(lengthOfRes / 16) === lengthOfRes / 16) {
+      totalPages = lengthOfRes / 16;
+    } else {
+      totalPages = Math.round(lengthOfRes / 16) + 1;
+    }
+
+    results = paginate(results, 16, currentPage);
+    renderTemplate(res, req, "search.ejs", { featuredBots: results, numberOfPages: totalPages, searchedName: queryName });
   });
 
-  app.get("/tags/:tagname", async (req, res) => {
-    let results = await Bots.find({ tags: req.params.tagname }).sort([["upvotes", "descending"]]);
-    renderTemplate(res, req, "tags.ejs", { tag:req.params.tagname ,featuredBots: results });
+  app.get("/list/new", async (req, res) => {
+    var currentPage = req.query.page || "1";
+    if (isNaN(parseInt(currentPage))) {
+      currentPage = 1
+    } else {
+      currentPage = parseInt(currentPage);
+    };
+
+    let results = await Bots.find({ approved: true }).sort( {'_id': -1} );
+    const lengthOfRes = results.length;
+    var totalPages;
+    if (Math.round(lengthOfRes / 16) === lengthOfRes / 16) {
+      totalPages = lengthOfRes / 16;
+    } else {
+      totalPages = Math.round(lengthOfRes / 16) + 1;
+    }
+    results = paginate(results, 16, currentPage);
+
+    renderTemplate(res, req, "lists/new.ejs", { featuredBots: results, numberOfPages: totalPages });
   });
 
-  app.get("/certified", async (req, res) => {
-    const query = new RegExp("u", "i")
-    let results = await Bots.find({ name: query ,certified:true }).sort([["upvotes", "descending"]]);
-    renderTemplate(res, req, "certified.ejs", { featuredBots: results });
+  app.get("/tag/:name", async (req, res) => {
+    var currentPage = req.query.page || "1";
+    if (isNaN(parseInt(currentPage))) {
+      currentPage = 1
+    } else {
+      currentPage = parseInt(currentPage);
+    };
+
+    let results = await Bots.find({ approved: true }).sort([["upvotes", "descending"]]);
+    results = results.filter(bot => bot.tags.includes(req.params.name));
+    const lengthOfRes = results.length;
+    var totalPages;
+    if (Math.round(lengthOfRes / 16) === lengthOfRes / 16) {
+      totalPages = lengthOfRes / 16;
+    } else {
+      totalPages = Math.round(lengthOfRes / 16) + 1;
+    }
+    results = paginate(results, 16, currentPage);
+    renderTemplate(res, req, "tags.ejs", { tag: req.params.name, featuredBots: results, numberOfPages: totalPages });
   });
-  app.get("/add", checkAuth, (req, res) => {
-    renderTemplate(res, req, "addbot.ejs", { sucess: null, fail: null });
+
+  app.get("/list/certified", async (req, res) => {
+    var currentPage = req.query.page || "1";
+    if (isNaN(parseInt(currentPage))) {
+      currentPage = 1
+    } else {
+      currentPage = parseInt(currentPage);
+    };
+
+    let results = await Bots.find({ certified: true, approved: true }).sort([["upvotes", "descending"]]);
+
+    const lengthOfRes = results.length;
+    var totalPages;
+    if (Math.round(lengthOfRes / 16) === lengthOfRes / 16) {
+      totalPages = lengthOfRes / 16;
+    } else {
+      totalPages = Math.round(lengthOfRes / 16) + 1;
+    }
+    results = paginate(results, 16, currentPage);
+
+    renderTemplate(res, req, "lists/certified.ejs", { featuredBots: results, numberOfPages: totalPages });
+  });
+
+  app.get("/bot/new", checkAuth, (req, res) => {
+    renderTemplate(res, req, "bot/new.ejs", { sucess: null, fail: null });
   });
 
   app.get("/bot/:id", async (req, res) => {
     var Botsdata = await Bots.findOne({ vanityUrl: req.params.id });
     if (!Botsdata) Botsdata = await Bots.findOne({ id: req.params.id });
     if (!Botsdata) return res.redirect("/");
-    renderTemplate(res, req, "botpage.ejs", { thebot: Botsdata });
+    renderTemplate(res, req, "bot/page.ejs", { thebot: Botsdata });
   });
 
   app.get("/bot/:id/delete", checkAuth, async (req, res) => {
@@ -415,9 +508,10 @@ module.exports = (client) => {
 
     const validBot = await validateBotForID(bodyData.clientID);
     if (validBot === false) return renderTemplate(res, req, "bot/edit.ejs", { theBot: Bot, sucess: null, fail: "Invalid ClientID/provided ClientID was not a bot." });
-    if (bodyData.shortDesc.length < 40) return renderTemplate(res, req, "bot/edit.ejs", { theBot: Bot, sucess: null, fail: "Short description must be at least 40 characters long." });
-    if (bodyData.shortDesc.length > 100) return renderTemplate(res, req, "bot/edit.ejs", { theBot: Bot, sucess: null, fail: "Short description can be maximum 100 characters long." });
+    if (bodyData.shortDesc.length < 30) return renderTemplate(res, req, "bot/edit.ejs", { theBot: Bot, sucess: null, fail: "Short description must be at least 30 characters long." });
+    if (bodyData.shortDesc.length > 84) return renderTemplate(res, req, "bot/edit.ejs", { theBot: Bot, sucess: null, fail: "Short description can be maximum 80 characters long." });
     if (bodyData.longDesc.length < 250) return renderTemplate(res, req, "bot/edit.ejs", { theBot: Bot, sucess: null, fail: "Long description must be at last 250 characters long." });
+    if (bodyData.tags.lengh > 3) return renderTemplate(res, req, "bot/edit.ejs", { sucess: null, fail: "You can maximum add 3 tags to your bot." });
     const invDetails = await fetchInviteURL(bodyData.supportServer);
     if (invDetails.valid === false) return renderTemplate(res, req, "bot/edit.ejs", { theBot: Bot, sucess: null, fail: "Invite code provided is invalid." });
 
@@ -466,8 +560,9 @@ module.exports = (client) => {
     if (!thebot) return res.redirect("/");
     const Botsdata = await Bots.findOne({ id: thebot.id });
     thebot.data = Botsdata;
-    renderTemplate(res, req, "vote.ejs", { thebot });
+    renderTemplate(res, req, "bot/vote.ejs", { thebot });
   });
+  
   app.get("/api/search", async (req, res) => {
     res.setHeader("Content-Type", "application/json");
     if (!req.query.name) return res.send(JSON.stringify({ "msg": "Bad request.", "code": 400 }, null, 4));
@@ -494,13 +589,15 @@ module.exports = (client) => {
     }
 
     const validBot = await validateBotForID(bodyData.clientID);
-    if (validBot === false) return renderTemplate(res, req, "addbot.ejs", { sucess: null, fail: "Invalid ClientID/provided ClientID was not a bot." });
-    if (bodyData.longDesc.length < 250) return renderTemplate(res, req, "addbot.ejs", { sucess: null, fail: "Long description must be at last 250 characters long." });
-    const invDetails = await fetchInviteURL(bodyData.supportServer);
-    if (invDetails.valid === false) return renderTemplate(res, req, "addbot.ejs", { sucess: null, fail: "Invite code provided is invalid." });
-
+    if (validBot === false) return renderTemplate(res, req, "bot/new.ejs", { sucess: null, fail: "Invalid ClientID/provided ClientID was not a bot." });
     const isBot = await Bots.findOne({ id: bodyData.clientID });
-    if (isBot) return renderTemplate(res, req, "addbot.ejs", { sucess: null, fail: "This bot is already on list or approving queue." });
+    if (isBot) return renderTemplate(res, req, "bot/new.ejs", { sucess: null, fail: "This bot is already on list or approving queue." });
+    if (bodyData.shortDesc.length < 30) return renderTemplate(res, req, "bot/new.ejs", { sucess: null, fail: "Short description must be at least 30 characters long." });
+    if (bodyData.shortDesc.length > 84) return renderTemplate(res, req, "bot/new.ejs", { sucess: null, fail: "Short description can be maximum 80 characters long." });
+    if (bodyData.longDesc.length < 250) return renderTemplate(res, req, "bot/new.ejs", { sucess: null, fail: "Long description must be at last 250 characters long." });
+    if (bodyData.tags.lengh > 3) return renderTemplate(res, req, "bot/new.ejs", { sucess: null, fail: "You can maximum add 3 tags to your bot." });
+    const invDetails = await fetchInviteURL(bodyData.supportServer);
+    if (invDetails.valid === false) return renderTemplate(res, req, "bot/new.ejs", { sucess: null, fail: "Invite code provided is invalid." });
 
     let self = await client.users.fetch(bodyData.clientID);
 
@@ -530,7 +627,8 @@ module.exports = (client) => {
       shardID: 0,
       serverCount: 0,
       shardCount: 0,
-      approved: false
+      approved: false,
+      createdAt: Date.now()
     });
 
     newBot.save().catch(e => console.log(e));
@@ -551,23 +649,23 @@ module.exports = (client) => {
       .setColor("BLUE")
       .setTimestamp();
     client.channels.get("561622527919783938").send(bodyData.clientID, addEmbed);
-    renderTemplate(res, req, "addbot.ejs", { sucess: "Bot has been successfully added on approving queue.", fail: null });
+    renderTemplate(res, req, "bot/new.ejs", { sucess: "Bot has been successfully added on approving queue.", fail: null });
   });
 
   app.get("/privacy", (req, res) => {
-    renderTemplate(res, req, "privacy.ejs");
+    renderTemplate(res, req, "formalities/privacy.ejs");
   });
 
   app.get("/terms", (req, res) => {
-    renderTemplate(res, req, "terms.ejs");
+    renderTemplate(res, req, "formalities/terms.ejs");
   });
 
   app.get("/license", (req, res) => {
-    renderTemplate(res, req, "license.ejs");
+    renderTemplate(res, req, "formalities/license.ejs");
   });
 
   app.get("/api/docs", (req, res) => {
-    renderTemplate(res, req, "api.ejs");
+    renderTemplate(res, req, "api/docs.ejs");
   });
 
 

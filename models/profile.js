@@ -7,7 +7,8 @@ const profileSchema = new mongoose.Schema({
   bg: String,
   mod: Boolean,
   admin: Boolean,
-  email: String
+  email: String,
+  createdAt: Number
 });
 
 module.exports = mongoose.model("profiles", profileSchema);

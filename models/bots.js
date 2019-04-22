@@ -27,7 +27,8 @@ const botSchema = new mongoose.Schema({
   shardID: Number,
   serverCount: Number,
   shardCount: Number,
-  approved: Boolean
+  approved: Boolean,
+  createdAt: Number
 });
 
 module.exports = mongoose.model("bots", botSchema);

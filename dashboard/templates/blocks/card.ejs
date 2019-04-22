@@ -6,9 +6,9 @@
   }; %>
 
 <div class="collum">
-  <div class="card" style="width: 270px; height: 400px; background-color: #194e55; margin: 10px; color: #ffffff; box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2);">
+  <div class="card" style="width: 270px; height: 400px; background-color: #194e55; margin: 10px; margin-bottom: 20px; color: #ffffff; box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2); font-family: Verdana, Geneva, sans-serif;">
     <div class="top-part">
-      <img class="card-img-top bot-card-img-top" src="<%= bot.users.get(theBot.id).displayAvatarURL({ format: 'png', size: 512 }) %>" alt="bot.png" align="left">
+      <img class="card-img-top bot-card-img-top" style="top: -10px; left: -10px; position: relative; background-color: #194e55;" src="<%= bot.users.get(theBot.id).displayAvatarURL({ format: 'png', size: 512 }) %>" alt="bot.png" align="left">
       <center>
         <a class="btn btn-primary"><%= theBot.serverCount == 0 ? "N/A" : theBot.serverCount %> Servers</a>
         <p></p>
@@ -18,7 +18,8 @@
       </center>
     </div>
       <div class="card-body" style="padding: 0px">
-        <center>
+        <p style="margin-left: 10px; margin-top: 7px;" class="card-title"><%= bot.users.get(theBot.id).username %></p>
+        <!-- <center>
           <p class="card-title"><%= bot.users.get(theBot.id).username %></p>
           <% if (theBot.certified) { %>
             <i class="fas fa-award"></i> Certified <br>
@@ -29,12 +30,13 @@
           <% if (theBot.trusted) { %>
             <i class="fas fa-infinity"></i> Partner
           <% } %>
-        </center>
+        </center> -->
         <p class="card-text" style="text-align:center"><%= theBot.shortDesc %></p>
       </div>
       <center>
         <div class="tag">
-          <% for (var i = 0; i < theBot.tags.length; i++) {
+          <% theBot.tags = ["Web Dashboard", "Moderation", "Role Management"];
+          for (var i = 0; i < theBot.tags.length; i++) {
             var tag = theBot.tags[i]
             let label
             const redtags = ['NSFW','Roleplay','Social','Anime','Music']
