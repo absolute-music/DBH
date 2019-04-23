@@ -7,6 +7,17 @@
   "offline": "Offline"
 }; %>
 
+ <% if (alertSuccess) { %>
+  <div style="margin-right: 5%; margin-left: 5%;" class="alert alert-success" role="alert">
+    <%= alertSuccess %>
+  </div>
+<% } %>
+
+<% if (alertFail) { %>
+  <div style="margin-right: 5%; margin-left: 5%;" class="alert alert-danger" role="alert">
+    <%= alertFail %>
+  </div>
+<% } %>
 
 <style media="screen">
 .btn {
@@ -49,29 +60,60 @@
         <% }%>
 				<button  onclick="window.location.href = '<%= thebot.data.server %>';" style=" background-color: #184f57;"type="button" class="btn">Join Server</button></li>
 				<li><a href="<%= thebot.data.invite %>" style=" background-color: #184f57;" class="btn w-25">Invite</a>
-					<a href="/bot/<%= thebot.data.id %>/vote" style=" background-color: #184f57;" class="btn w-25">Vote</a>
-          <a href="/bot/<%= thebot.data.id %>/report" style=" background-color: #184f57;" class="btn w-25">Report</a></li>
+          <!-- <button type="button" style="background-color: #184f57; padding:  10px 5px;" class="btn w-25" data-toggle="modal" data-target="#voteModal">Vote</button> -->
+					<form cmethod="post">
+            <input type="text" name="name" value="vote" style="display: none;">
+            <button type="button" style=" background-color: #184f57;" class="btn w-25">Vote</a>
+          </form>
+          <!-- <a href="/bot/<%= thebot.data.id %>/report" style=" background-color: #184f57;" class="btn w-25">Report</a> -->
+          <button type="button" style="background-color: #184f57; padding:  10px 5px;" class="btn w-25" data-toggle="modal" data-target="#reportModal">Report</button>
+        </li>
 			</ul>
 					</div>
     </div>
 </div>
 <br/>
 <br/>
+<div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+ <div class="modal-dialog modal-dialog-centered" role="document">
+   <div class="modal-content main-bkg">
+     <div class="modal-header">
+         <h2 class="modal-title" id="exampleModalLongTitle" style="color: #fff;"><i class="fas fa-flag"></i> Report:</h2>
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>
+     </div>
+     <div class="modal-body">
+       <form action="/<%= thebot.data.id %>/report" method="post">
+         <div class="form-group">
+           <input type="text" name="name" value="report" style="display: none;">
+           <label for="reportReason">Reason: </label>
+           <input type="text" class="form-control" id="reportReason" aria-describedby="reportHelp" placeholder="Bot's help command is not working." required>
+           <small id="reportHelp" class="form-text text-muted" style="color: red!important;">We reserve rights to decline any report with or without checking the bot.</small><br>
+             <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal" aria-label="Close" style="width: 49%;">Abort</button>
+             <button type="submit" class="btn btn-success btn-lg" style="width: 49%; float: right;">Report</button>
+         </div>
+
+       </form>
+   </div>
+ </div>
+</div>
+</div>
 <div class="container1" style="border-radius: 20px;padding: 2%;width: 100%;">
     <div class="">
         <div data-spy="scroll" class="tabbable-panel">
             <div class="tabbable-line" style="background-color: inherit;">
                 <div class=""style="border-radius: 5px;">
                     <div class="tab-pane active" id="tab_default_1">
-                        <div class=" main-bkg-a well-sm" style="border-radius: 5px;margin: 1%; color: #ffffff;">
+                        <div class=" main-bkg well-sm" style="border-radius: 5px;margin: 1%; color: #ffffff;">
                           <h5  style="font-size:20px; ">Tags:</h5>
 														<% for (var i = 0; i < thebot.data.tags.length; i++) {
 															var tag = thebot.data.tags[i]
 														%>
-														<a style="background-color: #28a745; font-size: 14px;" class="badge badge-success" href="/tags/<%=tag%>"><i class="fas fa-tag"></i> <%=tag%></a>
+														<a style="background-color: #184f57; font-size: 14px;" class="badge badge-success" href="/tags/<%=tag%>"><i class="fas fa-tag"></i> <%=tag%></a>
 														<%  }; %>
 														<h5  style="font-size:20px; ">Developers:</h5>
-														<span onclick="window.location.href ='/profile/<%= thebot.data.mainOwner %>'" class="badge badge-success" style="font-size: 14px; background-color:#0c272a;"><img style="width: 16px; height: 16px;" src='<%= bot.users.get(thebot.data.mainOwner) ? bot.users.get(thebot.data.mainOwner).displayAvatarURL({ size: 16 }) : "https://cdn.discordapp.com/icons/560865387206672384/b0d0b4ce7e16b97dfbd67b83ec708ce1.webp" %>' alt="Unknown Image" class="img-raised rounded-circle img-fluid"> <%= bot.users.get(thebot.data.mainOwner).tag || "Unknown#0000" %></span>
+														<span onclick="window.location.href ='/profile/<%= thebot.data.mainOwner %>'" class="badge badge-success" style="font-size: 14px; background-color:#0c272a;"><img style="width: 16px; height: 16px;" src='<%= bot.users.get(thebot.data.mainOwner) ? bot.users.get(thebot.data.mainOwner).displayAvatarURL({ size: 16 }) : "https://cdn.discordapp.com/icons/560865387206672384/b0d0b4ce7e16b97dfbd67b83ec708ce1.webp" %>' alt="Unknown Image" class="img-raised rounded-circle img-fluid"> <%= " " + bot.users.get(thebot.data.mainOwner).tag || " Unknown#0000" %></span>
 														<% for (var i = 0; i < thebot.data.owners.length; i++) {
 															var owner = bot.users.get(thebot.data.owners[i]).tag || "Unknown#0000"
 														%>
@@ -90,4 +132,5 @@
 					<br/>
 				<br/>
  <div><center><img  onclick="window.location.href ='/contact'" style="width:59vw;height:6.91vw;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div>
+
 <%- include('../blocks/footer') %>

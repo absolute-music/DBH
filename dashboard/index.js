@@ -87,6 +87,15 @@ module.exports = (client) => {
     return ipAddress;
   };
 
+  const msToHMS = (ms) => {
+    var seconds = ms / 1000;
+    var hours = parseInt(seconds / 3600);
+    seconds = seconds % 3600;
+    var minutes = parseInt(seconds / 60);
+    seconds = seconds % 60;
+    return `${hours} hours, ${minutes} minutes and ${Math.round(seconds)} seconds`;
+  }
+
   const paginate = (arr, pageSize, selectedPage) => {
     --selectedPage;
     const output = arr.slice(selectedPage * pageSize, (selectedPage + 1) * pageSize);
@@ -449,7 +458,7 @@ module.exports = (client) => {
     var Botsdata = await Bots.findOne({ vanityUrl: req.params.id });
     if (!Botsdata) Botsdata = await Bots.findOne({ id: req.params.id });
     if (!Botsdata) return res.redirect("/");
-    renderTemplate(res, req, "bot/page.ejs", { thebot: Botsdata });
+    renderTemplate(res, req, "bot/page.ejs", { thebot: Botsdata, alertSuccess: null, alertFail: null });
   });
 
   app.get("/bot/:id/delete", checkAuth, async (req, res) => {
@@ -556,12 +565,30 @@ module.exports = (client) => {
   });
 
   app.get("/bot/:id/vote", checkAuth, async (req, res) => {
-    var Bot = await Bots.findOne({ vanityUrl: req.params.id });
-    if (!Bot) Bot = await Bots.findOne({ id: req.params.id });
-    if (!Bot) return res.redirect("/");
-    var discordUser = client.users.get(Bot.id);
-    if (!discordUser) return res.redirect(`/bot/${Bot.id}`);
-    renderTemplate(res, req, "bot/vote.ejs", { entry: Bot, discordUser });
+    var But = await Bots.findOne({ vanityUrl: req.params.id });
+    if (!But) But = await Bots.findOne({ id: req.params.id });
+    if (!But) return res.redirect("/");
+
+    Bots.findOne({ id: But.id }, async (err,  Bot) => {
+      if (err) console.log(err);
+
+      const uVoteIndex = Bot.votes.findIndex(u => u.id === req.user.id);
+      if (uVoteIndex > -1) {
+        if (Date.now() - Bot.votes[uVoteIndex].timestamp < 43200000) return renderTemplate(res, req, "bot/page.ejs", { thebot: Bot, alertSuccess: null, alertFail: `You have aleady voted for this bot. Try again in ${msToHMS(43200000 - (Date.now() - Bot.votes[uVoteIndex].timestamp))}.` });
+        Bots.votes.splice(uVoteIndex, 1);
+      }
+
+      const voteObj = {
+        timestamp: Date.now(),
+        id: req.user.id
+      };
+
+      Bot.upvotes = Bot.upvotes + 1;
+      Bot.totalVotes = Bot.totalVotes + 1;
+      Bot.votes.push(voteObj);
+      await Bot.save().catch(e => console.log(e));
+      renderTemplate(res, req, "bot/page.ejs", { thebot: Bot, alertSuccess: "Your vote has been counted.", alertFail: null });
+    });
   });
 
   app.get("/api/search", async (req, res) => {
