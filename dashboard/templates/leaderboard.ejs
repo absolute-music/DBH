@@ -1,0 +1,64 @@
+<%- include('blocks/header', { bot, user, title: 'Leaderboard' }) %>
+<body ng-app="myModule">
+        <div class="container" ng-controller="myController" style="width:70%">
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <div class="tableHeader"><i class="fas fa-chart-line"></i> Leaderboard</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <table class="table main-bkg">
+                        <thead>
+                            <tr class="dev " style="padding:10px;box-shadow: 5px 5px 10px black;background-color:#2b828e">
+                                <th>#</th>
+                                <th>Dev Name</th>
+                                <th class="number">
+                                    Bots count
+                                    </th> 
+                                <th class="number">
+                                    Monthly karma  <i class="glyphicon glyphicon-menu-up"></i>
+                                </th> 
+                                <th class="number">
+                                    Total karma  <i class="fa fa-angle-double-up"></i>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody >
+                          <% for(var i=0; i < BestDevs.length; i++){  %>
+                            <tr class="dev">
+                                <td style="font-size:30px; text-align: center;"><%=i+1%>
+                                <%if (i == 0) {%>
+                                    <i class="fas fa-crown"></i></i>
+                                <%}%></td>
+                                <td class="name">
+                                    <a href="/profile/<%=BestDevs[i].id%>" target="_blank">
+                                        <img class="profileImg" src='<%=pfps[i]%>'/>
+                                        <span><a  onclick="window.location.href ='/profile/<%= BestDevs[i].id %>'" style="color:white;background-color: #7499a0; font-size: 20px;" class="badge badge-success"><%=tags[i]%></a></span>
+                                        <%if (BestDevs[i].certifiedDev == true) {%>
+                                            <span><i class="fas fa-award" style="color:rgb(112, 84, 14);"></i></span>
+                                        <%}%>
+                                    </a>
+                                </td>
+                                <td class="number" style="font-size:25px;"><a style="color:white;background-color: rgb(65, 119, 128); font-size: 20px;" class="badge badge-success">0</a></td>
+                                <td class="number" style="font-size:25px;"><a style="color:white;background-color: #184f57; font-size: 20px;" class="badge badge-success"><%=BestDevs[i].karma%></a></td>
+                                <td class="number" style="font-size:25px;"><a style="color:white;background-color: #ff6176; font-size: 20px;" class="badge badge-success"><%=BestDevs[i].totalKarma%></a></td>
+                                <% }; %>   
+                            </tr>
+                        </tbody>
+                    </table>	
+                </div>
+            </div>
+<br><br>
+<center><nav aria-label="...">
+        <ul class="pagination pagination-lg">
+          <% for (var i = 0; i < numberOfPages; i++) { %>
+            <li class="page-item"><a class="page-link" href="/leaderboard?page=<%= i + 1 %>"><%= i + 1 %></a></li>
+           <% } %>
+        </ul>
+      </nav></center>
+        </div>
+    </body>
+
+
+<%- include('blocks/footer') %>

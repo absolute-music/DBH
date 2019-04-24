@@ -188,6 +188,8 @@ module.exports = (client) => {
         bio: "I'm a very mysterious person.",
         certifiedDev: false,
         bg: null,
+        karma: 0,
+        totalKarma: 0,
         mod: false,
         admin: false,
         email: req.user.email
@@ -284,6 +286,8 @@ module.exports = (client) => {
       "code": 200,
       "id": data.id,
       "bio": data.bio,
+      "karma": data.karma,
+      "totalKarma": data.totalKarma,
       "certifiedDev": data.certifiedDev,
       "customBackground": data.bg,
       "mod": data.mod,
@@ -405,6 +409,42 @@ module.exports = (client) => {
     results = paginate(results, 16, currentPage);
 
     renderTemplate(res, req, "lists/new.ejs", { featuredBots: results, numberOfPages: totalPages });
+  });
+
+  app.get("/leaderboard", async (req, res) => {
+    var currentPage = req.query.page || "1";
+    if (isNaN(parseInt(currentPage))) {
+      currentPage = 1
+    } else {
+      currentPage = parseInt(currentPage);
+    };
+    let tags = [];
+    let usernames = [];
+    let pfps = []; //lmao
+    let results = await Profiles.find().sort({karma:  -1});
+
+    const lengthOfRes = results.length;
+    var totalPages;
+    if (Math.round(lengthOfRes / 16) === lengthOfRes / 16) {
+      totalPages = lengthOfRes / 16;
+    } else {
+      totalPages = Math.round(lengthOfRes / 16) + 1;
+    }
+    results = paginate(results, 16, currentPage);
+    for(var i=0; i <results.length; i++){
+      var theuser = await client.users.get(results[i].id)
+      if(theuser) {
+      tags.push(theuser.tag)
+      usernames.push(theuser.username)
+      pfps.push(theuser.displayAvatarURL({ size:128 }))
+    } else {
+      tags.push('Unknown#0000')
+      usernames.push('Deleted user')
+      pfps.push('https://discordapp.com/assets/dd4dbc0016779df1378e7812eabaa04d.png')
+    }
+
+    };
+    renderTemplate(res, req, "leaderboard.ejs", { BestDevs: results,pfps,tags,usernames,numberOfPages: totalPages });
   });
 
   app.get("/tag/:name", async (req, res) => {
@@ -571,7 +611,7 @@ module.exports = (client) => {
 
     Bots.findOne({ id: But.id }, async (err,  Bot) => {
       if (err) console.log(err);
-
+      var user = await Profiles.findOne({ id: Bot.mainOwner });
       const uVoteIndex = Bot.votes.findIndex(u => u.id === req.user.id);
       if (uVoteIndex > -1) {
         if (Date.now() - Bot.votes[uVoteIndex].timestamp < 43200000) return renderTemplate(res, req, "bot/page.ejs", { thebot: Bot, alertSuccess: null, alertFail: `You have aleady voted for this bot. Try again in ${msToHMS(43200000 - (Date.now() - Bot.votes[uVoteIndex].timestamp))}.` });
@@ -585,8 +625,11 @@ module.exports = (client) => {
 
       Bot.upvotes = Bot.upvotes + 1;
       Bot.totalVotes = Bot.totalVotes + 1;
+      user.karma = user.karma +1;
+      user.totalKarma = user.totalKarma +1;
       Bot.votes.push(voteObj);
       await Bot.save().catch(e => console.log(e));
+      await user.save().catch(e => console.log(e));
       renderTemplate(res, req, "bot/page.ejs", { thebot: Bot, alertSuccess: "Your vote has been counted.", alertFail: null });
     });
   });

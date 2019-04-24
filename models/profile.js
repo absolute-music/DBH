@@ -8,6 +8,8 @@ const profileSchema = new mongoose.Schema({
   mod: Boolean,
   admin: Boolean,
   email: String,
+  karma: Number,
+  totalKarma: Number,
   createdAt: Number
 });
 

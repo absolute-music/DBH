@@ -59,14 +59,10 @@
           <button  onclick="window.location.href = '<%= thebot.data.website %>';" style=" background-color: #184f57;" type="button" class="btn">Visit GitHub</button>
         <% }%>
 				<button  onclick="window.location.href = '<%= thebot.data.server %>';" style=" background-color: #184f57;"type="button" class="btn">Join Server</button></li>
-				<li><a href="<%= thebot.data.invite %>" style=" background-color: #184f57;" class="btn w-25">Invite</a>
-          <!-- <button type="button" style="background-color: #184f57; padding:  10px 5px;" class="btn w-25" data-toggle="modal" data-target="#voteModal">Vote</button> -->
-					<form cmethod="post">
-            <input type="text" name="name" value="vote" style="display: none;">
-            <button type="button" style=" background-color: #184f57;" class="btn w-25">Vote</a>
-          </form>
-          <!-- <a href="/bot/<%= thebot.data.id %>/report" style=" background-color: #184f57;" class="btn w-25">Report</a> -->
-          <button type="button" style="background-color: #184f57; padding:  10px 5px;" class="btn w-25" data-toggle="modal" data-target="#reportModal">Report</button>
+				<li>  
+          <a href="<%= thebot.data.invite %>" style=" background-color: #184f57;" class="btn w-25">Invite</a>
+          <a href='/bot/<%= thebot.data.id %>/vote' cmethod="post" type="text" value="vote" style="  background-color: #184f57;" class="btn w-25">Vote</a>
+          <a  style="background-color: #184f57; padding:  10px 5px;" class="btn w-25" data-toggle="modal" data-target="#reportModal">Report</a>
         </li>
 			</ul>
 					</div>
