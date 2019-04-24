@@ -501,6 +501,24 @@ module.exports = (client) => {
     renderTemplate(res, req, "bot/page.ejs", { thebot: Botsdata, alertSuccess: null, alertFail: null });
   });
 
+  app.post("/bot/:id", checkAuth, async (req, res) => {
+    var Botsdata = await Bots.findOne({ vanityUrl: req.params.id });
+    if (!Botsdata) Botsdata = await Bots.findOne({ id: req.params.id });
+    if (!Botsdata) return res.redirect("/");
+
+    if (!req.body.reason) return renderTemplate(res, req, "bot/page.ejs", { thebot: Botsdata, alertSuccess: null, alertFail: "Hmm, seems like a bad request has occured, please make sure you are logged in and try again." });
+    const bot = await client.users.fetch(Botsdata.id);
+    const botOwner = await client.users.fetch(Botsdata.mainOwner);
+
+    const embed = new Discord.MessageEmbed()
+      .setTitle("Bot Report")
+      .setDescription(`**User**: ${req.user.username}#${req.user.discriminator} (ID: ${req.user.id})\n**Bot**: ${bot.tag} (ID: ${bot.id})\n**Bot Owner**: ${botOwner.tag} (ID: ${botOwner.id})\n**Reason**: ${req.body.reason}`)
+      .setColor("BLUE")
+      .setTimestamp();
+    client.channels.get("570738216660107324").send(embed);
+    renderTemplate(res, req, "bot/page.ejs", { thebot: Botsdata, alertSuccess: "Your report has been submited to our moderation team, we will review it as soon as possible.", alertFail: null });
+  });
+
   app.get("/bot/:id/delete", checkAuth, async (req, res) => {
     var Bot = await Bots.findOne({ vanityUrl: req.params.id });
     if (!Bot) Bot = await Bots.findOne({ id: req.params.id });

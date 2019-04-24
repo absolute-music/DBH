@@ -8,13 +8,13 @@
 }; %>
 
  <% if (alertSuccess) { %>
-  <div style="margin-right: 5%; margin-left: 5%;" class="alert alert-success" role="alert">
+  <div style="margin-left: 10%; margin-right: 10%;" class="alert alert-success" role="alert">
     <%= alertSuccess %>
   </div>
 <% } %>
 
 <% if (alertFail) { %>
-  <div style="margin-right: 5%; margin-left: 5%;" class="alert alert-danger" role="alert">
+  <div style="margin-left: 10%; margin-right: 10%;" class="alert alert-danger" role="alert">
     <%= alertFail %>
   </div>
 <% } %>
@@ -80,12 +80,13 @@
        </button>
      </div>
      <div class="modal-body">
-       <form action="/<%= thebot.data.id %>/report" method="post">
+       <form method="post">
          <div class="form-group">
            <input type="text" name="name" value="report" style="display: none;">
            <label for="reportReason">Reason: </label>
-           <input type="text" class="form-control" id="reportReason" aria-describedby="reportHelp" placeholder="Bot's help command is not working." required>
+           <input type="text" class="form-control" id="reportReason" aria-describedby="reportHelp" name="reason" placeholder="Bot's help command is not working." required>
            <small id="reportHelp" class="form-text text-muted" style="color: red!important;">We reserve rights to decline any report with or without checking the bot.</small><br>
+           <p><strong>NOTE:</strong> You have to be logged in order to submit the report, make sure you are logged in otherwise you'll be redirected to login page and then you'll have to fill report again.</p>
              <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal" aria-label="Close" style="width: 49%;">Abort</button>
              <button type="submit" class="btn btn-success btn-lg" style="width: 49%; float: right;">Report</button>
          </div>
