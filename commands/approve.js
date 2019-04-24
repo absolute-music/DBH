@@ -1,8 +1,11 @@
 const Discord = require("discord.js");
 const bots = require("../models/bots");
+const profiles = require("../models/profile");
 
 module.exports.run = async (client, message, args, reply) => {
-  if (!client.config.admins.includes(message.author.id)) return;
+  const userProfile = await profiles.findOne({ id: message.author.id });
+  if (!userProfile || userProfile.mod !== true && userProfile.admin !== true) return reply(`You can't do this.`);
+
   var bot = message.mentions.users.first() || { id: args[0] };
   if (bot) bot = bot.id;
   if (!bot) return reply("<a:aRedTick:568884586818306048> Please specify a bot to approve.");
@@ -14,6 +17,10 @@ module.exports.run = async (client, message, args, reply) => {
     await res.save().catch(e => console.log(e));
     if (client.guilds.get("560865387206672384").members.get(res.mainOwner)) {
       client.guilds.get("560865387206672384").members.get(res.mainOwner).roles.add(client.guilds.get("560865387206672384").roles.find(r => r.name === "Developer"));
+    }
+
+    for (const owner of res.owners) {
+      if (client.guilds.get("560865387206672384").members.get(owner)) client.guilds.get("560865387206672384").members.get(owner).roles.add(client.guilds.get("560865387206672384").roles.find(r => r.name === "Developer"));
     }
 
     var allOwners = res.owners;

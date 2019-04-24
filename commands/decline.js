@@ -1,8 +1,11 @@
 const Discord = require("discord.js");
 const bots = require("../models/bots");
+const profiles = require("../models/profile");
 
 module.exports.run = async (client, message, args, reply) => {
-  if (!client.config.admins.includes(message.author.id)) return;
+  const userProfile = await profiles.findOne({ id: message.author.id });
+  if (!userProfile || userProfile.mod !== true && userProfile.admin !== true) return reply(`You can't do this.`);
+
   var bot = message.mentions.users.first() || { id: args[0] };
   if (bot) bot = bot.id;
 
@@ -11,6 +14,8 @@ module.exports.run = async (client, message, args, reply) => {
   if (!reason) return reply("<a:aRedTick:568884586818306048> Please specify a reason for rejection.");
 
   const bot1 = await bots.findOne({ id: bot });
+  await bots.findOneAndDelete({ id: bot });
+  
   if (!bot1) return reply("<a:aRedTick:568884586818306048> That bot was not found in queue.")
 
   const bt = await client.users.fetch(bot1.id);
