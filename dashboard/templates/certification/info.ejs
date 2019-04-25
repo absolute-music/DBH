@@ -1,0 +1,46 @@
+<%- include("../blocks/header.ejs", { bot, user, path, title: `Certification` }) %>
+
+<style media="screen">
+  .certification-requirments-container p {
+    font-size: 16px;
+  }
+</style>
+
+<div class="jumbotron main-bkg certification-requirments-container" style="color: #ffffff; margin-left: 7%; margin-right: 7%;">
+  <h1 style="bottom: -10px; position: relative;">Certification Program</h1>
+  <hr>
+  <p>Certification program gives owners and their bots a certified status and more exposure for their creation, bots are expected to be well maintained and online 24/7.</p>
+  <h2>Requirments:</h2>
+  <ul>
+    <li>Server Count must be higger than 250.</li>
+    <li>Must have at least 30 votes at the time of submition.</li>
+    <li>A good use of short and long description.</li>
+    <li>Must post server count to our API.</li>
+    <li>Online 24/7, excepting some minor downtime or maintenances.</li>
+    <li>Original code, not a fork of a bot with a new name.</li>
+    <li>Be on list for at least 3 days.</li>
+    <li>Full documentation of your commands and features.</li>
+  </ul>
+  <h2>Perks:</h2>
+  <ul>
+    <li>A role for you and your bot.</li>
+    <li>Huge chances on appearing on first page.</li>
+    <li>Access to exclusive text and voice channels.</li>
+    <li>Vanity URLs.</li>
+  </ul>
+  <h2>Reviewing System:</h2>
+  <ul>
+    <li>Discord Bot Best Practices (<a style="color: darkblue;" href="https://github.com/meew0/discord-bot-best-practices">More about them here.</a>)</li>
+    <li>Functionality</li>
+    <li>Concept</li>
+    <li>Creativity</li>
+    <li>Description Use</li>
+    <li>Support Quality</li>
+    <li>Past Reports</li>
+  </ul>
+  <p>We will alocate points for all of the areas listed below, if your bot scores over a certain threshold, your bot and you will be certified.</p>
+  <p><strong>IMPORTANT NOTE:</strong> We are <strong>not</strong> looking for <strong>multipurpose bots</strong> and/or main purpose of the bot is 8ball or any other random number generated command and we also don't look for <strong>non-english speaking bots</strong>, if your bot supports multiple languages, make sure the default is <strong>english</strong>.</p>
+  <a class="btn btn-block" style="width: 100%; background-color: #184f57; color: inherit;" href="/certification/apply">I meet all requirments and i want to apply!</a>
+</div>
+
+<%- include("../blocks/footer.ejs") %>

@@ -746,7 +746,10 @@ module.exports = (client) => {
     renderTemplate(res, req, "api/docs.ejs");
   });
 
-
+  app.get("/certification", (req, res) => {
+    renderTemplate(res, req, "certification/info.ejs");
+  });
+  
   app.get("*", (req, res) => renderTemplate(res, req, "404.ejs"));
   app.post("*", (req, res) => renderTemplate(res, req, "404.ejs"));
 
