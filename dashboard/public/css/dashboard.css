@@ -1,7 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
 
 body{
     background: #f2f2f2;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Poppins', arial-black!important;
     background-image: url(https://cdn.discordapp.com/attachments/558283306500751371/568944922304970753/Yk5mBUSsvyAAAAAElFTkSuQmCC.png);
     background-repeat: repeat;
     background-size: 150px;
@@ -575,7 +576,7 @@ html *{
     min-height: 32px;
     color: #fff;
     font-weight: 700;
-    font-family: "Roboto Slab","Times New Roman",serif;
+    /* font-family: "Roboto Slab","Times New Roman",serif; */
 }
 
 .profile-page .description {
@@ -632,7 +633,7 @@ margin-bottom: 0;}
 .profile-head ul li a { color:#ffffff;}
 .profile-head h6 {width: 100%;text-align: center;font-weight: 100;color: #fff;font-size: 15px;text-transform: uppercase;margin-bottom: 0;}
 
-.tab-content>.active {margin-top:50px;/*width:100% !important;*/} 
+.tab-content>.active {margin-top:50px;/*width:100% !important;*/}
 
 /***
 Bootstrap Line Tabs by @keenthemes
@@ -729,33 +730,38 @@ Licensed under MIT
 
 .stats {
   text-align:center;
+<<<<<<< HEAD
+  margin-top:25px;
+
+=======
   margin-top:25px;  
   padding-inline-start: 0px;
   
+>>>>>>> 0cf2a2c0cf15e3f4418b09cb65692b38eb28979f
 }
 .stats li{
-  width:125px; 
+  width:125px;
 }
 .stats span{
-  font-family:Helvetica;
+  /* font-family:Helvetica; */
   font-weight:bold;
   text-shadow:1px 1px 0px #144147;
   font-size:4em;
-  
+
   display:block;
   line-height:1em;
 }
 
 /* Large desktop */
-@media (min-width: 1200px) { 
+@media (min-width: 1200px) {
 }
- 
+
 /* Portrait tablet to landscape and desktop */
-@media (min-width: 768px) and (max-width: 979px) { 
+@media (min-width: 768px) and (max-width: 979px) {
 }
- 
+
 /* Landscape phone to portrait tablet */
-@media (max-width: 767px) { 
+@media (max-width: 767px) {
   .profile img{
     width:75px;
   }
@@ -766,9 +772,9 @@ Licensed under MIT
     font-size: 2em;
   }
 }
- 
+
 /* Landscape phones and down */
-@media (max-width: 480px) { 
+@media (max-width: 480px) {
 }
 
 
@@ -832,7 +838,7 @@ Licensed under MIT
   background-color: #2b828e;
   font-size: 40px;
   color:white;
-  font-family: "Courier New", Times, serif;
+  /* font-family: "Courier New", Times, serif; */
   text-align: center;
   padding: 10px;
   margin-bottom: 15px;
