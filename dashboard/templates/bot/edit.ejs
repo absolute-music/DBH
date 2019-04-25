@@ -175,7 +175,7 @@
 
   <div class="form-group">
     <p><strong>Tags <span style="color: #ff0000">*</span></strong></p>
-    <select name="tags" style="width: 100%;" class="selectpicker" data-live-search="true" multiple required>
+    <select data-max-options="3" name="tags" style="width: 100%;" class="selectpicker" data-live-search="true" multiple required>
     <option data-tokens="Music" value="Music" <%= theBot.tags.includes("Music") ? "selected" : "" %>>Music</option>
     <option data-tokens="Moderation" value="Moderation" <%= theBot.tags.includes("Moderation") ? "selected" : "" %>>Moderation</option>
     <option data-tokens="Fun" value="Fun" <%= theBot.tags.includes("Fun") ? "selected" : "" %>>Fun</option>

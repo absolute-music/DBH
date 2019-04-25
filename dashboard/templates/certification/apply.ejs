@@ -1,0 +1,70 @@
+<%- include("../blocks/header.ejs", { bot, user, path, title: `Certification` }) %>
+
+<div class="jumbotron main-bkg" style="margin-left: 7%; margin-right: 7%; color: #fff">
+  <h1 style="bottom: -10px; position: relative;">Certification Application</h1>
+  <hr>
+  <form method="post">
+    <div class="form-group">
+      <p>What is the bot you want to apply for?</p>
+      <select name="bot" data-width="225px" class="selectpicker" required>
+        <option value="">Pick a bot...</option>
+        <% for (const bot of userBots) { %>
+          <option value="<%= bot.id %>"><%= bot.name %></option>
+        <% } %>
+      </select>
+    </div>
+
+    <div class="form-check">
+        <input type="checkbox" name="serverCount" class="form-check-input" id="serverCount">
+        <label style="margin-left: 20px;" class="form-check-label" for="serverCount">My bot is in 250 or more guilds (aka discord servers).</label>
+    </div>
+
+    <div class="form-check">
+       <input type="checkbox" name="serverCount" class="form-check-input" id="serverCount">
+       <label style="margin-left: 20px;" class="form-check-label" for="serverCount">My bot does have 30 or more votes on website.</label>
+    </div>
+
+    <div class="form-check">
+        <input type="checkbox" name="serverCount" class="form-check-input" id="serverCount">
+        <label style="margin-left: 20px;" class="form-check-label" for="serverCount">I make a good use of both long and short descriptions.</label>
+    </div>
+
+    <div class="form-check">
+       <input type="checkbox" name="serverCount" class="form-check-input" id="serverCount">
+       <label style="margin-left: 20px;" class="form-check-label" for="serverCount">My bot does posts guild and/or shard count to the api.</label>
+    </div>
+
+    <div class="form-check">
+      <input type="checkbox" name="serverCount" class="form-check-input" id="serverCount">
+      <label style="margin-left: 20px;" class="form-check-label" for="serverCount">My bot is hosted 24/7 on a virtual private server or a dedicated server to ensure it's online 24 hours of the day, 7 days a week.</label>
+    </div>
+
+    <div class="form-check">
+      <input type="checkbox" name="serverCount" class="form-check-input" id="serverCount">
+      <label style="margin-left: 20px;" class="form-check-label" for="serverCount">My bot's code is original and is not a fork of another bot.</label>
+    </div>
+
+    <div class="form-check">
+      <input type="checkbox" name="serverCount" class="form-check-input" id="serverCount">
+      <label style="margin-left: 20px;" class="form-check-label" for="serverCount">My bot does posts guild and/or shard count to the api.</label>
+    </div>
+
+    <div class="form-check">
+      <input type="checkbox" name="serverCount" class="form-check-input" id="serverCount">
+      <label style="margin-left: 20px;" class="form-check-label" for="serverCount">My bot is been on Discord Bot House for 3 or more days.<label>
+    </div>
+
+    <div class="form-check">
+      <input type="checkbox" name="serverCount" class="form-check-input" id="serverCount">
+      <label style="margin-left: 20px;" class="form-check-label" for="serverCount">My bot has a documentation of all command and features.</label>
+    </div><br>
+
+    <p>What is your bot's main feature?</p>
+    <textarea name="mainFeature" style="width: 100%; border-radius: 5px 5px 5px 5px; color: #000000; height: 148px;" placeholder="Posting memes..."></textarea>
+    <br><br>
+    <p>What separes your bot from the crowd of bots with same feature?</p>
+    <textarea name="mainFeatureReason" style="width: 100%; border-radius: 5px 5px 5px 5px; color: #000000; height: 148px;" placeholder="Posting memes..."></textarea>
+
+  </form>
+</div>
+<%- include("../blocks/footer.ejs") %>

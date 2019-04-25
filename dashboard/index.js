@@ -749,7 +749,13 @@ module.exports = (client) => {
   app.get("/certification", (req, res) => {
     renderTemplate(res, req, "certification/info.ejs");
   });
-  
+
+  app.get("/certification/apply", checkAuth, async (req, res) => {
+    const userBots = await Bots.find({ mainOwner: req.user.id, approved: true });
+    console.log(userBots);
+    renderTemplate(res, req, "certification/apply.ejs", { userBots });
+  });
+
   app.get("*", (req, res) => renderTemplate(res, req, "404.ejs"));
   app.post("*", (req, res) => renderTemplate(res, req, "404.ejs"));
 
