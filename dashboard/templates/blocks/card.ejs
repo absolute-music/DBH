@@ -20,20 +20,17 @@
       <div class="card-body" style="padding: 0px">
         <center>
         <p style="margin-left: 10px; margin-top: 7px;" class="card-title"><%= bot.users.get(theBot.id).username %></p>
-      </center>
-        <!-- <center>
-          <p class="card-title"><%= bot.users.get(theBot.id).username %></p>
           <% if (theBot.certified) { %>
-            <i class="fas fa-award"></i> Certified <br>
+            <i style="margin:0px" class="fas fa-award"></i> Certified 
           <% } %>
           <% if (theBot.featured) { %>
-            <i class="fas fa-star"></i> Featured <br>
+            <i style="margin:0px" class="fas fa-star"></i> Featured 
           <% } %>
           <% if (theBot.trusted) { %>
-            <i class="fas fa-infinity"></i> Partner
+            <i style="margin:0px" class="fas fa-infinity"></i> Partner
           <% } %>
-        </center> -->
-        <p class="card-text" style="text-align:center"><%= theBot.shortDesc %></p>
+        </center>
+        <p class="card-text" style="text-align:center;padding-bottom: 1px;padding-top:1px"><%= theBot.shortDesc %></p>
       </div>
       <center>
         <div class="tag">
@@ -50,7 +47,7 @@
             if(graytags.includes(tag)) label = "default"
             if(greentags.includes(tag)) label = "success"
             %>
-          <span onclick="window.location.href ='/tags/<%=tag%>';" class="label label-<%=label%>"><%=tag%></span>
+          <span onclick="window.location.href ='/tags/<%=tag%>';" style="cursor: pointer;"class="label label-<%=label%>"><%=tag%></span>
           <%  }; %>
         </div>
      </center>
