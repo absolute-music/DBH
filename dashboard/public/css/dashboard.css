@@ -402,12 +402,12 @@ border: 0px ;
 outline: 0px ;
 padding: 10px;
 color: white;
-background-color: #113438;
+background-color: #194e55;
 text-align: center;
 cursor: pointer;
 width: 50%;
 font-size: 25px;
-box-shadow:0 8px 10px 0 rgba(0, 0, 0, 1.2);
+box-shadow:1px 0px 4px 0px rgba(0, 0, 0, 0.5);
 
 }
 
@@ -730,6 +730,7 @@ Licensed under MIT
 .stats {
   text-align:center;
   margin-top:25px;  
+  padding-inline-start: 0px;
   
 }
 .stats li{
