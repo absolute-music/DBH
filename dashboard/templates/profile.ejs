@@ -1,14 +1,94 @@
 <%- include('blocks/header', { bot, user, title: `${discordUser.username}'s Profile` }) %>
+<center>
+  <div class="parent">
+    <div class="con">
+      <div class="con2">
+        <div class="follow">
+          <h3 class="followNum"></h3>
+          <h3 class="followH"></h3>
+        </div>
+        <div class="faceCon">
+       
+        <img src="<%= bot.users.get(discordUser.id).displayAvatarURL({ size:512 }); %>" class="img-raised rounded-circle"/></img>         
+     
+      </div>
+       
+        <div class="following">
+          <h3 class="followingNum"></h3>
+          <h3 class="followingH"></h3>
+        </div>
+      </div>
+  
+      <div class="con3">
+        <div class="nl">
+          <h3 class="name"> <i class="fab fa-discord"></i> <%=discordUser.tag%></h3>
+          <% if (profile.certifiedDev) {%>
+            <h3 class="loca">Certified developer</h3>
+            <% } else {%>
+              <h3 class="loca">Developer</h3>
+              <% }  %>
+              
+          <hr class="line1">
+  
+          <h3 class="bio"><%=profile.bio%></h3>
+  
+          <hr class="line2">
+          
+        </div>
+        
+      </div>
+  <div style="margin: 25px"></div>
+      <a href="#" class="fa fa-github"></a>
+              <a href="#" class="fa fa-globe"></a>
+              <a href="#" class="fa fa-twitter"></a>
+              <a href="#" class="fa fa-linkedin"></a>
+              <a href="#" class="fa fa-youtube"></a>
+              <a href="#" class="fa fa-instagram"></a>
+              <a href="#" class="fa fa-reddit"></a>
+              <ul class="inline stats">
+                  <li>
+                    <span><%= bots.length %></span>
+                    Bots
+                 </li>
+                 <li>
+                    <span><%= profile.karma %></span>
+                    Karma
+                 </li>
+                  <li>
+                    <span>12</span>
+                    Rank
+                 </li>
+             </ul>
+      <div class="imgcon">
+        <% if (bots.length == 0) { %>
+     <div style="text-align:center;">
+           <br> 
 
-
-
+      <p style="font-size: 25px;color:white; padding: 10px;text-align: center;"><i class="fas fa-walking"></i>  This user hasn't listed any bots yet.</p>
+     <br>
+      </div>
+   
+      <%} else {%>  
+        <div style="padding: 20px 20px 20px 20px">
+        
+            <div class="row">
+              <% bots.forEach(theBot => { if (!bot.users.get(theBot.id)) bot.users.get(theBot.id) = { presence: { status: "offline" }, username: theBot.name  } %>
+              <center><%- include("blocks/card.ejs", { theBot, bot }); %></center>
+              <% }); %>
+            </div>
+            </div><% }; %>
+      </div>
+      
+    </div>
+  </div>
+</center>
 <script>
     $(window).scroll(function(){
       $("#bgd").css("opacity", 1 - $(window).scrollTop() / 1000);
     });
   </script>
 
-<!------ Include the above in your HEAD tag ---------->
+<!------ Include the above in your HEAD tag 
 <div class="container profile ">
   <div class="row">
     <div class="span12">
@@ -52,119 +132,402 @@
                  <span>12</span>
                  Rank
               </li>
-          </ul>
+          </ul>---------->
             <div><!--/span6-->
             </div><!--/row-->
-      </div>
-      <!--Body content-->
+          </div>
+      <!--Body content
     </div>
   </div>
 </div>
 </div>
 </div>
 </div>
-</div>
-
+</div>--><!--
+<br><br><br><br><br>
 
 <div class="container1 main-bkg" style="margin-left: 3%; margin-right: 3%;margin-top: 70px;margin-bottom: 20px;box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2); color: #fff; border-radius: 30px">
 
-<% if (bots.length == 0) { %>
-    <div><center>
-      <p></p><br>
-<p style="font-size: 25px; padding: 10px"><i class="fas fa-walking"></i>  This user hasn't listed any bots yet.</p>
-<p></p><br>
-</center>
-</div>
-<%} else {%>
-  <div style="padding: 35px 20px 20px 35px">
-      <div class="row">
-        <% bots.forEach(theBot => { if (!bot.users.get(theBot.id)) bot.users.get(theBot.id) = { presence: { status: "offline" }, username: theBot.name  } %>
-          <%- include("blocks/card.ejs", { theBot, bot }); %>
-        <% }); %>
+88
       </div>
       </div>
       </div>
-<%}%>
-</div>
+
+</div>-->
 <style>
 
 img{max-width:100%;width:auto\9;height:auto;vertical-align:middle;border:0;-ms-interpolation-mode:bicubic;}
-#map_canvas img,.google-maps img{max-width:none;}
-button,input,select,textarea{margin:0;font-size:100%;vertical-align:middle;}
-button,input{*overflow:visible;line-height:normal;}
-button::-moz-focus-inner,input::-moz-focus-inner{padding:0;border:0;}
-button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer;}
-label,select,button,input[type="button"],input[type="reset"],input[type="submit"],input[type="radio"],input[type="checkbox"]{cursor:pointer;}
-input[type="search"]{-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box;-webkit-appearance:textfield;}
-input[type="search"]::-webkit-search-decoration,input[type="search"]::-webkit-search-cancel-button{-webkit-appearance:none;}
-textarea{overflow:auto;vertical-align:top;}
-@media print{*{text-shadow:none !important;color:#000 !important;background:transparent !important;box-shadow:none !important;} a,a:visited{text-decoration:underline;} a[href]:after{content:" (" attr(href) ")";} abbr[title]:after{content:" (" attr(title) ")";} .ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:"";} pre,blockquote{border:1px solid #999;page-break-inside:avoid;} thead{display:table-header-group;} tr,img{page-break-inside:avoid;} img{max-width:100% !important;} @page {margin:0.5cm;}p,h2,h3{orphans:3;widows:3;} h2,h3{page-break-after:avoid;}}body{margin:0;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;line-height:20px;color:#333333;background-color:#ffffff;}
-a{color:#0088cc;text-decoration:none;}
-a:hover,a:focus{color:#005580;text-decoration:underline;}
-.img-rounded{-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;}
-.img-polaroid{padding:4px;background-color:#fff;border:1px solid #ccc;border:1px solid rgba(0, 0, 0, 0.2);-webkit-box-shadow:0 1px 3px rgba(0, 0, 0, 0.1);-moz-box-shadow:0 1px 3px rgba(0, 0, 0, 0.1);box-shadow:0 1px 3px rgba(0, 0, 0, 0.1);}
-.img-circle{-webkit-border-radius:500px;-moz-border-radius:500px;border-radius:500px;}
-.row{margin-left:-20px;*zoom:1;}.row:before,.row:after{display:table;content:"";line-height:0;}
-.row:after{clear:both;}
-[class*="span"]{float:left;min-height:1px;margin-left:20px;}
-.container,.navbar-static-top .container,.navbar-fixed-top .container,.navbar-fixed-bottom .container{width:940px;}
-.span12{width:940px;}
-.span11{width:860px;}
-.span10{width:780px;}
-.span9{width:700px;}
-.span8{width:620px;}
-.span7{width:540px;}
-.span6{width:460px;}
-.span5{width:380px;}
-.span4{width:300px;}
-.span3{width:220px;}
-.span2{width:140px;}
-.span1{width:60px;}
-.row-fluid{width:100%;*zoom:1;}.row-fluid:before,.row-fluid:after{display:table;content:"";line-height:0;}
-.row-fluid:after{clear:both;}
-.row-fluid [class*="span"]{display:block;width:100%;min-height:30px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;float:left;margin-left:2.127659574468085%;*margin-left:2.074468085106383%;}
-.row-fluid [class*="span"]:first-child{margin-left:0;}
-.row-fluid .controls-row [class*="span"]+[class*="span"]{margin-left:2.127659574468085%;}
-.row-fluid .span12{width:100%;*width:99.94680851063829%;}
-.row-fluid .span11{width:91.48936170212765%;*width:91.43617021276594%;}
-.row-fluid .span10{width:82.97872340425532%;*width:82.92553191489361%;}
-.row-fluid .span9{width:74.46808510638297%;*width:74.41489361702126%;}
-.row-fluid .span8{width:65.95744680851064%;*width:65.90425531914893%;}
-.row-fluid .span7{width:57.44680851063829%;*width:57.39361702127659%;}
-.row-fluid .span6{width:48.93617021276595%;*width:48.88297872340425%;}
-.row-fluid .span5{width:40.42553191489362%;*width:40.37234042553192%;}
-.row-fluid .span4{width:31.914893617021278%;*width:31.861702127659576%;}
-.row-fluid .span3{width:23.404255319148934%;*width:23.351063829787233%;}
-.row-fluid .span2{width:14.893617021276595%;*width:14.840425531914894%;}
-.row-fluid .span1{width:6.382978723404255%;*width:6.329787234042553%;}
-.container{margin-right:auto;margin-left:auto;*zoom:1;}.container:before,.container:after{display:table;content:"";line-height:0;}
-.container:after{clear:both;}
-.container-fluid{padding-right:20px;padding-left:20px;*zoom:1;}.container-fluid:before,.container-fluid:after{display:table;content:"";line-height:0;}
-.container-fluid:after{clear:both;}
 
-.text-left{text-align:left;}
-.text-right{text-align:right;}
-.text-center{text-align:center;}
-h1,h2,h3,h4,h5,h6{margin:10px 0;font-family:inherit;font-weight:bold;line-height:20px;color:inherit;text-rendering:optimizelegibility;}h1 small,h2 small,h3 small,h4 small,h5 small,h6 small{font-weight:normal;line-height:1;color:#999999;}
-h1,h2,h3{line-height:40px;}
-h1{font-size:38.5px;}
-h2{font-size:31.5px;}
-h3{font-size:24.5px;}
-h4{font-size:17.5px;}
-h5{font-size:14px;}
-h6{font-size:11.9px;}
-h1 small{font-size:24.5px;}
-h2 small{font-size:17.5px;}
-h3 small{font-size:14px;}
-h4 small{font-size:14px;}
-.page-header{padding-bottom:9px;margin:20px 0 30px;border-bottom:1px solid #eeeeee;}
-ul,ol{padding:0;margin:0 0 10px 25px;}
-ul ul,ul ol,ol ol,ol ul{margin-bottom:0;}
-li{line-height:20px;}
-ul.unstyled,ol.unstyled{margin-left:0;list-style:none;}
-ul.inline,ol.inline{margin-left:0;list-style:none;}ul.inline>li,ol.inline>li{display:inline-block;*display:inline;*zoom:1;padding-left:5px;padding-right:5px;}
+
+
+.parent {
+  margin-top: -20px;
+  width: 100%;
+ /* height: 100%;*/
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+  -ms-flex-pack: center;
+}
+
+.con {
+  width: 92%;
+  height: 100%;
+  background: #194e55;
+  border-radius: 8px;
+  -webkit-box-shadow: 1px 1.2px 5px 1px #333;
+  box-shadow: 1px 1.2px 5px 1px #000;
+  margin: 20px 0 200px 0;
+  /*margin-bottom: 200px;*/
+}
+
+@media (max-width: 365px) {
+  
+}
+.con1, .con2 {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: space-between;
+  -moz-justify-content: space-between;
+  -ms-justify-content: space-between;
+  justify-content: space-between;
+  -ms-flex-pack: space-between;
+}
+
+.larrow {
+  color: #EEF;
+  font-size: 30px;
+  position: relative;
+  top: 20px;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: 1s;
+}
+
+.larrow:hover {
+  -webkit-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  transform: rotate(360deg);
+  transition: 1s;
+}
+
+.ccross {
+  background: #F9A938;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+  -ms-flex-pack: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  position: relative;
+  top: 20px;
+  margin-right: 10px;
+}
+
+.cross {
+  color: #FFF;
+  font-size: 35px;
+  transition: 1s;
+}
+
+.cross:hover {
+  color: #FFF;
+  font-size: 35px;
+  -webkit-transform: scale(1.4);
+  -ms-transform: scale(1.4);
+  -o-transform: scale(1.4);
+  -moz-transform: scale(1.4);
+  transform: scale(1.4);
+  transition: 1s;
+}
+
+.con2 {
+  position: relative;
+  top: 25px;
+}
+
+.follow {
+  position: relative;
+  left: 15px;
+  top: 15px;
+}
+
+.followNum, .followingNum {
+  color: #EEF;
+  font-weight: 100;
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  transform: translateX(-50%);
+  font-family: 'Oswald';
+  font-size: 3vw;
+}
+
+.followH, .followingH {
+  color: #BED2FF;
+  font-weight: 100;
+  margin-top: 30px;
+  font-family: 'Nunito';
+  font-size: 2vw;
+}
+
+.faceCon {
+  border-radius: 50%;
+  height: 150px;
+  width: 150px;
+  margin: 0px;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+  -ms-flex-pack: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+}
+
+.face {
+  color: #EEF;
+  font-size: 35px;
+}
+
+.pro {
+  height: 30px;
+  width: 30px;
+  background: #3CBFE9;
+  border-radius: 50%;
+  border: 4px solid #113438;
+
+}
+
+.lpro {
+  color: #EEF;
+  font-size: 13px;
+}
+
+.following {
+  position: relative;
+  right: 15px;
+  top: 15px;
+}
+
+.con3 {
+  margin-top: 50px;
+  color: #EEF;
+  text-align: center;
+}
+
+.name {
+  font-weight: 100;
+  font-family: 'Nunito';
+  font-size: 19px;
+  letter-spacing: 0.8px;
+}
+
+.loca {
+  color: #BED2FF;
+  font-weight: 100;
+  letter-spacing: 0.8px;
+  font-size: 15px;
+  font-family: 'Oswald';
+}
+
+.line1, .line2 {
+  position: relative;
+  top: 10px;
+  border: 1px solid #113438;
+  width: 50px;
+  margin: auto;
+}
+
+.bio {
+  color: #EEF;
+  font-weight: 100;
+  letter-spacing: 0.8px;
+  font-size: 17px;
+  font-family: 'oswald';
+  margin: 30px 0 15px 0;
+}
+
+.line2 {
+  width: 230px;
+}
+
+.con4 {
+  position: relative;
+  top: 25px;
+  margin-top: 15px;
+}
+
+ul {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: space-around;
+  -moz-justify-content: space-around;
+  -ms-justify-content: space-around;
+  justify-content: space-around;
+  -ms-flex-pack: space-around;
+  text-align: center;
+}
+
+li {
+  flex: 1 1 auto;
+  list-style: none;
+  color:white;
+}
+
+.li1 {
+  border-bottom: 1px solid #F6AB34;
+}
+
+.li2, .li3 {
+  border-bottom: 1px solid transparent;
+  transition: 0.5s;
+}
+
+.li2:hover, .li3:hover {
+  border-bottom: 1px solid #F6AB34;
+  transition: 0.5s;
+}
+
+a {
+  text-decoration: none;
+  color: #EEF;
+  font-family: 'oswald';
+}
+
+.imgcon {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: space-between;
+  -moz-justify-content: space-between;
+  -ms-justify-content: space-between;
+  justify-content: space-between;
+  -ms-flex-pack: space-between;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  position: relative;
+  top: 25px;
+  background-color: #0c2a2e;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+
+@media (max-width: 365px) {
+  .imgcon {
+    height: 100%;
+  }
+}
+
+/*Invert*/
+.invert {
+  padding: 30px;
+  width: 100px;
+  position: fixed;
+  color: #FFF;
+  border-radius: 20%;
+  font-size: 50px;
+  cursor: pointer;
+}
+
+.invertI {
+  color: #222;
+}
+
+.bioI {
+  color: #222;
+}
+
+.alink {
+  color: #222;
+}
+
+.imgconI {
+  background: #DDD;
+  transition: 1.5s ease;
+}
+
+.conI {
+  background: #DDD;
+  transition: 1.5s ease;
+}
+
+.proI {
+  border: 4px solid #DDD;
+  transition: 1.5s ease;
+}
+
+.followHI {
+  color: #222;
+}
+
+.followNumI {
+  color: #000;
+}
+
+.nameI {
+  color: #000;
+  font-weight: bold;
+}
+
+.locaI {
+  color: #222;
+}
+
+.followingHI {
+  color: #222;
+}
+
+.followingNumI {
+  color: #000;
+}
+
+.larrowI {
+  color: #000;
+}
+
+.faceConI {
+  background: #34495e;
+}
+
+.line1I, .line2I {
+  border: 1px solid #AAA;
+}
 
 </style>
-
+</div></div></div></div></div></div></div></div></div></div>
 <!--<div ><center><img  onclick="window.location.href ='/contact'" style="width:728px;height:90px;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div>-->
 <%- include('blocks/footer') %>
