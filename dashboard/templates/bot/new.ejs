@@ -1,30 +1,23 @@
 <%- include('../blocks/header', { bot, user, title: "New Bot" }) %>
 <!-- <div ><center><img  onclick="window.location.href ='/contact'" style="width:728px;height:90px;margin-top: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div> -->
-<%
-  if (sucess) {
-%>
-<div class="alert alert-success progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="margin: 10px; border: none;" role="alert">
-  <%= sucess %>
-</div>
-<%
-  }
-%>
-
-<%
-  if (fail) {
-%>
-<div class="alert alert-danger bg-danger progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="margin: 10px; border: none;" role="alert">
-  <%= fail %>
-</div>
-<%
-  }
-%>
 <style>
-    /*MrAugu don't move this to dashboard.css*/
-    .btn {
-      margin-top: 0px !important
-    }
-    </style>
+  .btn {
+    margin-top: 0px !important
+  }
+</style>
+
+<% if (sucess) { %>
+  <div class="alert alert-success" style="margin: 10px;" role="alert">
+    <%= sucess %>
+  </div>
+<% } %>
+
+<% if (fail) { %>
+  <div class="alert alert-danger" style="margin: 10px;" role="alert">
+    <%= fail %>
+  </div>
+<% } %>
+
 <div class="jumbotron main-bkg" style="margin: 10px; background-color:#113438; color: #ffffff;">
   <form method="post">
       <h2 style="bottom: -10px; position: relative;">Add Your Bot's Info</h2>
@@ -32,12 +25,13 @@
     <strong><span style="color: #ff0000">* = requiered field</span></strong><br><br>
     <div class="form-group">
       <label for="exampleSelect1" style="right: 100%;"><strong>Bot's Client ID <span style="color: #ff0000">*</span></strong></label>
-			<input type="text" style="width: 225px;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="clientID" placeholder="560869129310175243" required>
+			<input type="text" aria-describedby="idHelp" style="width: 225px;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="clientID" placeholder="560869129310175243" required>
+      <small id="idHelp" class="form-text">Your bot's user id.</small>
     </div>
 
     <div class="form-group">
 			<p style="font-size: 14px;"><strong>Library <span style="color: #ff0000">*</span></strong></p>
-			<select name="library"  data-width="225px" class="selectpicker" required>
+			<select name="library"  data-width="225px" class="selectpicker" required aria-describedby=libraryHelp>
           <option value="">Pick one...</option>
           <option value="discordcr">discordcr</option>
           <option value="Nyxx">Nyxx</option>
@@ -62,6 +56,7 @@
           <option value="Sword">Sword</option>
           <option value="Other">Other</option>
 			</select>
+      <small id="libraryHelp" class="form-text">Library you use to code your bot.</small>
 		</div>
 
     <div class="form-group">
@@ -71,110 +66,19 @@
 
     <div class="form-group">
         <label for="exampleSelect1" style="right: 100%;"><strong>Short Description <span style="color: #ff0000">*</span></strong></label>
-        <input type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="shortDesc" placeholder="A small multipurpose bot with a wide range of features." maxlength="140" required>
+        <input type="text" aria-describedby="shortHelp" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="shortDesc" placeholder="A multipurpose bot with alot of features." maxlength="89" required>
+        <small id="shortHelp" class="form-text">Your bot in maximum 89 characters.</small>
     </div>
 
     <div class="form-group">
         <label for="exampleSelect1" style="right: 100%;"><strong>Long Description <span style="color: #ff0000">*</span></strong></label>
-        <textarea type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0 longdesc" id="longdesc" name="longdesc" placeholder="A small multipurpose bot with a wide range of features." required></textarea>
+        <span style="top: -5!important; position: relative!important;" class="form-text">A long description of your bot, HTML5, CSS and JavaScript allowed.</span>
+        <textarea type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0 longdesc" id="longdesc" name="longdesc" placeholder="A small multipurpose bot with a wide range of features."></textarea>
     </div>
 
     <script>
-
-        function request(opts, callback){
-          var xhr = new XMLHttpRequest()
-          xhr.onreadystatechange = function(){
-            if (xhr.readyState != 4) return
-            if (xhr.status >= 200 && xhr.status < 400) {
-              return callback(null, xhr.getResponseHeader("Content-Type") != null && xhr.getResponseHeader("Content-Type").indexOf("application/json") != -1 ? JSON.parse(xhr.responseText) : xhr.responseText, xhr)
-            }
-            var msg = xhr.responseText || "Error"
-            callback(Error(msg), null, xhr)
-          }
-          xhr.open(opts.method || "GET", opts.url)
-          for (var key in opts.headers) {
-            xhr.setRequestHeader(key, opts.headers[key])
-          }
-          xhr.send(opts.data)
-          return xhr
-        }
-
-        var editor = CodeMirror.fromTextArea(document.getElementById('longdesc'), {mode: 'markdown', lineNumbers: true, theme: 'monokai'});
-
-        function changeLang(el) {
-          var sections = document.querySelectorAll('.example');
-          for (var section of sections) {
-            section.style.display = 'none';
-          }
-          document.getElementById(el.value).style.display = 'block';
-        }
-        function changeType(el) {
-            document.querySelectorAll('.wtype').forEach(function(span){
-                if (el.value == "large") span.innerHTML = "";
-                else span.innerHTML = el.value + '/';
-            });
-            if (el.value == "large") document.getElementById('showAvatarDiv').style.display = 'none';
-            else document.getElementById('showAvatarDiv').style.display = 'block';
-            updateImage();
-            changeAvatar();
-        }
-        function changeAvatar() {
-            var el = document.getElementById('showAvatar');
-            if (el.checked) {
-                document.querySelectorAll('.qavatar').forEach(function(span){
-                    if (document.getElementById('typeselect').value == "large") span.innerHTML = "";
-                    else span.innerHTML = '?noavatar=true';
-                });
-            } else {
-                document.querySelectorAll('.qavatar').forEach(function(span){
-                    span.innerHTML = "";
-                });
-            }
-            updateImage();
-        }
-        function updateImage() {
-            var type = document.getElementById('typeselect').value;
-            var avatar = document.getElementById('showAvatar').checked;
-            console.log(type)
-            var url = "https://discordbots.org/api/widget/";
-            if (type != "large") url += type + "/";
-            url += ".svg";
-            if (type != "large" && avatar) url += "?noavatar=true"
-            document.getElementById('previewidget').src = url;
-        }
-        function showToken(el){
-            el.remove();
-            document.getElementById('token').style.display = 'block';
-        }
-        function closeModal(el) {
-            el.parentNode.classList.remove('is-active');
-            document.getElementById('previewframecontainer').innerHTML = "";
-          }
-        function githubChange(e) {
-          var r = /(https?:\/\/)?github.com\/[a-zA-Z0-9]+\/[a-zA-Z0-9]+/i;
-          var i = document.getElementById('githubimport')
-          if (e.value.match(r)) {
-            i.style.display = '';
-          } else {
-            i.style.display = 'none';
-          }
-        }
-        function importReadme(hasClickedTheFunLittleYesButtonOnThePopup) {
-          if (hasClickedTheFunLittleYesButtonOnThePopup) {
-            document.getElementById('importconfirm').classList.remove('is-active');
-            var git = document.getElementById('github').value;
-            git = git.replace(/(https?:\/\/)?github.com\//i, '');
-            request({url: 'https://raw.githubusercontent.com/'+git+'/master/README.md'}, function(err, res) {
-              if (err) return alert('There was a problem importing that readme :Thonk:');
-              document.getElementById('longdesc').value = res;
-              editor.setValue(res);
-            });
-          } else {
-            document.getElementById('importconfirm').classList.add('is-active');
-          }
-        }
-        githubChange(document.getElementById('github'));
-        </script>
+       var editor = CodeMirror.fromTextArea(document.getElementById('longdesc'), {mode: 'markdown', lineNumbers: true, theme: 'monokai'});
+    </script>
 
   <div class="form-group">
     <p style="font-size: 14px;"><strong>Tags <span style="color: #ff0000">*</span></strong></p>
@@ -196,34 +100,40 @@
     <option data-tokens="Soundboard" value="Soundboard">Soundboard</option>
     <option data-tokens="Statistics" value="Statistics">Statistics</option>
     </select>
+    <small class="form-text">Tags describing your the bot best. (max 3)</small>
   </div>
 
   <div class="form-group">
       <label for="exampleSelect1" style="right: 100%;"><strong>Support Server Invite <span style="color: #ff0000">*</span></strong></label><br>
-			<h5 style="float: left; top: 6px!important; position: relative;">https://discord.gg/</h5><input type="text" style="width: 100px;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="supportServer" placeholder="ak7tde" required>
+			<h5 style="float: left; position: relative;">https://discord.gg/</h5><input type="text" style="width: 100px;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="supportServer" placeholder="ak7tde" required>
+      <small class="form-text">A valid discord invite to your bot's support server.</small>
   </div>
 
   <div class="form-group">
       <label for="exampleSelect1" style="right: 100%;"><strong>Other owners of this bot</strong></label>
 			<input type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="otherOwners" placeholder="414764511489294347, 538855659714641960">
+      <small class="form-text">Maximum 3, you are already incuded.</small>
   </div>
 
   <div class="form-group">
       <label for="exampleSelect1" style="right: 100%;"><strong>GitHub URL</strong></label>
 			<input type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="github" placeholder="https://github.com/MrAugu/lutu-bot">
+      <small class="form-text">Your GitHub repository URL, must be valid..</small>
   </div>
 
   <div class="form-group">
       <label for="exampleSelect1" style="right: 100%;"><strong>Website URL</strong></label>
 			<input type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="website" placeholder="https://mybot.com">
+      <small class="form-text">Yourbot's website URL, must be valid.</small>
   </div>
 
   <div class="form-group">
       <label for="exampleSelect1" style="right: 100%;"><strong>Invite URL [<a href="https://discordapi.com/permissions.html" target="_blank">Generator</a>]</strong></label>
 			<input type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="inviteURL">
+      <small class="form-text">An official discord invite link, if left empty, we will generate an invite without any extra permissions.</small>
   </div>
 
-  <button type="submit" onclick="document.forms[0].submit()" class="bot-button" style="max-width:200px">Submit</button>
+  <button type="submit" class="bot-button" style="border-radius: 5px 5px 5px 5px; width: 100%;">Submit</button>
   </form>
 </div>
 <!--<div ><center><img  onclick="window.location.href ='/contact'" style="width:728px;height:90px;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div>-->
