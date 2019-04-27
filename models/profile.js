@@ -7,7 +7,6 @@ const profileSchema = new mongoose.Schema({
   bg: String,
   mod: Boolean,
   admin: Boolean,
-  email: String,
   karma: Number,
   totalKarma: Number,
   createdAt: Number
