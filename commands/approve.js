@@ -27,7 +27,7 @@ module.exports.run = async (client, message, args, reply) => {
     allOwners.unshift(res.mainOwner);
     allOwners = allOwners.map(u => `<@${u}>`);
     await client.channels.get("561622522798407740").send(`<@${res.id}> by ${allOwners.join(" ")} has been approved by <@${message.author.id}>.\n**URL**: https://discordhouse.org/bot/${bot}`);
-    await client.channels.get("561659713515945985").send(`<@${res.id}> by <@${allOwners.join(" ")}> has been approved by <@${message.author.id}>.\n**URL**: https://discordhouse.org/bot/${bot}`);
+    await client.channels.get("561659713515945985").send(`<@${res.id}> by ${allOwners.join(" ")} has been approved by <@${message.author.id}>.\n**URL**: https://discordhouse.org/bot/${bot}`);
     const user = client.users.get(res.mainOwner);
     if (user) user.send(`Your bot <@${bot}> was approved by ${message.author.tag}.`);
     client.emit("updatePresence");
