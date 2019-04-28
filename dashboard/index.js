@@ -598,6 +598,20 @@ module.exports = (client) => {
     if (req.user.id !== Bot.mainOwner && req.session.permLevel < 1) return res.redirect("/");
     if (name !== Bot.name) return res.redirect("/");
     if (conset !== "on") return res.redirect("/");
+    var allOwners = Bot.owners;
+  allOwners.unshift(Bot.mainOwner);
+  allOwners = allOwners.map(u => `<@${u}>`);
+
+  for (const owner of allOwners) {
+    const theOwner = client.guilds.get("560865387206672384").members.get(owner);
+    if (theOwner) {
+      var allBots = await bots.find();
+      allBots.filter(b => b.mainOwner === owner || b.owners.includes(owner));
+      if (allBots.length > 1) return;
+      if (theOwner.roles.has("561714394388496394")) theOwner.roles.remove(client.guilds.get("560865387206672384").roles.get("561714394388496394"));
+      if (theOwner.roles.has("561715209962651668")) theOwner.roles.remove(client.guilds.get("560865387206672384").roles.get("561715209962651668"));
+    }
+  }
     if (Bot.vanityUrl === req.params.id) {
       await Bots.findOneAndDelete({ vanityUrl: req.params.id }).catch(e => console.log(e));
     } else {
