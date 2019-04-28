@@ -275,27 +275,39 @@ module.exports = (client) => {
   //   return res.status(200).send(JSON.stringify(obj, null, 4));
   // });
   //
-  // app.post("/api/stats/bot/:id", async (req, res) => {
-  //   res.setHeader("Content-Type", "application/json");
-  //   if (typeof req.params.id !== "string") return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400 }, null, 4));
-  //   if (!req.body) return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "No body was found within the request.", "errorCode": "NO_STATS_POST_BODY" }, null, 4));
-  //   if (!req.body.serverCount) return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "No serverCount key was found within the request body.", "errorCode": "NO_STATS_POST_SERVERCOUNT" }, null, 4));
-  //   if (!req.body.authorization) return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "No authorization key was found within the request body.", "errorCode": "NO_STATS_POST_AUTHORIZATION" }, null, 4));
-  //   if (isNaN(parseInt(req.body.serverCount))) return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "serverCount must be a number.", "errorCode": "STATS_POST_INVALID_SERVERCOUNT" }, null, 4));
-  //   if (typeof req.body.authorization !== "string") return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "authorization must be a string.", "errorCode": "STATS_POST_INVALID_AUTHORIZATION" }, null, 4));
-  //   if (req.body.shardCount && isNaN(parseInt(req.body.shardCount))) return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "shardCount must be a number.", "errorCode": "STATS_POST_INVALID_SHARDCOUNT" }, null, 4));
-  //   Bots.findOne({ id: req.params.id, approved: true }, async (err, itself) => {
-  //     if (err) console.log(err);
-  //     if (!itself) return res.status(404).send(JSON.stringify({ "msg": "Not Found.", "code": 404 }, null, 4));
-  //     if (req.body.authorization !== itself.token) return res.status(401).send(JSON.stringify({ "msg": "Unauthorized.", "code": 401, "error": "Invalid authorization token was provided for this bot." }, null, 4));
-  //     itself.serverCount = parseInt(req.body.serverCount);
-  //     if (req.body.shardCount) itself.shardCount = parseInt(req.body.shardCount);
-  //     await itself.save().catch(e => console.log(e));
-  //     res.status(200).send(JSON.stringify({ "msg": "Sucessfull request.", "code": 200 }, null, 4));
-  //   });
-  // });
+  app.post("/api/stats/bot/:id", async (req, res) => {
+    res.setHeader("Content-Type", "application/json");
+    if (typeof req.params.id !== "string") return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400 }, null, 4));
+    if (!req.body) return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "No body was found within the request.", "errorCode": "NO_STATS_POST_BODY" }, null, 4));
+    if (!req.body.serverCount) return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "No serverCount key was found within the request body.", "errorCode": "NO_STATS_POST_SERVERCOUNT" }, null, 4));
+    if (!req.body.authorization) return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "No authorization key was found within the request body.", "errorCode": "NO_STATS_POST_AUTHORIZATION" }, null, 4));
+    if (isNaN(parseInt(req.body.serverCount))) return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "serverCount must be a number.", "errorCode": "STATS_POST_INVALID_SERVERCOUNT" }, null, 4));
+    if (typeof req.body.authorization !== "string") return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "authorization must be a string.", "errorCode": "STATS_POST_INVALID_AUTHORIZATION" }, null, 4));
+    if (req.body.shardCount && isNaN(parseInt(req.body.shardCount))) return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "shardCount must be a number.", "errorCode": "STATS_POST_INVALID_SHARDCOUNT" }, null, 4));
+    Bots.findOne({ id: req.params.id, approved: true }, async (err, itself) => {
+      if (err) console.log(err);
+      if (!itself) return res.status(404).send(JSON.stringify({ "msg": "Not Found.", "code": 404 }, null, 4));
+      if (req.body.authorization !== itself.token) return res.status(401).send(JSON.stringify({ "msg": "Unauthorized.", "code": 401, "error": "Invalid authorization token was provided for this bot." }, null, 4));
+      itself.serverCount = parseInt(req.body.serverCount);
+      if (req.body.shardCount) itself.shardCount = parseInt(req.body.shardCount);
+      await itself.save().catch(e => console.log(e));
+      res.status(200).send(JSON.stringify({ "msg": "Sucessfull request.", "code": 200 }, null, 4));
+    });
+  });
 
-   app.get("/profile/:userID", checkAuth, async (req, res) => {
+  app.get("/api/upvotes/bot/:id", async (req, res) => {
+    res.setHeader("Content-Type", "application/json");
+    Bots.findOne({ id: req.params.id }, async (err, entry) => {
+      const authorization = res.header("authorization");
+      if (!authorization || typeof authorization !== "string") return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "No authorization key was found within the reuqest headers.", "errorCode": "NO_REQUEST_UPVOTES_AUTHORIZATION" }, null, 4));
+      if (entry.token !== authorization) return res.status(401).send(JSON.stringify({ "msg": "Unauthorized.", "code": 401, "error": "Invalid authorization token was provided for this bot." }, null, 4));
+      var upvotes = entry.upvotes.filter(u => (Date.now() - u.timestamp) < 43200000);
+      upvotes.map(u => u.id);
+      res.status(200).send(JSON.stringify({ "msg": "Sucessfull request.", "code": 200, "upvotes": upvotes }, null, 4));
+    });
+  });
+
+   app.get("/profile/:userID", async (req, res) => {
      const discordUser = client.users.get(req.params.userID);
      if (!discordUser) return res.redirect("/");
      const bots = await Bots.find({ mainOwner: discordUser.id, approved: true });
@@ -489,7 +501,6 @@ module.exports = (client) => {
       website: req.body.website
     }
     if (typeof bodyData.tags === "string") bodyData.tags = [bodyData.tags];
-    console.log(bodyData);
 
     const validBot = await validateBotForID(bodyData.clientID);
     if (validBot === false) return renderTemplate(res, req, "bot/new.ejs", { sucess: null, fail: "Invalid ClientID/provided ClientID was not a bot." });
@@ -624,15 +635,19 @@ module.exports = (client) => {
     var Bot = await Bots.findOne({ vanityUrl: req.params.id });
     if (!Bot) Bot = await Bots.findOne({ id: req.params.id });
     if (!Bot) return res.redirect("/");
-    if (req.user.id !== Bot.mainOwner && req.session.permLevel < 1 || !Bot.owners.includes(req.user.id) && req.session.permLevel < 1) return res.redirect("/");
-    renderTemplate(res, req, "bot/edit.ejs", { theBot: Bot, sucess: null, fail: null });
+
+    if (req.user.id === Bot.mainOwner || Bot.owners.includes(req.user.id) || req.session.permLevel > 0) {
+      renderTemplate(res, req, "bot/edit.ejs", { theBot: Bot, sucess: null, fail: null });
+    } else {
+      res.redirect(`/bot/${Bot.id}`);
+    }
   });
 
   app.post("/bot/:id/edit", checkAuth, async (req, res) => {
     var Bot = await Bots.findOne({ vanityUrl: req.params.id });
     if (!Bot) Bot = await Bots.findOne({ id: req.params.id });
     if (!Bot) return res.redirect("/");
-    if (req.user.id !== Bot.mainOwner && req.session.permLevel < 1 || !Bot.owners.includes(req.user.id) && req.session.permLevel < 1) return res.redirect("/");
+    if (req.user.id === Bot.mainOwner || Bot.owners.includes(req.user.id) || req.session.permLevel > 0) {
 
     const bodyData = {
       clientID: req.body.clientID,
@@ -695,10 +710,13 @@ module.exports = (client) => {
 
         await entry.save().catch(e => console.log(e));
       });
-    }
 
-    client.channels.get("561622522798407740").send(`🖋 <@${req.user.id}> edited <@${Bot.id}>.\nURL: https://discordhouse.org/bot/${Bot.id}`);
-    res.redirect("/bot/" + Bot.id);
+      client.channels.get("561622522798407740").send(`<@${req.user.id}> edited <@${Bot.id}>.\nURL: https://discordhouse.org/bot/${Bot.id}`);
+      res.redirect("/bot/" + Bot.id);
+    }
+  } else {
+      res.redirect("/");
+    }
   });
 
   app.get("/bot/:id/vote", checkAuth, async (req, res) => {
