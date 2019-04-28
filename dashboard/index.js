@@ -402,41 +402,41 @@ module.exports = (client) => {
     renderTemplate(res, req, "lists/new.ejs", { featuredBots: results, numberOfPages: totalPages });
   });
 
-  // app.get("/leaderboard", async (req, res) => {
-  //   var currentPage = req.query.page || "1";
-  //   if (isNaN(parseInt(currentPage))) {
-  //     currentPage = 1
-  //   } else {
-  //     currentPage = parseInt(currentPage);
-  //   };
-  //   let tags = [];
-  //   let usernames = [];
-  //   let pfps = []; //lmao
-  //   let results = await Profiles.find().sort({karma:  -1});
-  //
-  //   const lengthOfRes = results.length;
-  //   var totalPages;
-  //   if (Math.round(lengthOfRes / 16) === lengthOfRes / 16) {
-  //     totalPages = lengthOfRes / 16;
-  //   } else {
-  //     totalPages = Math.round(lengthOfRes / 16) + 1;
-  //   }
-  //   results = paginate(results, 16, currentPage);
-  //   for(var i=0; i <results.length; i++){
-  //     var theuser = await client.users.get(results[i].id)
-  //     if(theuser) {
-  //     tags.push(theuser.tag)
-  //     usernames.push(theuser.username)
-  //     pfps.push(theuser.displayAvatarURL({ size:128 }))
-  //   } else {
-  //     tags.push('Unknown#0000')
-  //     usernames.push('Deleted user')
-  //     pfps.push('https://discordapp.com/assets/dd4dbc0016779df1378e7812eabaa04d.png')
-  //   }
-  //
-  //   };
-  //   renderTemplate(res, req, "leaderboard.ejs", { BestDevs: results,pfps,tags,usernames,numberOfPages: totalPages });
-  // });
+   app.get("/leaderboard", async (req, res) => {
+     var currentPage = req.query.page || "1";
+     if (isNaN(parseInt(currentPage))) {
+       currentPage = 1
+     } else {
+       currentPage = parseInt(currentPage);
+     };
+     let tags = [];
+     let usernames = [];
+     let pfps = []; //lmao
+     let results = await Profiles.find().sort({karma:  -1});
+  
+     const lengthOfRes = results.length;
+     var totalPages;
+     if (Math.round(lengthOfRes / 16) === lengthOfRes / 16) {
+       totalPages = lengthOfRes / 16;
+     } else {
+       totalPages = Math.round(lengthOfRes / 16) + 1;
+     }
+     results = paginate(results, 16, currentPage);
+     for(var i=0; i <results.length; i++){
+       var theuser = await client.users.get(results[i].id)
+       if(theuser) {
+       tags.push(theuser.tag)
+       usernames.push(theuser.username)
+       pfps.push(theuser.displayAvatarURL({ size:128 }))
+     } else {
+     tags.push('Unknown#0000')
+     usernames.push('Deleted user')
+     pfps.push('https://discordapp.com/assets/dd4dbc0016779df1378e7812eabaa04d.png')
+   }
+
+   };
+   renderTemplate(res, req, "leaderboard.ejs", { BestDevs: results,pfps,tags,usernames,numberOfPages: totalPages });
+ });
 
   app.get("/tag/:name", async (req, res) => {
     var currentPage = req.query.page || "1";

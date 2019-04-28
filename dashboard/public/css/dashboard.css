@@ -838,11 +838,13 @@ Licensed under MIT
   /* font-family: "Courier New", Times, serif; */
   text-align: center;
   padding: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 0px;
   text-shadow: 1px 1px 1px black;
   box-shadow: 5px 5px 10px black;
   border-radius: 0px;
- /* border-top-right-radius: 10px;*/
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+
 }
 
 table {
@@ -852,6 +854,7 @@ table {
 
 th, td {
   padding: 5px;
+  margin-bottom: 5px !important;
   border: none !important;
 }
 
