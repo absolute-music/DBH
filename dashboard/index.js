@@ -644,6 +644,7 @@ module.exports = (client) => {
       tags: req.body.tags,
       supportServerCode: req.body.supportServer,
       otherOwners: req.body.otherOwners,
+      mainOwner: req.body.mainOwner,
       inviteURL: req.body.inviteURL,
       github: req.body.github,
       website: req.body.website
@@ -664,6 +665,7 @@ module.exports = (client) => {
       Bots.findOne({ vanityUrl: req.params.id }, async (err, entry) => {
         entry.name = self.username;
         entry.owners = bodyData.otherOwners.split(", ")[0] !== "" ? bodyData.otherOwners.split(", ") : [];
+        entry.mainOwner = bodyData.mainOwner;
         entry.library = bodyData.library;
         entry.website = bodyData.website || "none";
         entry.github = bodyData.github || "none";
@@ -680,6 +682,7 @@ module.exports = (client) => {
       Bots.findOne({ id: req.params.id }, async (err, entry) => {
         entry.name = self.username;
         entry.owners = bodyData.otherOwners.split(", ")[0] !== "" ? bodyData.otherOwners.split(", ") : [];
+        entry.mainOwner = bodyData.mainOwner;
         entry.library = bodyData.library;
         entry.website = bodyData.website || "none";
         entry.github = bodyData.github || "none";
