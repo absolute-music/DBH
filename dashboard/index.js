@@ -458,7 +458,10 @@ module.exports = (client) => {
     results = paginate(results, 16, currentPage);
     renderTemplate(res, req, "tags.ejs", { tag: req.params.name, featuredBots: results, numberOfPages: totalPages });
   });
-
+app.get("/sitemap.xml", (req, res) => {
+  res.header('Content-Type', 'text/xml');
+  renderTemplate(res, req, "sitemap.ejs");
+});
   // app.get("/list/certified", async (req, res) => {
   //   var currentPage = req.query.page || "1";
   //   if (isNaN(parseInt(currentPage))) {
