@@ -607,7 +607,7 @@ module.exports = (client) => {
     if (!Bot) Bot = await Bots.findOne({ id: req.params.id });
     if (!Bot) return res.redirect("/");
     if (req.user.id !== Bot.mainOwner && req.session.permLevel < 1) return res.redirect("/");
-    if (name !== Bot.name) return res.redirect("/");
+    if (name.toLowerCase() !== Bot.name.toLowerCase()) return res.redirect("/");
     if (conset !== "on") return res.redirect("/");
     var allOwners = Bot.owners;
   allOwners.unshift(Bot.mainOwner);
@@ -628,6 +628,8 @@ module.exports = (client) => {
     } else {
       await Bots.findOneAndDelete({ id: req.params.id }).catch(e => console.log(e));
     }
+    client.channels.get("561622522798407740").send(`<@${req.user.id}> Deleted \`${Bot.name}\` ID \`${Bot.id}\` <@${Bot.id}>.`);
+    client.guilds.get("560865387206672384").members.get(Bot.id).kick(`Bot deleted from the list`)
     return res.redirect("/");
   });
 
