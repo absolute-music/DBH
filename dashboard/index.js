@@ -298,7 +298,7 @@ module.exports = (client) => {
   app.get("/api/upvotes/bot/:id", async (req, res) => {
     res.setHeader("Content-Type", "application/json");
     Bots.findOne({ id: req.params.id }, async (err, entry) => {
-      const authorization = res.header("authorization");
+      const authorization = req.query.authorization;
       if (!authorization || typeof authorization !== "string") return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "No authorization key was found within the reuqest headers.", "errorCode": "NO_REQUEST_UPVOTES_AUTHORIZATION" }, null, 4));
       if (entry.token !== authorization) return res.status(401).send(JSON.stringify({ "msg": "Unauthorized.", "code": 401, "error": "Invalid authorization token was provided for this bot." }, null, 4));
       var upvotes = entry.upvotes.filter(u => (Date.now() - u.timestamp) < 43200000);
@@ -413,7 +413,7 @@ module.exports = (client) => {
      let usernames = [];
      let pfps = []; //lmao
      let results = await Profiles.find().sort({karma:  -1});
-  
+
      const lengthOfRes = results.length;
      var totalPages;
      if (Math.round(lengthOfRes / 16) === lengthOfRes / 16) {
