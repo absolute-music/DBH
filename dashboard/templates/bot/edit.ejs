@@ -205,6 +205,11 @@
   </div>
 
   <div class="form-group">
+    <label for="exampleSelect1" style="right: 100%;"><strong>Main owner of this bot <span style="color: #ff0000">*</span></strong></label>
+    <input type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="mainOwner" value="<%= theBot.mainOwner %>" placeholder="538855659714641960" required>
+</div>
+
+  <div class="form-group">
       <label for="exampleSelect1" style="right: 100%;"><strong>Other owners of this bot</strong></label>
 			<input type="text" style="width: 100%;" class="form-control mb-2 mr-sm-2 mb-sm-0" name="otherOwners" value="<%= theBot.owners.join(", ") || "" %>" placeholder="414764511489294347, 538855659714641960">
   </div>
