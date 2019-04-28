@@ -295,14 +295,14 @@ module.exports = (client) => {
   //   });
   // });
 
-  // app.get("/profile/:userID", checkAuth, async (req, res) => {
-  //   const discordUser = client.users.get(req.params.userID);
-  //   if (!discordUser) return res.redirect("/");
-  //   const bots = await Bots.find({ mainOwner: discordUser.id, approved: true });
-  //   var userData = await Profiles.findOne({ id: discordUser.id });
-  //   if (!userData) userData = { bg: null, bio: "I'm a very misteryious person.", certifiedDev: null, mod: false, admin: false };
-  //   renderTemplate(res, req, "/profile.ejs", { profile: userData, bots, discordUser });
-  // });
+   app.get("/profile/:userID", checkAuth, async (req, res) => {
+     const discordUser = client.users.get(req.params.userID);
+     if (!discordUser) return res.redirect("/");
+     const bots = await Bots.find({ mainOwner: discordUser.id, approved: true });
+     var userData = await Profiles.findOne({ id: discordUser.id });
+     if (!userData) userData = { bg: null, bio: "I'm a very misteryious person.", certifiedDev: null, mod: false, admin: false };
+     renderTemplate(res, req, "/profile.ejs", { profile: userData, bots, discordUser });
+   });
 
   app.get("/contact", checkAuth, (req, res) => {
     renderTemplate(res, req, "contact.ejs");
