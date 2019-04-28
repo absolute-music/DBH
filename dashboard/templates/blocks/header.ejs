@@ -4,17 +4,19 @@
       <!-- Meta Charset, Viewport, Name -->
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <meta name="Discord Bot Depo" />
+      <meta name="Discord Bot House" />
       <title><%= title %></title>
 
       <!-- Embedding -->
-      <meta property="og:title" content="Discord Bot House" />
-      <meta property="og:type" content="website" />
-      <meta property="og:url" content="?" />
-      <meta property="og:description" content="Discord Bot House is a discord bot list." />
-      <meta property="og:image" content="<%= '?' %>"/>
-      <meta property="og:site_name" content="<%= title %>">
-      <meta property="og:locale" content="en_US">
+      <%  if (embedding.default) { %>
+        <meta property="og:title" content="Discord Bot House" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://discordhouse.org/" />
+        <meta property="og:description" content="Discord Bot House is a discord bot list." />
+        <meta property="og:image" content="<%= bot.user.displayAvatarURL({ size: 512 }) %>"/>
+        <meta property="og:site_name" content="<% title %>">
+        <meta property="og:locale" content="en_US">
+      <% } %>
 
       <!-- Font-Awesome, Boostrap, Icon Librarys -->
       <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -62,7 +64,7 @@
                         <li class="nav-item active"><a class="nav-link" href="/"><i class="fas fa-home"></i> Home</a></li>
                         <li class="nav-item active"><a class="nav-link" href="/list/new"><i class="fas fa-hourglass"></i> New</a></li>
                         <li class="nav-item active"><a class="nav-link" href="/list/top"><i class="fas fa-list"></i> Top</a></li>
-                        <li class="nav-item active"><a class="nav-link" href="/list/certified"><i class="fas fa-award"></i> Certified</a></li>
+                        <!-- <li class="nav-item active"><a class="nav-link" href="/list/certified"><i class="fas fa-award"></i> Certified</a></li> -->
                         <!-- <li class="nav-item active"><a class="nav-link" href="/leaderboard"><i class="fas fa-chart-line"></i> Leaderbord</a></li> -->
                         <!-- <li class="nav-item active"><a class="nav-link" href="/api/docs"><i class="fas fa-code"></i> Api</a></li> -->
                       <% if (!user || user && !bot.guilds.get("560865387206672384").members.get(user.id)) { %>  <li class="nav-item active"><a class="nav-link" target="_blank" href="/discord"><i class="fab fa-discord"></i> Join Discord</a></li><% } %>

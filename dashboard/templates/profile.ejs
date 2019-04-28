@@ -1,4 +1,4 @@
-<%- include('blocks/header', { bot, user, title: `${discordUser.username}'s Profile` }) %>
+<%- include('blocks/header', { bot, user, title: `${discordUser.username} | Discord Bot House`, embedding: { default: true } }) %>
 <center>
   <div class="parent">
     <div class="con">
@@ -8,17 +8,17 @@
           <h3 class="followH"></h3>
         </div>
         <div class="faceCon">
-       
-        <img src="<%= bot.users.get(discordUser.id).displayAvatarURL({ size:512 }); %>" class="img-raised rounded-circle"/></img>         
-     
+
+        <img src="<%= bot.users.get(discordUser.id).displayAvatarURL({ size:512 }); %>" class="img-raised rounded-circle"/></img>
+
       </div>
-       
+
         <div class="following">
           <h3 class="followingNum"></h3>
           <h3 class="followingH"></h3>
         </div>
       </div>
-  
+
       <div class="con3">
         <div class="nl">
           <h3 class="name"> <i class="fab fa-discord"></i> <%=discordUser.tag%></h3>
@@ -27,15 +27,15 @@
             <% } else {%>
               <h3 class="loca">Developer</h3>
               <% }  %>
-              
+
           <hr class="line1">
-  
+
           <h3 class="bio"><%=profile.bio%></h3>
-  
+
           <hr class="line2">
-          
+
         </div>
-        
+
       </div>
   <div style="margin: 25px"></div>
       <a href="#" class="fa fa-github"></a>
@@ -62,15 +62,15 @@
       <div class="imgcon">
         <% if (bots.length == 0) { %>
      <div style="text-align:center;">
-           <br> 
+           <br>
 
       <p style="font-size: 25px;color:white; padding: 10px;text-align: center;"><i class="fas fa-walking"></i>  This user hasn't listed any bots yet.</p>
      <br>
       </div>
-   
-      <%} else {%>  
+
+      <%} else {%>
         <div style="padding: 20px 20px 20px 20px">
-        
+
             <div class="row">
               <% bots.forEach(theBot => { if (!bot.users.get(theBot.id)) bot.users.get(theBot.id) = { presence: { status: "offline" }, username: theBot.name  } %>
               <center><%- include("blocks/card.ejs", { theBot, bot }); %></center>
@@ -78,7 +78,7 @@
             </div>
             </div><% }; %>
       </div>
-      
+
     </div>
   </div>
 </center>
@@ -88,24 +88,24 @@
     });
   </script>
 
-<!------ Include the above in your HEAD tag 
+<!------ Include the above in your HEAD tag
 <div class="container profile ">
   <div class="row">
     <div class="span12">
       <div class="well well-small clearfix  hero-bkg-animated"style="color:white;box-shadow:5px 5px 5px black">
         <div class="row-fluid">
           <div class="span2">
-             <img src="<%= bot.users.get(discordUser.id).displayAvatarURL({ size:512 }); %>" class="img-raised rounded-circle img-fluid"/>         
+             <img src="<%= bot.users.get(discordUser.id).displayAvatarURL({ size:512 }); %>" class="img-raised rounded-circle img-fluid"/>
           </div>
           <div class="span4">
-             <h2><%=discordUser.username%></h2> 
+             <h2><%=discordUser.username%></h2>
             <ul class="unstyled">
                 <% if (profile.certifiedDev) {%>
                   <li><i class="icon-keyboard"></i>Certified Developer</li>
                 <% } else {%>
                   <li><i class="icon-keyboard"></i> Developer</li>
            <% }  %>
-              <li><i class="fab fa-discord"></i> <%=discordUser.tag%></li>      
+              <li><i class="fab fa-discord"></i> <%=discordUser.tag%></li>
 
               <li><i class="icon-pencil"></i> <%=profile.bio%></li>
               <br>
@@ -188,7 +188,7 @@ img{max-width:100%;width:auto\9;height:auto;vertical-align:middle;border:0;-ms-i
 }
 
 @media (max-width: 365px) {
-  
+
 }
 .con1, .con2 {
   display: -webkit-box;

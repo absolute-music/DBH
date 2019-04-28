@@ -1,5 +1,5 @@
 <% thebot.data = thebot %>
-<%- include('../blocks/header', { bot, user, title: thebot.data.name }) %>
+<%- include('../blocks/header', { bot, user, title: thebot.data.name, embedding: { default: false } }) %>
 <% const htmlFor = {
   "online": "Online",
   "idle": "Idle",
@@ -9,13 +9,13 @@
 
  <% if (alertSuccess) { %>
   <div style="margin-left: 10%; margin-right: 10%;" class="alert alert-success" role="alert">
-    <%= alertSuccess %>
+    <%- alertSuccess %>
   </div>
 <% } %>
 
 <% if (alertFail) { %>
   <div style="margin-left: 10%; margin-right: 10%;" class="alert alert-danger" role="alert">
-    <%= alertFail %>
+    <%- alertFail %>
   </div>
 <% } %>
 
@@ -25,10 +25,10 @@
 }
 </style>
 
-<div class="container" style="margin-top: 30px;">
+<div class="container" style="margin-top: 30px; border-radius: 2px 2px 2px 2px!important; width: 100%;">
     <div class="profile-head main-bkg-a ">
         <div class="col-md- col-sm-4 col-xs-12">
-            <img src="<%= bot.users.get(thebot.id).displayAvatarURL({size:512,format:"png"}) %>" class="img-responsive rounded-circle p-1"/>
+            <img src="<%= bot.users.get(thebot.id).displayAvatarURL({size:512,format:'png'}) %>" class="img-responsive rounded-circle p-1"/>
 					<center>
 						<h6><%= thebot.data.name %></h6>
 						<span class="<%= bot.users.get(thebot.id).presence.status %>">• <%= htmlFor[bot.users.get(thebot.id).presence.status] %></span>
@@ -47,7 +47,7 @@
 
         <div class="col-md-5 col-sm-5 col-xs-12">
             <h5><%= thebot.data.name %></h5>
-						<p>Bot / Certified bot </p>
+						<p><% if (thebot.data.certified === true) { %> Certified Bot <% } else { %> Bot <% } %></p>
             <ul>
                 <li><p style="word-break: break-word;color:white;"></p><%= thebot.data.shortDesc %></li>
                 <li><p style="color:white;">Bot Prefix: <span><code><%= thebot.data.prefix %></code></span></p></li>
@@ -59,7 +59,7 @@
           <button  onclick="window.location.href = '<%= thebot.data.website %>';" style=" background-color: #184f57;" type="button" class="btn">Visit GitHub</button>
         <% }%>
 				<button  onclick="window.location.href = '<%= thebot.data.server %>';" style=" background-color: #184f57;"type="button" class="btn">Join Server</button></li>
-				<li>  
+				<li>
           <a href="<%= thebot.data.invite %>" style=" background-color: #184f57;" class="btn w-25">Invite</a>
           <a href='/bot/<%= thebot.data.id %>/vote' cmethod="post" type="text" value="vote" style="  background-color: #184f57;" class="btn w-25">Vote</a>
           <a  style="background-color: #184f57; padding:  10px 5px;" class="btn w-25" data-toggle="modal" data-target="#reportModal">Report</a>
@@ -80,7 +80,7 @@
        </button>
      </div>
      <div class="modal-body">
-       <form method="post">
+       <form method="post" action="/bot/<%= thebot.data.id %>">
          <div class="form-group">
            <input type="text" name="name" value="report" style="display: none;">
            <label for="reportReason">Reason: </label>

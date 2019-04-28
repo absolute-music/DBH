@@ -1,4 +1,4 @@
-<%- include("../blocks/header.ejs", { bot, user, path, title: `Delete ${theBot.name}` }) %>
+<%- include("../blocks/header.ejs", { bot, user, path, title: `Delete ${theBot.name} | Discord Bot House`, embedding: { default: true } }) %>
 
 <div class="jumbotron main-bkg" style="margin: 20px; color: #fff;">
   <center>
@@ -11,8 +11,8 @@
     </div>
 
     <div class="form-check">
-    <input name="conset" type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" style="margin-left: 20px; position: relative;" for="exampleCheck1">I give my conset for the bot to be removed from list and im aware of all the consequences.</label>
+    <input name="consent" type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" style="margin-left: 20px; position: relative;" for="exampleCheck1">I give my consent for the bot to be removed from list and im aware of all the consequences.</label>
   </div>
 
   <button type="submit" style="width: 50%;" class="btn btn-danger">Delete</button>

@@ -300,7 +300,7 @@ module.exports = (client) => {
   //   if (!discordUser) return res.redirect("/");
   //   const bots = await Bots.find({ mainOwner: discordUser.id, approved: true });
   //   var userData = await Profiles.findOne({ id: discordUser.id });
-  //   if (!userData) userData = { bg: null, bio: "I'm a very misteryious person.", certifiedDev: null, mod: null, admin: null };
+  //   if (!userData) userData = { bg: null, bio: "I'm a very misteryious person.", certifiedDev: null, mod: false, admin: false };
   //   renderTemplate(res, req, "/profile.ejs", { profile: userData, bots, discordUser });
   // });
 
@@ -474,7 +474,7 @@ module.exports = (client) => {
   });
 
   app.post("/bot/new", checkAuth, async (req, res) => {
-    const bodyData = {
+    var bodyData = {
       clientID: req.body.clientID,
       library: req.body.library,
       prefix: req.body.prefix,
@@ -488,6 +488,8 @@ module.exports = (client) => {
       github: req.body.github,
       website: req.body.website
     }
+    if (typeof bodyData.tags === "string") bodyData.tags = [bodyData.tags];
+    console.log(bodyData);
 
     const validBot = await validateBotForID(bodyData.clientID);
     if (validBot === false) return renderTemplate(res, req, "bot/new.ejs", { sucess: null, fail: "Invalid ClientID/provided ClientID was not a bot." });
@@ -532,7 +534,12 @@ module.exports = (client) => {
       createdAt: Date.now()
     });
 
-    newBot.save().catch(e => console.log(e));
+    await newBot.save().catch(e => console.log(e));
+
+    console.log(bodyData);
+    console.log(bodyData.tags);
+    console.log(bodyData.tags.join(", "));
+
     client.channels.get("561622522798407740").send(`<@${req.user.id}> added <@${bodyData.clientID}>.\n**URL**: https://discordhouse.org/bot/${bodyData.clientID}`);
     const embed = new Discord.MessageEmbed()
       .setTitle("New Bot Added")
@@ -547,12 +554,18 @@ module.exports = (client) => {
     var Botsdata = await Bots.findOne({ vanityUrl: req.params.id });
     if (!Botsdata) Botsdata = await Bots.findOne({ id: req.params.id });
     if (!Botsdata) return res.redirect("/");
-    renderTemplate(res, req, "bot/page.ejs", { thebot: Botsdata, alertSuccess: null, alertFail: null });
+    if (Botsdata.approved !== true && req.session.permLevel < 1) return res.redirect("/");
+    var fail = null;
+    if (Botsdata.approved !== true) {
+      fail = "<strong>WARNING:</strong> This page is not visible for public, bot not approved.";
+    }
+    renderTemplate(res, req, "bot/page.ejs", { thebot: Botsdata, alertSuccess: null, alertFail: fail });
   });
 
   app.post("/bot/:id", checkAuth, async (req, res) => {
     var Botsdata = await Bots.findOne({ vanityUrl: req.params.id });
     if (!Botsdata) Botsdata = await Bots.findOne({ id: req.params.id });
+    if (Botsdata.approved === false) return res.redirect("/");
     if (!Botsdata) return res.redirect("/");
 
     if (!req.body.reason) return renderTemplate(res, req, "bot/page.ejs", { thebot: Botsdata, alertSuccess: null, alertFail: "Hmm, seems like a bad request has occured, please make sure you are logged in and try again." });
@@ -578,7 +591,7 @@ module.exports = (client) => {
 
   app.post("/bot/:id/delete", checkAuth, async (req, res) => {
     const name = req.body.name || "";
-    const conset = req.name.conset || "no";
+    const conset = req.body.consent || "no";
     var Bot = await Bots.findOne({ vanityUrl: req.params.id });
     if (!Bot) Bot = await Bots.findOne({ id: req.params.id });
     if (!Bot) return res.redirect("/");
@@ -649,8 +662,8 @@ module.exports = (client) => {
 
         await entry.save().catch(e => console.log(e));
       });
-    } else  {
-      Bots.findOne({ vanityUrl: req.params.id }, async (err, entry) => {
+    } else {
+      Bots.findOne({ id: req.params.id }, async (err, entry) => {
         entry.name = self.username;
         entry.owners = bodyData.otherOwners.split(", ")[0] !== "" ? bodyData.otherOwners.split(", ") : [];
         entry.library = bodyData.library;
@@ -682,7 +695,7 @@ module.exports = (client) => {
       const uVoteIndex = Bot.votes.findIndex(u => u.id === req.user.id);
       if (uVoteIndex > -1) {
         if (Date.now() - Bot.votes[uVoteIndex].timestamp < 43200000) return renderTemplate(res, req, "bot/page.ejs", { thebot: Bot, alertSuccess: null, alertFail: `You have aleady voted for this bot. Try again in ${msToHMS(43200000 - (Date.now() - Bot.votes[uVoteIndex].timestamp))}.` });
-        Bots.votes.splice(uVoteIndex, 1);
+        Bot.votes.splice(uVoteIndex, 1);
       }
 
       const voteObj = {
@@ -692,7 +705,7 @@ module.exports = (client) => {
 
       Bot.upvotes = Bot.upvotes + 1;
       Bot.totalVotes = Bot.totalVotes + 1;
-      user.karma = user.karma +1;
+      user.karma = user.karma + 1;
       user.totalKarma = user.totalKarma +1;
       Bot.votes.push(voteObj);
       await Bot.save().catch(e => console.log(e));

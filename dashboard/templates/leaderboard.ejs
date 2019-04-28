@@ -1,4 +1,4 @@
-<%- include('blocks/header', { bot, user, title: 'Leaderboard' }) %>
+<%- include('blocks/header', { bot, user, title: "Developer Leaderboard | Discord Bot House", embedding: { default: true } }) %>
 <body ng-app="myModule">
         <div class="container" style="width:auto;">
             <div class="row">
@@ -13,7 +13,7 @@
                             <tr class="dev " style="padding:10px;box-shadow: 5px 5px 10px black;background-color:#2b828e">
                                 <th style="font-size:20px; text-align: center;">#</th>
                                 <th style="font-size:20px; text-align: center;">Dev Name</th>
-                                <th class="number">Monthly karma  <i class="glyphicon glyphicon-menu-up"></i></th> 
+                                <th class="number">Monthly karma  <i class="glyphicon glyphicon-menu-up"></i></th>
                                 <th class="number">Total karma  <i class="fa fa-angle-double-up"></i></th>
                             </tr>
                         </thead>
@@ -30,15 +30,15 @@
                                         <span><a  onclick="window.location.href ='/profile/<%= BestDevs[i].id %>'" style="color:white;background-color: #7499a0; font-size: 20px;" class="badge badge-success"><%=tags[i]%> <%if (BestDevs[i].certifiedDev == true) {%>
                                             <span><i class="fas fa-certificate" style="color:rgb(255, 216, 118);"></i></span>
                                         <%}%></a></span>
-                                       
+
                                     </a>
                                 </td>
                                 <td class="number" style="font-size:25px;"><a style="color:white;background-color: #184f57; font-size: 20px;" class="badge badge-success"><%=BestDevs[i].karma%></a></td>
                                 <td class="number" style="font-size:25px;"><a style="color:white;background-color: #ff6176; font-size: 20px;" class="badge badge-success"><%=BestDevs[i].totalKarma%></a></td>
-                                <% }; %>   
+                                <% }; %>
                             </tr>
                         </tbody>
-                    </table>	
+                    </table>
                 </div>
             </div>
 <br><br>
