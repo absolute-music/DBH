@@ -1,13 +1,17 @@
 const Discord = require("discord.js");
-const request = require('request')
+const request = require('request');
+const profiles = require("../models/profile.js");
+
 module.exports.run = async (client, message, args, reply) => {
+  const userProfile = await profiles.findOne({ id: message.author.id });
+  if (userProfile.admin !== true) return reply(`You can't do this.`);
 
  const error = `Provide the appropriate security profile
-    \`1\` == essentially_off
-    \`2\` == low
-    \`3\` == medium
-    \`4\` == high
-    \`5\` == under_attack
+    \`1\` - Essentially Off
+    \`2\` - Low
+    \`3\` - Medium
+    \`4\` - High
+    \`5\` - Under Attack
     `
  if(!args) return reply(error);
  if(args[0] !== '1' && args[0] !== '2' && args[0] !== '3' && args[0] !== '4' && args[0] !== '5') return reply(error);
@@ -36,16 +40,13 @@ var options = {
 function callback(error, response, body) {
     if (!error && response.statusCode == 200) {
         console.log(body);
+        message.channel.send(`Set to \`${value}\`.`)
     }
-    if (error) console.log(error)
-    message.channel.send(`set to \`${value}\``)
-
+    console.log(response.statusCode);
+    if (error) console.log(error);
 }
 
 request(options, callback);
-
-
-
 };
 
 module.exports.help = {
