@@ -89,8 +89,9 @@
 
     <li>
         <% if(user) { %>
+          <%if(thebot.data.rates.find(u => u.id === user.id)){%>
           <a style="color:white;">your rating:<a class="label label-danger"style="color:white;padding:2px"> <%=thebot.data.rates.find(u => u.id === user.id).rate || 'N/A' %><i class='fa fa-star'></i></a> </a>        
-        <% }%>
+        <%} }%>
     </li>
   </ul>
 
