@@ -9,14 +9,14 @@ module.exports.run = async (client, message, args, reply) => {
     .setColor("BLUE");
 
   if (userBots.length < 1) {
-    embed.setDescription(`This user have no published bots.`);
+    embed.setDescription(`<:redTick:568885082321059865> The specified user does not have any published bots.`);
   } else {
     var bots = [];
     for (const bot of userBots) {
       bots.push({ name: bot.name, id: bot.id });
     }
     bots = bots.map(b => `**${b.name}**`);
-    embed.setDescription(`User Bots:\n\n${bots.join(",\n")}\n===\nShowed a total of ${userBots.length} bots.`);
+    embed.setDescription(`User Bots:\n\n${bots.join(",\n")}\n===\nShowing a total of ${userBots.length} bots.`);
   }
   reply(embed);
 };
