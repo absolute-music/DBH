@@ -16,7 +16,6 @@ const Profiles = require("../models/profile");
 const Bots = require("../models/bots");
 const config = require("../config");
 const mongoose = require("mongoose");
-const rateLimit = require("express-rate-limit");
 
 mongoose.connect(config.dbUrl, { useNewUrlParser: true });
 
@@ -142,12 +141,6 @@ module.exports = (client) => {
     saveUninitialized: false,
   }));
 
-  const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 75
-  });
-
-  app.use(limiter);
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(helmet());
