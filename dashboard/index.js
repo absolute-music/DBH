@@ -307,7 +307,7 @@ module.exports = (client) => {
       var upvotes = entry.votes.filter(u => (Date.now() - u.timestamp) < 43200000);
       upvotes = upvotes.map(u => u.id);
 
-      res.status(200).send(JSON.stringify({ "msg": "Sucessfull request.", "code": 200, "upvotes": upvotes }, null, 4));
+      res.status(200).send(JSON.stringify({ "msg": "Sucessful request.", "code": 200, "upvotes": upvotes }, null, 4));
     });
   });
 
@@ -524,15 +524,15 @@ module.exports = (client) => {
     if (typeof bodyData.tags === "string") bodyData.tags = [bodyData.tags];
 
     const validBot = await validateBotForID(bodyData.clientID);
-    if (validBot === false) return renderTemplate(res, req, "bot/new.ejs", { sucess: null, fail: "Invalid ClientID/provided ClientID was not a bot." });
+    if (validBot === false) return renderTemplate(res, req, "bot/new.ejs", { sucess: null, fail: "Invalid ClientID or provided ClientID was not a bot." });
     const isBot = await Bots.findOne({ id: bodyData.clientID });
-    if (isBot) return renderTemplate(res, req, "bot/new.ejs", { sucess: null, fail: "This bot is already on list or approving queue." });
+    if (isBot) return renderTemplate(res, req, "bot/new.ejs", { sucess: null, fail: "This bot is already on the website listing or in the verification queue." });
     if (bodyData.shortDesc.length < 30) return renderTemplate(res, req, "bot/new.ejs", { sucess: null, fail: "Short description must be at least 30 characters long." });
-    if (bodyData.shortDesc.length > 84) return renderTemplate(res, req, "bot/new.ejs", { sucess: null, fail: "Short description can be maximum 80 characters long." });
-    if (bodyData.longDesc.length < 250) return renderTemplate(res, req, "bot/new.ejs", { sucess: null, fail: "Long description must be at last 250 characters long." });
-    if (bodyData.tags.lengh > 3) return renderTemplate(res, req, "bot/new.ejs", { sucess: null, fail: "You can maximum add 3 tags to your bot." });
+    if (bodyData.shortDesc.length > 84) return renderTemplate(res, req, "bot/new.ejs", { sucess: null, fail: "Short description can have 80 characters at maximum." });
+    if (bodyData.longDesc.length < 250) return renderTemplate(res, req, "bot/new.ejs", { sucess: null, fail: "Long description must be at least 250 characters long." });
+    if (bodyData.tags.lengh > 3) return renderTemplate(res, req, "bot/new.ejs", { sucess: null, fail: "You can add maximum 3 tags to your bot." });
     const invDetails = await fetchInviteURL(bodyData.supportServer);
-    if (invDetails.valid === false) return renderTemplate(res, req, "bot/new.ejs", { sucess: null, fail: "Invite code provided is invalid." });
+    if (invDetails.valid === false) return renderTemplate(res, req, "bot/new.ejs", { sucess: null, fail: "Invalid invite code provided." });
 
     let self = await client.users.fetch(bodyData.clientID);
 
@@ -579,7 +579,7 @@ module.exports = (client) => {
       .setDescription(`**Bot**: ${self.tag} (ID: ${bodyData.clientID})\n**Owner**: ${req.user.username}#${req.user.discriminator} (ID: ${req.user.id})\n**Prefix**: \`${bodyData.prefix}\`\n**Sort Desc**: ${bodyData.shortDesc}\n**Tags**: ${bodyData.tags.join(", ")}\n**Library**: ${bodyData.library}\n**Website**: ${bodyData.website.length < 1 ? "No Website" : bodyData.website}\n**GitHub**: ${bodyData.github.length < 1 ? "No GitHub" : bodyData.github}\n**Support Server**: ${bodyData.supportServer}\n**Other Owners**: ${bodyData.otherOwners.split(", ")[0] !== "" ? bodyData.otherOwners.split(", ").join(", ") : "No Other Owners"}\n**Invite**: ${bodyData.inviteURL.indexOf("https://discordapp.com/api/oauth2/authorize") !== 0 ? `https://discordapp.com/api/oauth2/authorize?client_id=${bodyData.clientID}&permissions=0&scope=bot` : `${bodyData.inviteURL}`}\n**URL**: https://discordhouse.org/bot/${bodyData.clientID}`)
       .setColor("BLUE");
     client.channels.get("561622527919783938").send(embed);
-    renderTemplate(res, req, "bot/new.ejs", { sucess: "Bot has been successfully added on approving queue.", fail: null });
+    renderTemplate(res, req, "bot/new.ejs", { sucess: "The bot has been successfully added in to queue.", fail: null });
   });
 
 
@@ -590,7 +590,7 @@ module.exports = (client) => {
     if (Botsdata.approved !== true && req.session.permLevel < 1) return res.redirect("/");
     var fail = null;
     if (Botsdata.approved !== true) {
-      fail = "<strong>WARNING:</strong> This page is not visible for public, bot not approved.";
+      fail = "<strong>WARNING:</strong> This page is not visible to the public, this bot is not approved yet.";
     }
     renderTemplate(res, req, "bot/page.ejs", { thebot: Botsdata, alertSuccess: null, alertFail: fail });
   });
@@ -601,7 +601,7 @@ module.exports = (client) => {
     if (Botsdata.approved === false) return res.redirect("/");
     if (!Botsdata) return res.redirect("/");
 
-    if (!req.body.reason) return renderTemplate(res, req, "bot/page.ejs", { thebot: Botsdata, alertSuccess: null, alertFail: "Hmm, seems like a bad request has occured, please make sure you are logged in and try again." });
+    if (!req.body.reason) return renderTemplate(res, req, "bot/page.ejs", { thebot: Botsdata, alertSuccess: null, alertFail: "Hmm, looks like something went wrong, please make sure you are logged in then try again." });
     const bot = await client.users.fetch(Botsdata.id);
     const botOwner = await client.users.fetch(Botsdata.mainOwner);
 
@@ -692,11 +692,11 @@ module.exports = (client) => {
     const validBot = await validateBotForID(bodyData.clientID);
     if (validBot === false) return renderTemplate(res, req, "bot/edit.ejs", { theBot: Bot, sucess: null, fail: "Invalid ClientID/provided ClientID was not a bot." });
     if (bodyData.shortDesc.length < 30) return renderTemplate(res, req, "bot/edit.ejs", { theBot: Bot, sucess: null, fail: "Short description must be at least 30 characters long." });
-    if (bodyData.shortDesc.length > 84) return renderTemplate(res, req, "bot/edit.ejs", { theBot: Bot, sucess: null, fail: "Short description can be maximum 80 characters long." });
-    if (bodyData.longDesc.length < 250) return renderTemplate(res, req, "bot/edit.ejs", { theBot: Bot, sucess: null, fail: "Long description must be at last 250 characters long." });
-    if (bodyData.tags.lengh > 3) return renderTemplate(res, req, "bot/edit.ejs", { sucess: null, fail: "You can maximum add 3 tags to your bot." });
+    if (bodyData.shortDesc.length > 84) return renderTemplate(res, req, "bot/edit.ejs", { theBot: Bot, sucess: null, fail: "Short description can have 80 characters at maximum." });
+    if (bodyData.longDesc.length < 250) return renderTemplate(res, req, "bot/edit.ejs", { theBot: Bot, sucess: null, fail: "Long description must be at least 250 characters long." });
+    if (bodyData.tags.lengh > 3) return renderTemplate(res, req, "bot/edit.ejs", { sucess: null, fail: "You can add at maximum 3 tags to your bot." });
     const invDetails = await fetchInviteURL(bodyData.supportServer);
-    if (invDetails.valid === false) return renderTemplate(res, req, "bot/edit.ejs", { theBot: Bot, sucess: null, fail: "Invite code provided is invalid." });
+    if (invDetails.valid === false) return renderTemplate(res, req, "bot/edit.ejs", { theBot: Bot, sucess: null, fail: "Invalid invite code provided." });
 
     let self = await client.users.fetch(bodyData.clientID);
 
@@ -793,7 +793,7 @@ module.exports = (client) => {
       };
       Bot.rates.push(rateObj);
       await Bot.save().catch(e => console.log(e));
-      renderTemplate(res, req, "bot/page.ejs", { thebot: Bot, alertSuccess: "Your Stars rating has been counted.", alertFail: null });
+      renderTemplate(res, req, "bot/page.ejs", { thebot: Bot, alertSuccess: "Your rating has been counted.", alertFail: null });
     });
   });
   // app.get("/api/search", async (req, res) => {
@@ -802,7 +802,7 @@ module.exports = (client) => {
   //   const query = new RegExp(req.query.name, "i")
   //   let results = await Bots.find({ name: query });
   //   if (results.length < 1) return res.send(JSON.stringify({ "msg": "Not found.", "code": 404 }, null, 4));
-  //   res.send(JSON.stringify({ "msg": "Sucessfull request.", "code": 200, "results": results, "bot": client }, null, 4));
+  //   res.send(JSON.stringify({ "msg": "Sucessful request.", "code": 200, "results": results, "bot": client }, null, 4));
   // });
 
   app.get("/privacy", (req, res) => {
