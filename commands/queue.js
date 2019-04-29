@@ -15,10 +15,10 @@ module.exports.run = async (client, message, args, reply) => {
   } else {
     var bots = [];
     for (const bot of userBots) {
-      bots.push({ name: bot.name, id: bot.id });
+      bots.push({ name: bot.name, id: bot.id, prefix: bot.prefix, invite: bot.invite });
     }
-    bots = bots.map(b => `**${b.name}** (ID: ${b.id})`);
-    embed.setDescription(`Unverified BotS:\n\n${bots.join(",\n")}\n===\nShowed a total of ${userBots.length} bots.`);
+    bots = bots.map(b => `[${b.name}](${b.invite}&guild_id=561629999111602185) (ID: ${b.id}) **Prefix:** \`${b.prefix}\``);
+    embed.setDescription(`Bots pending verification:\n\n${bots.join(",\n")}\n=================\nDisplaying a total of ${userBots.length} bots.`);
   }
   reply(embed);
 };

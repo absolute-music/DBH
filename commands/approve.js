@@ -31,7 +31,12 @@ module.exports.run = async (client, message, args, reply) => {
     const user = client.users.get(res.mainOwner);
     if (user) user.send(`Your bot <@${bot}> was approved by ${message.author.tag}.`);
     client.emit("updatePresence");
-    reply(`Sucessfully approved <@${bot}>.\n${res.invite}`);
+    const Embed = new Discord.MessageEmbed()
+    .setDescription(`Sucessfully approved <@${bot}>.\n[Direct invite to the main server](${res.invite}&guild_id=560865387206672384)`)
+    .setColor('GREEN');
+    reply(Embed);
+    const tokick = client.guilds.get("561629999111602185").members.get(bot.id);
+    if (tokick) tokick.kick('approved');
   });
 };
 
