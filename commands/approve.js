@@ -4,7 +4,7 @@ const profiles = require("../models/profile");
 
 module.exports.run = async (client, message, args, reply) => {
   const userProfile = await profiles.findOne({ id: message.author.id });
-  if (!userProfile || userProfile.mod !== true && userProfile.admin !== true) return reply(`You can't do this.`);
+  if (!userProfile || userProfile.mod !== true && userProfile.admin !== true) return reply(`<:redTick:568885082321059865> You aren't allowed to perform this action`);
 
   var bot = message.mentions.users.first() || { id: args[0] };
   if (bot) bot = bot.id;
@@ -12,7 +12,7 @@ module.exports.run = async (client, message, args, reply) => {
 
   await bots.findOne({ id: bot }, async (err, res) => {
     if (err) console.log(err);
-    if (!res) return reply(`<a:aRedTick:568884586818306048> That bot was not found in queue.`);
+    if (!res) return reply(`<a:aRedTick:568884586818306048> The specified bot was not found in the queue.`);
     res.approved = true;
     await res.save().catch(e => console.log(e));
     if (client.guilds.get("560865387206672384").members.get(res.mainOwner)) {
@@ -32,7 +32,7 @@ module.exports.run = async (client, message, args, reply) => {
     if (user) user.send(`Your bot <@${bot}> was approved by ${message.author.tag}.`);
     client.emit("updatePresence");
     const Embed = new Discord.MessageEmbed()
-    .setDescription(`Sucessfully approved <@${bot}>.\n[Direct invite to the main server](${res.invite}&guild_id=560865387206672384)`)
+    .setDescription(`Sucessfully approved <@${bot}>.\n[Click here to invite to the main server](${res.invite}&guild_id=560865387206672384)`)
     .setColor('GREEN');
     reply(Embed);
     const tokick = client.guilds.get("561629999111602185").members.get(bot.id);
