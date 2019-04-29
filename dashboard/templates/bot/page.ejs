@@ -2,7 +2,7 @@
 <%- include('../blocks/header', { bot, user, title: thebot.data.name, embedding: { default: false } }) %>
 <meta name="description" content="Discover what <= theBot.data.name %> is all about!">
 <meta name="og:title" property="og:title" content="<= theBot.data.name %> | Discord Bot House">
-<meta name="og:description" property="og:description" content="Discover what <= theBot.data.name %> is all about!">
+<meta name="og:description" property="og:description" content="Discover what <%= theBot.data.name %> is all about!">
 <meta name="twitter:card" content="Discover what <= theBot.data.name %> is all about!">
 <% const htmlFor = {
   "online": "Online",
