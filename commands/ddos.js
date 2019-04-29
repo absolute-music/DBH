@@ -42,10 +42,10 @@ var options = {
 
 function callback(error, response, body) {
     if (!error && response.statusCode == 200) {
-        message.channel.send(`Set to \`${value}\`.`)
+        message.channel.send(`<:greenTick:568885198519926784> Mode has been set to \`${value}\`.`)
     } else {
     message.channel.send('Status code : ' + response.statusCode);
-    if (error) message.channel.send('error : ' + error);
+    if (error) message.channel.send('<:redTick:568885082321059865> Error while updating mode: ' + error);
     }
 }
 
