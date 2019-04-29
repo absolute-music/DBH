@@ -84,8 +84,17 @@
         <input onclick="window.location.href ='/bot/<%= thebot.data.id %>/rate?stars=2'"  type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad"></label>
         <input onclick="window.location.href ='/bot/<%= thebot.data.id %>/rate?stars=1'"  type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks"></label>
     </fieldset>
-    <a class="label label-dark" style="color:yellow"><%=avg.toFixed(1) %><i class='fa fa-star'></i> </a>
-					</div>
+    <a class="label label-dark" style="color:yellow"><%=avg.toFixed(1) %><i class='fa fa-star'></i> </a> 
+  <ul>
+
+    <li>
+        <% if(user) { %>
+          <a style="color:white;">your rating:<a class="label label-danger"style="color:white;padding:2px"> <%=thebot.data.rates.find(u => u.id === user.id).rate || 'N/A' %><i class='fa fa-star'></i></a> </a>        
+        <% }%>
+    </li>
+  </ul>
+
+  </div>
     </div>
 </div>
 <br/>
