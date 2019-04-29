@@ -291,7 +291,7 @@ module.exports = (client) => {
       itself.serverCount = parseInt(req.body.serverCount);
       if (req.body.shardCount) itself.shardCount = parseInt(req.body.shardCount);
       await itself.save().catch(e => console.log(e));
-      res.status(200).send(JSON.stringify({ "msg": "Sucessfull request.", "code": 200 }, null, 4));
+      res.status(200).send(JSON.stringify({ "msg": "Sucessful request.", "code": 200 }, null, 4));
     });
   });
 
