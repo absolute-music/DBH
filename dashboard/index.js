@@ -130,6 +130,11 @@ module.exports = (client) => {
     process.nextTick(() => done(null, profile));
   }))
 
+  app.use((req, res, next) => {
+    client.channels.get("572380571074953217").send(`[WEBSITE]: New request is being served.`);
+    next();
+  });
+
   app.use(session({
     store: new MemoryStore({ checkPeriod: 86400000 }),
     secret: client.config.dashboard.sessionSecret,
