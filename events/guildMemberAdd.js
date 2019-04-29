@@ -1,7 +1,25 @@
 const Discord = require("discord.js"); // eslint-disable-line no-unused-vars
 const dashboard = require("../dashboard/index.js");
+const profiles = require("../models/profile.js");
 
 exports.run = async (client, member) => {
+
+  if (member.guild.id == "561629999111602185"){
+ profiles.findOne({ id: member.id }, async (err, entry) => {  
+  if (err) console.log(err);
+  if (!entry){
+    await member.send('**Unauthorized Access**\nDiscord Bot House verification center is only for staff');
+    member.kick('Not allowed')
+    return
+  }  
+  if (entry.mod == false && entry.mod == false ){
+    await member.send('**Unauthorized Access**\nDiscord Bot House verification center is only for staff');
+    member.kick('Not allowed')
+    return
+  } 
+  });
+  }
+
   if (member.guild.id !== "560865387206672384") return;
   if (member.user.bot) member.roles.add(member.guild.roles.find(role => role.id === "568873150809636885"))
 };
