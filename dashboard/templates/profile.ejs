@@ -1,4 +1,10 @@
 <%- include('blocks/header', { bot, user, title: `${discordUser.username} | Discord Bot House`, embedding: { default: true } }) %>
+
+<meta name="description" content="Discover <%= bot.users.get(discordUser.id).username %>'s profile!">
+<meta name="og:title" property="og:title" content="Profile | Discord Bot House">
+<meta name="og:description" property="og:description" content="Discover <%= bot.users.get(discordUser.id).username %>'s profile!">
+<meta name="twitter:card" content="Discover <%= bot.users.get(discordUser.id).username %>'s profile!">
+
 <center>
   <div class="parent">
     <div class="con">

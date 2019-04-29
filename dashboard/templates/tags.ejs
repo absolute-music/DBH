@@ -1,7 +1,12 @@
 <%- include('blocks/header', { bot, user, title: `${tag} Bots | Discord Bot House`, embedding: { default: true } }) %>
-<!--<div ><center><img  onclick="window.location.href ='/contact'" style="width:728px;height:90px;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div>-->
+
+<meta name="description" content="Discover bots with the tag <%= tag %>!">
+<meta name="og:title" property="og:title" content="<%= tag %> bots | Discord Bot House">
+<meta name="og:description" property="og:description" content="Discover bots with the tag TAGHERE!">
+<meta name="twitter:card" content="Discover bots with the tag <%= tag %>!">
+
 <div class="container1 main-bkg-a" style="margin-left: 3%; margin-right: 3%;margin-top: 5px;margin-bottom: 20px;box-shadow:0 8px 16px 0 rgba(0, 0, 0, 1.2); color: #fff; background-color: #1d1e21;">
-<h2 style="padding-top: 20px; margin: 2%; color:white"><i class="fas fa-tag"></i>  Bots tagged with <%=tag%> Tag:</h2>
+<h2 style="padding-top: 20px; margin: 2%; color:white"><i class="fas fa-tag"></i>  Bots tagged with <%= tag %> Tag:</h2>
 
 <div style="padding: 35px 20px 20px 35px">
 <div class="row">

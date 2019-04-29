@@ -277,6 +277,7 @@ module.exports = (client) => {
   //
   app.post("/api/stats/bot/:id", async (req, res) => {
     res.setHeader("Content-Type", "application/json");
+    client.channels.get("572355379275759617").send(`[API]: Post stats request was made on <@${req.params.id}>'s behalf.`);
     if (typeof req.params.id !== "string") return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400 }, null, 4));
     if (!req.body) return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "No body was found within the request.", "errorCode": "NO_STATS_POST_BODY" }, null, 4));
     if (!req.body.serverCount) return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "No serverCount key was found within the request body.", "errorCode": "NO_STATS_POST_SERVERCOUNT" }, null, 4));
@@ -297,12 +298,16 @@ module.exports = (client) => {
 
   app.get("/api/upvotes/bot/:id", async (req, res) => {
     res.setHeader("Content-Type", "application/json");
+    client.channels.get("572355379275759617").send(`[API]: Upvotes request was made on <@${req.params.id}>'s behalf.`);
     Bots.findOne({ id: req.params.id }, async (err, entry) => {
+      if (err) console.log(err);
+      if (!entry) return res.status(404).send(JSON.stringify({ "msg": "Not Found.", "code": 404, "error": "No bot found.", "errorCode": "NOT_FOUND" }, null, 4));
       const authorization = req.query.authorization;
       if (!authorization || typeof authorization !== "string") return res.status(400).send(JSON.stringify({ "msg": "Bad Request.", "code": 400, "error": "No authorization key was found within the reuqest headers.", "errorCode": "NO_REQUEST_UPVOTES_AUTHORIZATION" }, null, 4));
       if (entry.token !== authorization) return res.status(401).send(JSON.stringify({ "msg": "Unauthorized.", "code": 401, "error": "Invalid authorization token was provided for this bot." }, null, 4));
-      var upvotes = entry.upvotes.filter(u => (Date.now() - u.timestamp) < 43200000);
-      upvotes.map(u => u.id);
+      var upvotes = entry.votes.filter(u => (Date.now() - u.timestamp) < 43200000);
+      upvotes = upvotes.map(u => u.id);
+
       res.status(200).send(JSON.stringify({ "msg": "Sucessfull request.", "code": 200, "upvotes": upvotes }, null, 4));
     });
   });

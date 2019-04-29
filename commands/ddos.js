@@ -31,7 +31,7 @@ module.exports.run = async (client, message, args, reply) => {
 var dataString = `{"value":${value}}`;
 
 var options = {
-    url: 'https://api.cloudflare.com/client/v4/zones/023e105f4ecef8ad9ca31a8372d0c353/settings/security_level',
+    url: 'https://api.cloudflare.com/client/v4/zones/8adc97e44e8c0d095ee47ec9a808b21b/settings/security_level',
     method: 'PATCH',
     headers: headers,
     body: dataString
