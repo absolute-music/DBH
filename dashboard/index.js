@@ -354,7 +354,7 @@ module.exports = (client) => {
     if (Math.round(lengthOfRes / 16) === lengthOfRes / 16) {
       totalPages = lengthOfRes / 16;
     } else {
-      totalPages = Math.round(lengthOfRes / 16) + 1;
+      totalPages = Math.round(lengthOfRes / 16);
     }
     results = paginate(results, 16, currentPage);
     renderTemplate(res, req, "lists/top.ejs", { featuredBots: results, numberOfPages: totalPages });
@@ -378,7 +378,7 @@ module.exports = (client) => {
     if (Math.round(lengthOfRes / 16) === lengthOfRes / 16) {
       totalPages = lengthOfRes / 16;
     } else {
-      totalPages = Math.round(lengthOfRes / 16) + 1;
+      totalPages = Math.round(lengthOfRes / 16);
     }
 
     results = paginate(results, 16, currentPage);
@@ -399,7 +399,7 @@ module.exports = (client) => {
     if (Math.round(lengthOfRes / 16) === lengthOfRes / 16) {
       totalPages = lengthOfRes / 16;
     } else {
-      totalPages = Math.round(lengthOfRes / 16) + 1;
+      totalPages = Math.round(lengthOfRes / 16);
     }
     results = paginate(results, 16, currentPage);
 
@@ -423,7 +423,7 @@ module.exports = (client) => {
      if (Math.round(lengthOfRes / 16) === lengthOfRes / 16) {
        totalPages = lengthOfRes / 16;
      } else {
-       totalPages = Math.round(lengthOfRes / 16) + 1;
+       totalPages = Math.round(lengthOfRes / 16) ;
      }
      results = paginate(results, 16, currentPage);
      for(var i=0; i <results.length; i++){
@@ -439,7 +439,7 @@ module.exports = (client) => {
    }
 
    };
-   renderTemplate(res, req, "leaderboard.ejs", { BestDevs: results,pfps,tags,usernames,numberOfPages: totalPages });
+   renderTemplate(res, req, "leaderboard.ejs", { BestDevs: results,pfps,tags,usernames,numberOfPages: totalPages,currentPage });
  });
 
   app.get("/tag/:name", async (req, res) => {
@@ -457,7 +457,7 @@ module.exports = (client) => {
     if (Math.round(lengthOfRes / 16) === lengthOfRes / 16) {
       totalPages = lengthOfRes / 16;
     } else {
-      totalPages = Math.round(lengthOfRes / 16) + 1;
+      totalPages = Math.round(lengthOfRes / 16);
     }
     results = paginate(results, 16, currentPage);
     renderTemplate(res, req, "tags.ejs", { tag: req.params.name, featuredBots: results, numberOfPages: totalPages });
@@ -495,7 +495,7 @@ module.exports = (client) => {
   //   if (Math.round(lengthOfRes / 16) === lengthOfRes / 16) {
   //     totalPages = lengthOfRes / 16;
   //   } else {
-  //     totalPages = Math.round(lengthOfRes / 16) + 1;
+  //     totalPages = Math.round(lengthOfRes / 16);
   //   }
   //   results = paginate(results, 16, currentPage);
   //
