@@ -13,6 +13,6 @@ module.exports.run = async (client, message) => {
   try {
     await cmd.run(client, message, args, reply);
   } catch (e) {
-    return reply(`Can't run command because \`${e}\`.`);
+    return reply(`<:redTick:568885082321059865> Couldn't run the command.\nReason: \`${e}\`.`);
   }
 };

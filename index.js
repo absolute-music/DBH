@@ -23,7 +23,7 @@ fs.readdir("./commands/", (err, files) => {
     if(err) console.log(err);
     let jsfile = files.filter(f => f.split(".").pop() === "js")
     if(jsfile.length <= 0){
-      console.log("No commands we're found!!!");
+      console.log("No commands were found!");
       return;
     }
 
@@ -36,7 +36,7 @@ fs.readdir("./commands/", (err, files) => {
 
 client.on("updatePresence", async () => {
   const totalBots = await bots.countDocuments({ approved: true });
-  await client.user.setActivity(`${totalBots} Bots On List`, { type: "WATCHING" });
+  await client.user.setActivity(`${totalBots} bots nn list`, { type: "WATCHING" });
 });
 
 client.login(client.config.token);
