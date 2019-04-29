@@ -218,7 +218,8 @@ module.exports = (client) => {
   app.get("/", async (req, res) => {
     let results = await Bots.find({ featured: true, approved: true  });
     let newbot = await Bots.find({ approved: true }).sort({ "_id": -1 });
-    renderTemplate(res, req, "index.ejs", { featuredBots: results.splice(0, 4), newbots: newbot.splice(0, 8) });
+    let topbots = await Bots.find({ approved: true }).sort([["upvotes", "descending"]]);
+    renderTemplate(res, req, "index.ejs", { featuredBots: results.splice(0, 4), newbots: newbot.splice(0, 8), topBots: topBots.splice(0, 4) });
   });
 
   // app.get("/api/bot/:id", async (req, res) => {
