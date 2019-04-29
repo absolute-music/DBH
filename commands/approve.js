@@ -31,7 +31,7 @@ module.exports.run = async (client, message, args, reply) => {
     const user = client.users.get(res.mainOwner);
     if (user) user.send(`Your bot <@${bot}> was approved by ${message.author.tag}.`);
     client.emit("updatePresence");
-    reply(`Sucessfully approved <@${bot}>.`);
+    reply(`Sucessfully approved <@${bot}>.\n${res.invite}`);
   });
 };
 
