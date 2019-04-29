@@ -3,7 +3,7 @@ const profiles = require("../models/profile.js");
 
 module.exports.run = async (client, message, args, reply) => {
   const userProfile = await profiles.findOne({ id: message.author.id });
-  if (!userProfile || userProfile.mod !== true && userProfile.admin !== true) return reply(`You can't do this.`);
+  if (!userProfile || userProfile.mod !== true && userProfile.admin !== true) return reply(`<:redTick:568885082321059865> You aren't allowed to perform this action.`);
 
   const userBots = await require("../models/bots.js").find({ approved: false });
   var embed = new Discord.MessageEmbed()
@@ -11,14 +11,14 @@ module.exports.run = async (client, message, args, reply) => {
     .setColor("BLUE");
 
   if (userBots.length < 1) {
-    embed.setDescription(`No bots pending verification.`);
+    embed.setDescription(`There isn't any bot pending verification.`);
   } else {
     var bots = [];
     for (const bot of userBots) {
       bots.push({ name: bot.name, id: bot.id, prefix: bot.prefix, invite: bot.invite });
     }
     bots = bots.map(b => `[${b.name}](${b.invite}&guild_id=561629999111602185) (ID: ${b.id}) **Prefix:** \`${b.prefix}\``);
-    embed.setDescription(`Bots pending verification:\n\n${bots.join(",\n")}\n=================\nDisplaying a total of ${userBots.length} bots.`);
+    embed.setDescription(`Bots pending verification:\n\n${bots.join(",\n")}\n=================\nShowing a total of ${userBots.length} bots.`);
   }
   reply(embed);
 };
