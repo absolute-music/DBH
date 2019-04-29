@@ -3,7 +3,7 @@ const profiles = require("../models/profile.js");
 
 module.exports.run = async (client, message, args, reply) => {
   const myBio = args.join(" ");
-  if (!myBio) return reply("Wops, you have to specify a bio.");
+  if (!myBio) return reply("<:redTick:568885082321059865> Woops, please specify a bio.");
 
   profiles.findOne({ id: message.author.id }, async (err, entry) => {
     if (err) console.log(err);
@@ -19,11 +19,11 @@ module.exports.run = async (client, message, args, reply) => {
         admin: false
       });
       await usr.save().catch(e => console.log(e));
-      reply("Your bio has been edited on website.");
+      reply("<:greenTick:568885198519926784> Your bio has been edited on the website.");
     } else {
       entry.bio = myBio;
       await entry.save().catch(e => console.log(e));
-      reply("Your bio has been edited on website.");
+      reply("<:greenTick:568885198519926784> Your bio has been edited on the website.");
     }
   });
 };

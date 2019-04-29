@@ -3,7 +3,7 @@ const profiles = require("../models/profile");
 
 module.exports.run = async (client, message, args, reply) => {
   const userProfile = await profiles.findOne({ id: message.author.id });
-  if (!userProfile || userProfile.mod !== true && userProfile.admin !== true) return reply(`You can't do this.`); 
+  if (!userProfile || userProfile.mod !== true && userProfile.admin !== true) return reply(`<:redTick:568885082321059865> You aren't allowed to perform this action.`); 
 const code = args.join(" ");
   function clean(text) {
     if (typeof(text) === "string")
@@ -19,7 +19,7 @@ const code = args.join(" ");
           const cleaned =  clean(ev)
           const MAX_CHARS = 3 + 2 + cleaned.length + 3;
           if (MAX_CHARS > 1500) {
-            return message.channel.send("the output has exceeded 1500 charachters in length. Sending it as file...", { files: [{ attachment: Buffer.from(clean), name: "eval.txt" }] });
+            return message.channel.send("The output has exceeded 1500 charachters in length. Sending it as file...", { files: [{ attachment: Buffer.from(clean), name: "eval.txt" }] });
           }
           message.channel.send("**Input:**```js\n"+code+"```**Eval:**```js\n"+cleaned+"```")
           } catch(err) {

@@ -6,12 +6,12 @@ module.exports.run = async (client, message, args, reply) => {
   if (bot) bot = bot.id;
 
   const theBot = await require("../models/bots.js").findOne({ id: bot });
-  if (!theBot) return reply("Bot not listed on website.");
+  if (!theBot) return reply("<:redTick:568885082321059865> The bot is not listed on the website.");
 
   const owner = client.users.get(theBot.mainOwner);
-  if (!owner) return reply("Owner not on user cache, aborted.");
+  if (!owner) return reply("<:redTick:568885082321059865> The owner is not in the user cache, aborted.");
   const userBot = client.users.get(theBot.id);
-  if (!userBot) return reply("Bot not on user cache, aborted.");
+  if (!userBot) return reply("<:redTick:568885082321059865> The bot is not in the user cache, aborted.");
   theBot.owners.unshift(theBot.mainOwner);
   var otherOwners = [];
 
@@ -35,7 +35,7 @@ module.exports.run = async (client, message, args, reply) => {
     .addField("Prefix:", `${theBot.prefix}`)
     .addField("Support Server:", `${theBot.server}`)
     .addField("Invite:", `${theBot.invite}`)
-    .addField(`On ${theBot.serverCount === 0 ? "N/A" : theBot.serverCount} Servers`, `The bot is made by ${otherOwners.join(", ")}.`)
+    .addField(`On ${theBot.serverCount === 0 ? "N/A" : theBot.serverCount} Servers`, `This bot was created by ${otherOwners.join(", ")}.`)
     .setThumbnail(userBot.displayAvatarURL())
     .setDescription(theBot.shortDesc)
   reply(botEmbed);
