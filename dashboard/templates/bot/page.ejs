@@ -68,7 +68,23 @@
           <a href='/bot/<%= thebot.data.id %>/vote' cmethod="post" type="text" value="vote" style="  background-color: #184f57;" class="btn w-25">Vote</a>
           <a  style="background-color: #184f57; padding:  10px 5px;" class="btn w-25" data-toggle="modal" data-target="#reportModal">Report</a>
         </li>
-			</ul>
+      </ul>
+      <fieldset class="rating">
+          <% const rated = []
+          for (var i = 0; i < thebot.data.rates.length; i++) {
+            rated.push(thebot.data.rates[i].rate)
+          }
+          if (rated.length == 0) rated.push(0)
+          let sum = rated.reduce((previous, current) => current += previous);
+          let avg = sum / rated.length;
+          %>
+        <input onclick="window.location.href ='/bot/<%= thebot.data.id %>/rate?stars=5'" type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome"></label>
+        <input onclick="window.location.href ='/bot/<%= thebot.data.id %>/rate?stars=4'"  type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good"></label>
+        <input onclick="window.location.href ='/bot/<%= thebot.data.id %>/rate?stars=3'"  type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Not Bad"></label>
+        <input onclick="window.location.href ='/bot/<%= thebot.data.id %>/rate?stars=2'"  type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad"></label>
+        <input onclick="window.location.href ='/bot/<%= thebot.data.id %>/rate?stars=1'"  type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks"></label>
+    </fieldset>
+    <a class="label label-dark" style="color:yellow"><%=avg.toFixed(1) %><i class='fa fa-star'></i> </a>
 					</div>
     </div>
 </div>
@@ -133,5 +149,38 @@
 					<br/>
 				<br/>
  <div><center><img  onclick="window.location.href ='/contact'" style="width:59vw;height:6.91vw;margin-bottom: 30px" src="https://www.resistivetechnosource.com/images/your_banner_here.png"></center></img></div>
+<style>
 
+fieldset, label { margin: 0; padding: 0; }
+h1 { font-size: 1.5em; margin: 10px; }
+
+
+.rating { 
+  border: none;
+  float: left;
+}
+
+.rating > input { display: none; } 
+.rating > label:before { 
+  margin: 5px;
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
+
+.rating > label { 
+  color: #ddd; 
+ float: right; 
+}
+
+.rating > input:checked ~ label, 
+.rating:not(:checked) > label:hover, 
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } 
+
+.rating > input:checked + label:hover, 
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, 
+.rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
+</style>
 <%- include('../blocks/footer') %>

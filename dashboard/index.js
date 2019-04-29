@@ -546,6 +546,7 @@ module.exports = (client) => {
       totalVotes: 0,
       website: bodyData.website || "none",
       votes: [],
+      rates: [],
       github: bodyData.github || "none",
       shortDesc: bodyData.shortDesc,
       longDesc: bodyData.longDesc,
@@ -772,6 +773,29 @@ module.exports = (client) => {
     });
   });
 
+  app.get("/bot/:id/rate", checkAuth, async (req, res) => {
+    var But = await Bots.findOne({ vanityUrl: req.params.id });
+    if (!But) But = await Bots.findOne({ id: req.params.id });
+    if (!But) return res.redirect("/");
+    req.query.stars = parseInt(req.query.stars);
+    if (req.query.stars !== 1 && req.query.stars !== 2 && req.query.stars !== 3 && req.query.stars !== 4 && req.query.stars !== 5 ) return  res.redirect("/bot/"+req.params.id);
+
+    Bots.findOne({ id: But.id }, async (err,  Bot) => {
+      if (err) console.log(err);
+
+      const urateIndex = Bot.rates.findIndex(u => u.id === req.user.id);
+      if (urateIndex > -1) {
+        Bot.rates.splice(urateIndex, 1);
+      }
+      const rateObj = {
+        rate: req.query.stars,
+        id: req.user.id
+      };
+      Bot.rates.push(rateObj);
+      await Bot.save().catch(e => console.log(e));
+      renderTemplate(res, req, "bot/page.ejs", { thebot: Bot, alertSuccess: "Your Stars rating has been counted.", alertFail: null });
+    });
+  });
   // app.get("/api/search", async (req, res) => {
   //   res.setHeader("Content-Type", "application/json");
   //   if (!req.query.name) return res.send(JSON.stringify({ "msg": "Bad request.", "code": 400 }, null, 4));

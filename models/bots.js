@@ -10,6 +10,7 @@ const botSchema = new mongoose.Schema({
   totalVotes: Number,
   website: String,
   votes: Array,
+  rates: Array,
   github: String,
   shortDesc: String,
   longDesc: String,

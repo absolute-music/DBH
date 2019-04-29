@@ -12,7 +12,15 @@
       <center>
         <a class="btn" style="background-color: #184f57;"><%= theBot.serverCount == 0 ? "N/A" : theBot.serverCount %> Servers</a>
         <p></p>
-        <p></p>
+        <% const rated = []
+        for (var i = 0; i < theBot.rates.length; i++) {
+          rated.push(theBot.rates[i].rate)
+        }
+        if (rated.length == 0) rated.push(0)
+        let sum = rated.reduce((previous, current) => current += previous);
+        let avg = sum / rated.length;
+        %>
+        <a class="label label-dark" style="font-size: 15px;color:yellow"><%=avg.toFixed(1) %><i class='fa fa-star'></i> </a>
         <a  style="font-size: 15px;"><i class="glyphicon glyphicon-menu-up"></i> <%= theBot.upvotes.toLocaleString() %></a>
         <h3 style="font-size:17px" class="<%= bot.users.get(theBot.id).presence.status %>">• <%= htmlFor[bot.users.get(theBot.id).presence.status] %></h3>
       </center>
