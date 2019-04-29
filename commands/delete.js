@@ -10,11 +10,11 @@ module.exports.run = async (client, message, args, reply) => {
   if (bot) bot = bot.id;
 
   const reason = args.slice(1).join(" ");
-  if (!bot) return reply("Specify a bot to forcefully delete.");
-  if (!reason) return reply("Specify a reason for forcefull delete.");
+  if (!bot) return reply("<:redTick:568885082321059865> Please specify a bot to forcefully delete.");
+  if (!reason) return reply("<:redTick:568885082321059865> Please specify a reason to forcefully delete the bot.");
 
   const bot1 = await bots.findOne({ id: bot });
-  if (!bot1) return reply("Bot not found.");
+  if (!bot1) return reply("<:redTick:568885082321059865> The specified bot couldn't be found.");
   await bots.findOneAndDelete({ id: bot });
   if (client.guilds.get("560865387206672384").members.get(bot1.id)) await client.guilds.get("560865387206672384").members.get(bot1.id).kick("Forcefully deleted.");
   const bt = await client.users.fetch(bot1.id);
@@ -45,7 +45,7 @@ module.exports.run = async (client, message, args, reply) => {
   client.channels.get("560890986390224897").send(deleteEmbed);
   client.channels.get("561660098678620161").send(deleteEmbed);
   const user = client.users.get(bot1.mainOwner);
-  if (user) user.send(`Your bot <@${bot}> was forcefully deleted from list by ${message.author.tag}.`);
+  if (user) user.send(`Your bot <@${bot}> has been forcefully deleted from the list by ${message.author.tag}.`);
   reply("Successfully forcefully deleted bot.");
 };
 
