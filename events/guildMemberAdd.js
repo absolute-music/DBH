@@ -8,12 +8,12 @@ exports.run = async (client, member) => {
  profiles.findOne({ id: member.id }, async (err, entry) => {  
   if (err) console.log(err);
   if (!entry){
-    await member.send('**Unauthorized Access**\nDiscord Bot House verification center is only for staff');
+    await member.send('**Unauthorized Access**\nThe Discord Bot House verification center is only for staff members.');
     member.kick('Not allowed')
     return
   }  
   if (entry.mod == false && entry.mod == false ){
-    await member.send('**Unauthorized Access**\nDiscord Bot House verification center is only for staff');
+    await member.send('**Unauthorized Access**\nThe Discord Bot House verification center is only for staff members.');
     member.kick('Not allowed')
     return
   } 
