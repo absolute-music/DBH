@@ -4,7 +4,7 @@ const profiles = require("../models/profile.js");
 
 exports.run = async (client, member) => {
 
-  if (member.guild.id == "561629999111602185"){
+  if (member.guild.id == "561629999111602185" && member.user.bot == false){
  profiles.findOne({ id: member.id }, async (err, entry) => {  
   if (err) console.log(err);
   if (!entry){
