@@ -36,7 +36,7 @@ fs.readdir("./commands/", (err, files) => {
 
 client.on("updatePresence", async () => {
   const totalBots = await bots.countDocuments({ approved: true });
-  await client.user.setActivity(`${totalBots} bots nn list`, { type: "WATCHING" });
+  await client.user.setActivity(`${totalBots} bots on list`, { type: "WATCHING" });
 });
 
 client.login(client.config.token);
