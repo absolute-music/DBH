@@ -1,9 +1,10 @@
 <% thebot.data = thebot %>
 <%- include('../blocks/header', { bot, user, title: thebot.data.name, embedding: { default: false } }) %>
-<meta name="description" content="Discover what <%= thebot.data.name %> is all about!">
+<meta name="description" content="<%= thebot.data.shortDesc %>">
 <meta name="og:title" property="og:title" content="<%= thebot.data.name %> | Discord Bot House">
-<meta name="og:description" property="og:description" content="Discover what <%= thebot.data.name %> is all about!">
-<meta name="twitter:card" content="Discover what <%= thebot.data.name %> is all about!">
+<meta name="og:description" property="og:description" content="<%= thebot.data.shortDesc %>">
+<meta name="twitter:card" content="<%= thebot.data.shortDesc %>">
+<meta property="og:image" content="<%= bot.users.get(thebot.id).displayAvatarURL({size:512,format:'png'}) %>">
 <% const htmlFor = {
   "online": "Online",
   "idle": "Idle",
@@ -137,7 +138,7 @@
 														<% for (var i = 0; i < thebot.data.tags.length; i++) {
 															var tag = thebot.data.tags[i]
 														%>
-														<a style="background-color: #184f57; font-size: 14px;" class="badge badge-success" href="/tags/<%=tag%>"><i class="fas fa-tag"></i> <%=tag%></a>
+														<a style="background-color: #184f57; font-size: 14px;" class="badge badge-success" href="/tag/<%=tag%>"><i class="fas fa-tag"></i> <%=tag%></a>
 														<%  }; %>
 														<h5  style="font-size:20px; ">Developers:</h5>
 														<span onclick="window.location.href ='/profile/<%= thebot.data.mainOwner %>'" class="badge badge-success" style="font-size: 14px; background-color:#0c272a;"><img style="width: 16px; height: 16px;" src='<%= bot.users.get(thebot.data.mainOwner) ? bot.users.get(thebot.data.mainOwner).displayAvatarURL({ size: 16 }) : "/public/img/default.png" %>' class="img-raised rounded-circle img-fluid"> <%= bot.users.get(thebot.data.mainOwner) ? bot.users.get(thebot.data.mainOwner).tag : "Unknown#0000" %></span>
