@@ -148,7 +148,7 @@
 															<span onclick="window.location.href ='/profile/<%= thebot.data.owners[i] %>'" class="badge badge-success" style="font-size: 14px; background-color:#0c272a;"><img style="width: 16px; height: 16px;" src='<%= bot.users.get(thebot.data.owners[i]) ? bot.users.get(thebot.data.owners[i]).displayAvatarURL({ size: 16 }) : "/public/img/default.png" %>' class="img-raised rounded-circle img-fluid"> <%= owner %></span>
 															<%  }; %>
                             <h3 style="font-size:20px;">Description:</h3>
-                            <span style="max-width: 700px; word-break: break-word;"><%- thebot.data.longDesc %></span>
+                            <span style="max-width: 700px; word-break: break-word;"><%- md(thebot.data.longDesc) %></span>
 												</div>
 											</div>
 										</div>
