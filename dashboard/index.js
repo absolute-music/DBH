@@ -592,7 +592,7 @@ module.exports = (client) => {
     if (Botsdata.approved !== true) {
       fail = "<strong>WARNING:</strong> This page is not visible to the public, this bot is not approved yet.";
     }
-    renderTemplate(res, req, "bot/page.ejs", { thebot: Botsdata, alertSuccess: null, alertFail: fail });
+    renderTemplate(res, req, "bot/page.ejs", { thebot: Botsdata, alertSuccess: null, alertFail: fail, md });
   });
 
   app.post("/bot/:id", checkAuth, async (req, res) => {
@@ -611,7 +611,7 @@ module.exports = (client) => {
       .setColor("BLUE")
       .setTimestamp();
     client.channels.get("570738216660107324").send(embed);
-    renderTemplate(res, req, "bot/page.ejs", { thebot: Botsdata, alertSuccess: "Your report has been submited to our moderation team, we will review it as soon as possible.", alertFail: null });
+    renderTemplate(res, req, "bot/page.ejs", { thebot: Botsdata, alertSuccess: "Your report has been submited to our moderation team, we will review it as soon as possible.", alertFail: null, md });
   });
 
   app.get("/bot/:id/delete", checkAuth, async (req, res) => {
