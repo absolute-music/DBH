@@ -769,7 +769,7 @@ module.exports = (client) => {
       Bot.votes.push(voteObj);
       await Bot.save().catch(e => console.log(e));
       await user.save().catch(e => console.log(e));
-      renderTemplate(res, req, "bot/page.ejs", { thebot: Bot, alertSuccess: "Your vote has been counted.", alertFail: null });
+      renderTemplate(res, req, "bot/page.ejs", { thebot: Bot, alertSuccess: "Your vote has been counted.", alertFail: null }, md);
     });
   });
 
@@ -793,7 +793,7 @@ module.exports = (client) => {
       };
       Bot.rates.push(rateObj);
       await Bot.save().catch(e => console.log(e));
-      renderTemplate(res, req, "bot/page.ejs", { thebot: Bot, alertSuccess: "Your rating has been counted.", alertFail: null });
+      renderTemplate(res, req, "bot/page.ejs", { thebot: Bot, alertSuccess: "Your rating has been counted.", alertFail: null }, md);
     });
   });
   // app.get("/api/search", async (req, res) => {
